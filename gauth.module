@@ -111,7 +111,20 @@ function gauth_libraries_info() {
       'lines' => 40,
     ),
     'versions' => array(
-      '1.0.5-beta' => array(),
+      '1.0.5-beta' => array(
+        'files' => array(
+          'php' => array(
+            'src/Google/Client.php',
+          )
+        ),
+      ),
+      '1.1.5' => array(
+        'files' => array(
+          'php' => array(
+            'src/Google/autoload.php',
+          )
+        )
+      )
     ),
     'files' => array(
       'php' => array(
