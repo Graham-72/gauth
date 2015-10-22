@@ -1,6 +1,7 @@
 name = Google Auth
-description = "Google Authentication module - uses OAuth2. Provides simplified api for handling google authentication for Drupal"
-core = 7.x
+description = "Google Authentication module - uses OAuth2. Provides simplified api for handling google authentication for Backdrop"
+backdrop = 1.x
+type = module
 dependencies[] = libraries
 package = Google Api
 configure = admin/config/services/gauth_account

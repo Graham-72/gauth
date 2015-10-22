@@ -42,14 +42,14 @@ function gauth_login_schema() {
  * Implements hook_install().
  */
 function gauth_login_install() {
-  drupal_install_schema('gauth_login_services');
+  backdrop_install_schema('gauth_login_services');
 }
 
 /**
  * Implements hook_uninstall().
  */
 function gauth_login_uninstall() {
-  drupal_uninstall_schema('gauth_login_services');
+  backdrop_uninstall_schema('gauth_login_services');
   variable_del('gauth_login_client_id');
   variable_del('gauth_login_client_secret');
   variable_del('gauth_login_developer_key');

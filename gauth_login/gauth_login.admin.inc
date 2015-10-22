@@ -16,7 +16,7 @@ function gauth_login_settings() {
     '#title'         => t('Client Id'),
     '#required'      => TRUE,
     '#description' => t('The client id of google account.'),
-    '#default_value' => variable_get('gauth_login_client_id', ''),
+    '#default_value' => config_get('gauth.settings','gauth_login_client_id'),
     '#description'   => t('Client id of the google drive app.'),
   );
   $form['gauth_login_client_secret'] = array(
@@ -24,7 +24,7 @@ function gauth_login_settings() {
     '#title'         => t('Client Secret'),
     '#required'      => TRUE,
     '#description' => t('The client secret of google account.'),
-    '#default_value' => variable_get('gauth_login_client_secret', ''),
+    '#default_value' => config_get('gauth.settings','gauth_login_client_secret', ''),
     '#description'   => t('Client secret of the google drive app.'),
   );
   $form['gauth_login_developer_key'] = array(
@@ -32,7 +32,27 @@ function gauth_login_settings() {
     '#title' => t('Api Key'),
     '#required' => TRUE,
     '#description' => t('The api key of google account.'),
-    '#default_value' => variable_get('gauth_login_developer_key', ''),
+    '#default_value' => config_get('gauth.settings','gauth_login_developer_key', ''),
   );
-  return system_settings_form($form);
+
+  // Add a submit button
+  $form['actions']['#type'] = 'actions';
+  $form['actions']['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Save configuration'),
+  );
+
+  return $form;
+}
+
+/**
+ * Submit handler for module_settings_form().
+ */
+function gauth_settings_form_submit($form, &$form_state) {
+  $config = config('gauth.settings');
+  $config->set('gauth_login_client_id', $form_state['values']['gauth_login_client_id']);
+  $config->set('gauth_login_client_secret', $form_state['values']['gauth_login_client_secret']);
+  $config->set('gauth_login_developer_key', $form_state['values']['gauth_login_developer_key']);
+  $config->save();
+  backdrop_set_message(t('The configuration options have been saved.'));
 }

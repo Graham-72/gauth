@@ -61,12 +61,12 @@ function gauth_user_schema() {
  * Implements hook_install().
  */
 function gauth_user_install() {
-  drupal_install_schema('gauth_user_services');
+  backdrop_install_schema('gauth_user_services');
 }
 
 /**
  * Implements hook_uninstall().
  */
 function gauth_user_uninstall() {
-  drupal_uninstall_schema('gauth_user_services');
+  backdrop_uninstall_schema('gauth_user_services');
 }

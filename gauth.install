@@ -79,14 +79,14 @@ function gauth_schema() {
  * Implements hook_install().
  */
 function gauth_install() {
-  drupal_install_schema('gauth_accounts');
+  backdrop_install_schema('gauth_accounts');
 }
 
 /**
  * Implements hook_uninstall().
  */
 function gauth_uninstall() {
-  drupal_uninstall_schema('gauth_accounts');
+  backdrop_uninstall_schema('gauth_accounts');
 }
 
 /**
@@ -117,19 +117,26 @@ function gauth_requirements($phase) {
 }
 
 /**
- * Add the gauth_accounts.uid field.
+ * Move settings from variables to config.
  */
-function gauth_update_7002() {
-  $field = array(
-    'type' => 'int',
-    'unsigned' => TRUE,
-    'not null' => TRUE,
-    'default' => 0,
-    'description' => 'The {users}.uid of the user who created the redirect.',
-  );
-  db_add_field('gauth_accounts', 'uid', $field);
+function gauth_update_1000()
+{
+  // Migrate variables to config.
+  $config = config('gauth.settings');
+  $config->set('gauth_login_client_id', variable_get('gauth_login_client_id', ''));
+  $config->set('gauth_login_client_secret', variable_get('gauth_login_client_secret', ''));
+  $config->set('gauth_login_developer_key', variable_get('gauth_login_developer_key', ''));
+  $config->save();
 
-  db_update('gauth_accounts')
-    ->fields(array('uid' => 1))
-    ->execute();
+  // Delete variables.
+  update_variable_del('gauth_login_client_id');
+  update_variable_del('gauth_login_client_secret');
+  update_variable_del('gauth_login_developer_key');
+}
+
+/**
+ * Implements hook_update_last_removed().
+ */
+function gauth_update_last_removed() {
+  return 7002;
 }

@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Google Auth Api for drupal.
+ * Google Auth Api for backdrop.
  */
 
 /**
@@ -20,7 +20,7 @@ function gauth_init() {
 function gauth_help($path, $arg) {
   switch ($path) {
     case 'admin/help#gauth':
-      $path = $GLOBALS['base_url'] . '/' . drupal_get_path('module', 'gauth');
+      $path = $GLOBALS['base_url'] . '/' . backdrop_get_path('module', 'gauth');
       $output = '<h3>' . t('About') . '</h3>';
       $output .= '<p>' . t("This module allows you to authenticate with google and use this authentication to carry other api requests. This module will help you to manage accounts, authenticate with google (i.e. get access token) and use this authentication to carry api requests in other modules.") . '</p>';
       $output .= '<h3>' . t('Uses') . '</h3>';
@@ -45,7 +45,7 @@ function gauth_menu() {
   $items['admin/config/services/gauth_account/add'] = array(
     'title' => 'Add Account',
     'description' => 'Google Account Add.',
-    'page callback' => 'drupal_get_form',
+    'page callback' => 'backdrop_get_form',
     'page arguments' => array('gauth_account_edit_form'),
     'access arguments' => array('administer site configuration'),
     'type' => MENU_LOCAL_ACTION,
@@ -54,7 +54,7 @@ function gauth_menu() {
   $items['admin/config/services/gauth_account/edit/%'] = array(
     'title' => 'Google Account Edit',
     'description' => 'Google Account Edit.',
-    'page callback' => 'drupal_get_form',
+    'page callback' => 'backdrop_get_form',
     'page arguments' => array('gauth_account_edit_form', 5),
     'access arguments' => array('administer site configuration'),
     'file' => 'gauth.admin.inc',
@@ -62,7 +62,7 @@ function gauth_menu() {
   $items['admin/config/services/gauth_account/delete/%'] = array(
     'title' => 'Google Account Delete',
     'description' => 'Google Account delete.',
-    'page callback' => 'drupal_get_form',
+    'page callback' => 'backdrop_get_form',
     'page arguments' => array('gauth_account_delete_form', 5),
     'access arguments' => array('administer site configuration'),
     'file' => 'gauth.admin.inc',
@@ -75,7 +75,7 @@ function gauth_menu() {
   $items['gauth/revoke_token/%'] = array(
     'title' => 'Google Account Token Revoke',
     'description' => 'Revoke a access token.',
-    'page callback' => 'drupal_get_form',
+    'page callback' => 'backdrop_get_form',
     'page arguments' => array('gauth_account_token_revoke_form', 2),
     'access arguments' => array('administer site configuration'),
     'file' => 'gauth.admin.inc',
@@ -154,7 +154,7 @@ function gauth_user_delete($user) {
 function gauth_response_handler($account_id = NULL) {
   $info = libraries_load('google-api-php-client');
   if (!$info['loaded']) {
-    drupal_set_message(t("Can't authenticate with google as library is missing check Status report or Readme for requirements"), 'error');
+    backdrop_set_message(t("Can't authenticate with google as library is missing check Status report or Readme for requirements"), 'error');
     return FALSE;
   }
   if ($account_id == NULL && isset($_SESSION['gauth_account_id'])) {
@@ -183,16 +183,16 @@ function gauth_response_handler($account_id = NULL) {
       gauth_account_save($account);
       unset($_SESSION['gauth_account_id']);
       if (!user_access('administer site configuration') && module_exists('gauth_user')) {
-        drupal_goto('user/' . $GLOBALS['user']->uid . '/gauth');
+        backdrop_goto('user/' . $GLOBALS['user']->uid . '/gauth');
       }
       else {
-        drupal_goto('admin/config/services/gauth_account');
+        backdrop_goto('admin/config/services/gauth_account');
       }
-      drupal_set_message(t('Api Account saved'));
+      backdrop_set_message(t('Api Account saved'));
     }
     if ($client) {
       $auth_url = $client->createAuthUrl();
-      drupal_goto($auth_url);
+      backdrop_goto($auth_url);
     }
   }
   // Let other modules act of google response.
@@ -421,7 +421,7 @@ function gauth_account_save(&$account) {
       $function = $module . '_gauth_account_update';
       $function($fields, gauth_account_load($fields['id'], FALSE));
     }
-    if (drupal_write_record('gauth_accounts', $fields, 'id') == SAVED_UPDATED) {
+    if (backdrop_write_record('gauth_accounts', $fields, 'id') == SAVED_UPDATED) {
       return $fields;
     }
     else {
@@ -459,7 +459,7 @@ function gauth_account_save(&$account) {
     }
     // Let other modules modify the account before saving new account.
     module_invoke_all('gauth_account_insert', $fields);
-    if (drupal_write_record('gauth_accounts', $fields) == SAVED_NEW) {
+    if (backdrop_write_record('gauth_accounts', $fields) == SAVED_NEW) {
       return $fields;
     }
     else {
@@ -514,7 +514,7 @@ function gauth_account_is_authenticated($account_id, $by_name = TRUE) {
 function gauth_client_get($account_id = NULL, $by_name = TRUE) {
   $info = libraries_load('google-api-php-client');
   if (!$info['loaded']) {
-    drupal_set_message(t("Can't create client object as library is missing check Status report or Readme for requirements"), 'error');
+    backdrop_set_message(t("Can't create client object as library is missing check Status report or Readme for requirements"), 'error');
     return FALSE;
   }
   if ($account_id == NULL) {
@@ -571,11 +571,11 @@ function gauth_account_revoke_token($account_id, $by_name = TRUE) {
     $client->revokeToken();
     $account['is_authenticated'] = FALSE;
     $account['access_token'] = '';
-    drupal_write_record('gauth_accounts', $account, 'id');
+    backdrop_write_record('gauth_accounts', $account, 'id');
     return TRUE;
   }
   else {
-    drupal_set_message(t("The account is not authenticated"));
+    backdrop_set_message(t("The account is not authenticated"));
     return FALSE;
   }
 }
@@ -591,3 +591,15 @@ function gauth_account_load_by_uid($uid) {
       ->fetchField();
 }
 
+
+/**
+ * Implements hook_config_info().
+ */
+function gauth_config_info()
+{
+    $prefixes['gauth.settings'] = array(
+        'label' => t('Gauth settings'),
+        'group' => t('Configuration'),
+    );
+    return $prefixes;
+}

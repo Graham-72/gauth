@@ -89,14 +89,14 @@ function gauth_user_services_user_account_delete_submit($form, &$form_state) {
   if ($form_state['values']['id'] != NULL) {
     $rows = gauth_account_delete($form_state['values']['id'], FALSE);
     if ($rows == 1) {
-      drupal_set_message(t("The account is deleted successfully"));
+      backdrop_set_message(t("The account is deleted successfully"));
     }
     else {
-      drupal_set_message(t("Error occured while deleting the account"), "error");
+      backdrop_set_message(t("Error occured while deleting the account"), "error");
     }
   }
   else {
-    drupal_set_message(t("Error occured: Can't find account to be deleted"), "error");
+    backdrop_set_message(t("Error occured: Can't find account to be deleted"), "error");
   }
   $form_state['redirect'] =  'user/' . arg(1) . '/gauth';
 }
@@ -124,14 +124,14 @@ function gauth_user_services_user_account_revoke_submit($form, &$form_state) {
   if ($form_state['values']['id'] != NULL) {
     $rows = gauth_account_revoke_token($form_state['values']['id'], FALSE);
     if ($rows == TRUE) {
-      drupal_set_message(t("Acess token revoked successfully"));
+      backdrop_set_message(t("Acess token revoked successfully"));
     }
     else {
-      drupal_set_message(t("Error occured while revoking token of this account"), "error");
+      backdrop_set_message(t("Error occured while revoking token of this account"), "error");
     }
   }
   else {
-    drupal_set_message(t("Error occured: Can't find account to be revoked"), "error");
+    backdrop_set_message(t("Error occured: Can't find account to be revoked"), "error");
   }
   $form_state['redirect'] =  'user/' . arg(1) . '/gauth';
 }

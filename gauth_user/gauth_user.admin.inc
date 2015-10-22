@@ -172,7 +172,7 @@ function gauth_user_services_edit_form_validate($form, &$form_state) {
  */
 function gauth_user_services_edit_form_submit($form, &$form_state) {
   $id = gauth_user_services_save($form_state['values']);
-  drupal_set_message(t('Services Account saved.  Click !url to configure permissions for this account', array('!url' => l(t('here'), 'admin/people/permissions', array('fragment' => 'module-gauth_user')))));
+  backdrop_set_message(t('Services Account saved.  Click !url to configure permissions for this account', array('!url' => l(t('here'), 'admin/people/permissions', array('fragment' => 'module-gauth_user')))));
   $form_state['redirect'] = 'admin/config/services/gauth_user';
 }
 
@@ -205,14 +205,14 @@ function gauth_user_services_delete_form_submit($form, &$form_state) {
   if ($form_state['values']['id'] != NULL) {
     $rows = gauth_user_services_delete($form_state['values']['id'], FALSE);
     if ($rows == 1) {
-      drupal_set_message(t("The service is deleted successfully"));
+      backdrop_set_message(t("The service is deleted successfully"));
     }
     else {
-      drupal_set_message(t("Error occured while deleting the service"), "error");
+      backdrop_set_message(t("Error occured while deleting the service"), "error");
     }
   }
   else {
-    drupal_set_message(t("Error occured: Can't find service to be deleted"), "error");
+    backdrop_set_message(t("Error occured: Can't find service to be deleted"), "error");
   }
   $form_state['redirect'] = 'admin/config/services/gauth_user';
 }

@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Google Auth Api for drupal.
+ * Google Auth Api for backdrop.
  */
 
 /**
@@ -10,7 +10,7 @@
 function gauth_user_help($path, $arg) {
   switch ($path) {
     case 'admin/help#gauth_user':
-      $path = $GLOBALS['base_url'] . '/' . drupal_get_path('module', 'gauth');
+      $path = $GLOBALS['base_url'] . '/' . backdrop_get_path('module', 'gauth');
       $output = '<h3>' . t('About') . '</h3>';
       $output .= '<p>' . t("This module allows admin to define services and handle in permissions that which role can authenticate for which google service, this authentication can then be used to carry other api requests on the users account.") . '</p>';
       $output .= '<h3>' . t('Uses') . '</h3>';
@@ -34,7 +34,7 @@ function gauth_user_menu() {
   $items['admin/config/services/gauth_user/add'] = array(
     'title' => 'Add Account',
     'description' => 'Google Services Account Add.',
-    'page callback' => 'drupal_get_form',
+    'page callback' => 'backdrop_get_form',
     'page arguments' => array('gauth_user_services_edit_form'),
     'access arguments' => array('administer site configuration'),
     'type' => MENU_LOCAL_ACTION,
@@ -43,7 +43,7 @@ function gauth_user_menu() {
   $items['admin/config/services/gauth_user/edit/%'] = array(
     'title' => 'Google Services Account Edit',
     'description' => 'Google Services Account Edit.',
-    'page callback' => 'drupal_get_form',
+    'page callback' => 'backdrop_get_form',
     'page arguments' => array('gauth_user_services_edit_form', 5),
     'access arguments' => array('administer site configuration'),
     'file' => 'gauth_user.admin.inc',
@@ -51,7 +51,7 @@ function gauth_user_menu() {
   $items['admin/config/services/gauth_user/delete/%'] = array(
     'title' => 'Google Services Account Delete',
     'description' => 'Google Services Account delete.',
-    'page callback' => 'drupal_get_form',
+    'page callback' => 'backdrop_get_form',
     'page arguments' => array('gauth_user_services_delete_form', 5),
     'access arguments' => array('administer site configuration'),
     'file' => 'gauth_user.admin.inc',
@@ -64,14 +64,14 @@ function gauth_user_menu() {
     'file' => 'gauth_user.pages.inc',
   );
   $items['user/%user/gauth_user/delete/%'] = array(
-    'page callback' => 'drupal_get_form',
+    'page callback' => 'backdrop_get_form',
     'page arguments' => array('gauth_user_services_user_account_delete', 4),
     'access callback' => 'gauth_user_auth_services_access',
     'access arguments' => array(1, 4),
     'file' => 'gauth_user.pages.inc',
   );
   $items['user/%user/gauth_user/revoke/%'] = array(
-    'page callback' => 'drupal_get_form',
+    'page callback' => 'backdrop_get_form',
     'page arguments' => array('gauth_user_services_user_account_revoke', 4),
     'access callback' => 'gauth_user_auth_services_access',
     'access arguments' => array(1, 4),
@@ -196,7 +196,7 @@ function gauth_user_services_save(&$account) {
       }
       $fields['services'] = check_plain($account['services']);
     }
-    if (drupal_write_record('gauth_user_services', $fields, 'id') == SAVED_UPDATED) {
+    if (backdrop_write_record('gauth_user_services', $fields, 'id') == SAVED_UPDATED) {
       return $fields;
     }
     else {
@@ -229,7 +229,7 @@ function gauth_user_services_save(&$account) {
     if (in_array($account['name'], $accounts)) {
       return array('is_error' => TRUE, 'message' => 'Name is already in use. Please choose a unique name for the account');
     }
-    if (drupal_write_record('gauth_user_services', $fields) == SAVED_NEW) {
+    if (backdrop_write_record('gauth_user_services', $fields) == SAVED_NEW) {
       return $fields;
     }
     else {
