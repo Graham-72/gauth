@@ -66,13 +66,13 @@ https://github.com/backdrop-contrib/gauth/issues.
 Current Maintainers
 -------------------
 
-- Seeking maintainers.
+* [Robert J. Lang](https://github.com/bugfolder)
 
 
 Credits
 -------
 
-- Ported to Backdrop CMS by [Graham Oliver[(https://github.com/Graham-72)
+- Ported to Backdrop CMS by [Graham Oliver](https://github.com/Graham-72)
 - Maintained for Drupal by Sadashiv Dalvi (sadashiv)
 
 
