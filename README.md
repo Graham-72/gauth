@@ -54,7 +54,6 @@ Bugs and feature requests should be reported in [the Issue Queue](https://github
 Current Maintainers
 -------------------
 
-- [Graham Oliver](https://github.com/Graham-72/)
 - [Robert J. Lang](https://github.com/bugfolder)
 
 Credits
