@@ -1,0 +1,11 @@
+{
+    "_config_name": "gauth_login.settings",
+    "gauth_login_client_id": "",
+    "gauth_login_client_secret": "",
+    "gauth_login_developer_key": "",
+    "gauth_login_prom_message": "TRUE",
+    "gauth_login_button_style": "light",
+    "gauth_login_domain_restriction": "",
+    "gauth_login_create_user": "TRUE",
+    "gauth_login_create_user_not_allowed_message": "Cannot find a user with this email. Did you use a different Google account while registering?"
+}

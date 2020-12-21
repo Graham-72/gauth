@@ -16,6 +16,7 @@ function gauth_user_services_authenticate($user) {
   return $page;
 }
 
+
 /**
  * Returns HTML for the page containing the list of services accounts.
  *
@@ -35,13 +36,17 @@ function theme_gauth_user_services_authenticate_list($variables) {
   foreach ($accounts as $account) {
     $row = array();
     $row[] = $account->name;
-    if ($GLOBALS['user']->uid == arg(1)) {
-      $row[] = isset($account->is_authenticated) ? ($account->is_authenticated ? l(t('Revoke'), 'user/' . arg(1) . '/gauth_user/revoke/' . $account->id) : l(t('Authenticate'), 'gauth/response_handler/' . $account->id)) : l(t('Create and Authenticate'), 'user/' . arg(1) . '/gauth_user/add_authenticate/' . $account->id) ;
+    $me = (module_exists('me') && arg(1) == 'me');
+    if ($GLOBALS['user']->uid == arg(1) || $me) {
+      $row[] = isset($account->is_authenticated) ? ($account->is_authenticated ? l(t('revoke'), 'user/' . arg(1) . '/gauth_user/revoke/' . $account->id) : l(t('Authenticate'), 'gauth/response_handler/' . $account->id)) : l(t('Create and Authenticate'), 'user/' . arg(1) . '/gauth_user/add_authenticate/' . $account->id);
       $row[] = isset($account->is_authenticated) ? l(t('Delete'), 'user/' . arg(1) . '/gauth_user/delete/' . $account->id) : '';
-      $header[] = array('data' => t('Operations'), 'colspan' => 2);
+      $header[] = array(
+        'data' => t('Operations'),
+        'colspan' => 2,
+      );
     }
     else {
-      $row[] = isset($account->is_authenticated) ? ($account->is_authenticated ? 'Authenticated' : 'Un-Authenticated') : 'Not Created' ;
+      $row[] = isset($account->is_authenticated) ? ($account->is_authenticated ? 'Authenticated' : 'Un-Authenticated') : 'Not Created';
       $header[] = t('Status');
     }
     $rows[] = $row;
@@ -49,6 +54,7 @@ function theme_gauth_user_services_authenticate_list($variables) {
 
   return theme('table', array('header' => $header, 'rows' => $rows));
 }
+
 
 /**
  * Function creates a service account of the specified type.
@@ -61,10 +67,12 @@ function gauth_user_services_user_account_create($type) {
     'developer_key' => $account['developer_key'],
     'services' => $account['services'],
     'name' => $type . '|' . $GLOBALS['user']->uid,
+    'access_type' => $account['access_type'],
   );
   gauth_account_save($gauth_account);
   gauth_account_authenticate($type . '|' . $GLOBALS['user']->uid, TRUE);
 }
+
 
 /**
  * Function returns a form to confirm delete of account.
@@ -81,6 +89,7 @@ function gauth_user_services_user_account_delete($form, &$form_state, $account_i
   $no = check_plain(t('Cancel'));
   return confirm_form($form, $question, $path, $description, $yes, $no);
 }
+
 
 /**
  * Delete account form submit handler.
@@ -101,6 +110,7 @@ function gauth_user_services_user_account_delete_submit($form, &$form_state) {
   $form_state['redirect'] =  'user/' . arg(1) . '/gauth';
 }
 
+
 /**
  * Function returns a form to confirm revoke access token of account.
  */
@@ -116,6 +126,7 @@ function gauth_user_services_user_account_revoke($form, &$form_state, $account_i
   $no = check_plain(t('Cancel'));
   return confirm_form($form, $question, $path, $description, $yes, $no);
 }
+
 
 /**
  * Revoke access form submit handler

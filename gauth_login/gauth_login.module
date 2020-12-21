@@ -1,23 +1,9 @@
 <?php
 /**
  * @file
- * Google Auth Api for backdrop.
+ * Google Auth Login API for Backdrop.
  */
 
-/**
- * Implements hook_help().
- */
-function gauth_login_help($path, $arg) {
-  switch ($path) {
-    case 'admin/help#gauth_login':
-      $path = $GLOBALS['base_url'] . '/' . backdrop_get_path('module', 'gauth');
-      $output = '<h3>' . t('About') . '</h3>';
-      $output .= '<p>' . t("This module allows users to login using their google accounts.  If a user account in backdrop doesn't exist then a account is created and user gets logged in by that account.  If account exists then the user gets logged in by that account.") . '</p>';
-      $output .= '<h3>' . t('Uses') . '</h3>';
-      $output .= '<p>' . t("This module provides the option to allow end users to login using their google accounts") . '</p>';
-      return $output;
-  }
-}
 
 /**
  * Implements hook_menu().
@@ -25,9 +11,9 @@ function gauth_login_help($path, $arg) {
 function gauth_login_menu() {
   $items = array();
   $items['admin/config/services/gauth_login'] = array(
-    'title' => 'Google Login Settings',
-    'description' => 'Google Account settings.',
-    'page callback'    => 'backdrop_get_form',
+    'title' => 'Google auth login',
+    'description' => 'Configure Google Auth Login settings.',
+    'page callback' => 'backdrop_get_form',
     'page arguments' => array('gauth_login_settings'),
     'access arguments' => array('administer site configuration'),
     'file' => 'gauth_login.admin.inc',
@@ -35,46 +21,62 @@ function gauth_login_menu() {
   return $items;
 }
 
+
 /**
- * Implements hook_libraries_info_alter().
+ * Implements hook_config_info().
  */
-function gauth_login_libraries_info_alter(&$libraries) {
-  $libraries['google-api-php-client']['files']['php'][] = 'src/Google/Service/Oauth2.php';
+function gauth_login_config_info() {
+  $prefixes['gauth_login.settings'] = array(
+    'label' => t('Google Auth Login settings'),
+    'group' => t('Configuration'),
+  );
+  return $prefixes;
 }
 
+
 /**
- * Implementation of hook_gauth_google_response().
+ * Implements hook_gauth_google_response().
  */
 function gauth_login_gauth_google_response() {
+  $config = config('gauth_login.settings');
   if (isset($_GET['state'])) {
-    $state = $_GET['state'];
-    if ($state != $_SESSION['gauth_login_state']) {
-      return new Response('Invalid state parameter', 401);
+    $state = json_decode($_GET['state'], TRUE);
+    if (isset($state['src']) && $state['src'] != 'gauth_login') {
+      // Handle response only if the request was from gauth_login.
+      return;
     }
+    if ($state['hash'] != $_SESSION['gauth_login_state']['hash']) {
+      backdrop_set_message(t('Invalid state parameter'), 'error');
+      backdrop_access_denied();
+      return;
+    }
+    $redirect_url = isset($state['destination']) ? $state['destination'] : '';
     if (isset($_GET['code'])) {
-      $client_id = config_get('gauth.settings','gauth_login_client_id');
-      $client_secret = config_get('gauth.settings','gauth_login_client_secret');
-      $api_key = config_get('gauth.settings','gauth_login_developer_key');
+      $client_id = $config->get('gauth_login_client_id');
+      $client_secret = $config->get('gauth_login_client_secret');
+      $api_key = $config->get('gauth_login_developer_key');
       $client = new Google_Client();
       $client->setApplicationName("Google OAuth2");
       $client->setClientId($client_id);
       $client->setClientSecret($client_secret);
-      $client->setRedirectUri(url('gauth/response_handler', array('https' => TRUE, 'absolute' => TRUE)));
+      $client->setRedirectUri(gauth_callback_url());
       $client->setDeveloperKey($api_key);
-      $scopes = gauth_google_services_scopes();
-      $client->addScope($scopes['oauth2']);
-      $client->authenticate($_GET['code']);
-      $account['access_token'] = $client->getAccessToken();
+      $client->setApprovalPrompt('force');
+      $scopes = gauth_google_services_scopes('oauth2');
+      $client->addScope($scopes);
+      $client->fetchAccessTokenWithAuthCode($_GET['code']);
+      $account['access_token'] = json_encode($client->getAccessToken());
 
       $client = new Google_Client();
       $client->setApplicationName("Google OAuth2");
       $client->setClientId($client_id);
       $client->setClientSecret($client_secret);
-      $client->setRedirectUri(url('gauth/response_handler', array('https' => TRUE, 'absolute' => TRUE)));
+      $client->setRedirectUri(gauth_callback_url());
       $client->setDeveloperKey($api_key);
+      $client->setApprovalPrompt('force');
       $client->setAccessToken($account['access_token']);
-      $scopes = gauth_google_services_scopes();
-      $client->addScope($scopes['oauth2']);
+      $scopes = gauth_google_services_scopes('oauth2');
+      $client->addScope($scopes);
       $oauth = new Google_Service_Oauth2($client);
       $info = $oauth->userinfo->get();
       if ($uid = gauth_login_load_google_id($info['id'])) {
@@ -82,29 +84,37 @@ function gauth_login_gauth_google_response() {
         user_login_submit(array(), $form_state);
       }
       else {
-        $account['client_id'] = config_get('gauth.settings','gauth_login_client_id');
-        $account['client_secret'] = config_get('gauth.settings','gauth_login_client_secret');
-        $account['developer_key'] = config_get('gauth.settings','gauth_login_developer_key');
+        $account['client_id'] = $config->get('gauth_login_client_id');
+        $account['client_secret'] = $config->get('gauth_login_client_secret');
+        $account['developer_key'] = $config->get('gauth_login_developer_key');
         $account['services'] = 'oauth2';
         $account['is_authenticated'] = TRUE;
 
         if (!$new_user = gauth_login_find_existing_user($info)) {
-          $user = new stdClass();
-          $user->mail = $info['email'];
-          $user->name = user_load_by_name($info['name']) ? $info['name'] . time() : $info['name'];
-          $user->is_new = TRUE;
-          $user->status = 1;
-          $new_user = user_save($user);
+          if ($config->get('gauth_login_create_user')) {
+            $user = entity_create('user', array());
+            $user->mail = $info['email'];
+            $user->name = user_load_by_name($info['name']) ? $info['name'] . time() : $info['name'];
+            $user->is_new = TRUE;
+            $user->status = 1;
+            $new_user = user_save($user);
+          }
+          else {
+            backdrop_set_message(t($config->get('gauth_login_create_user_not_allowed_message')));
+            backdrop_goto('user/login');
+          }
         }
         $form_state['uid'] = $new_user->uid;
         user_login_submit(array(), $form_state);
         global $user;
         $token = backdrop_hash_base64(backdrop_random_bytes(55));
         $_SESSION['pass_reset_' . $user->uid] = $token;
-        backdrop_set_message(t("Click <a href=@url target=_blank>here</a> to set password", array('@url' => url('user/' . $user->uid . '/edit', array('query' => array('pass-reset-token' => $token))))), 'warning');
+        if ($config->get('gauth_login_prom_message')) {
+          backdrop_set_message(t("Click <a href='!url' target=_blank>here</a> to set password", array('!url' => url('user/' . $user->uid . '/edit', array('query' => array('pass-reset-token' => $token))))), 'warning');
+        }
         $gauth_login = array(
           'google_id' => $info['id'],
-          'uid' => $user->uid
+          'uid' => $user->uid,
         );
         backdrop_write_record('gauth_login', $gauth_login);
         $account['name'] = 'Gauth Login ' . $user->uid;
@@ -112,12 +122,13 @@ function gauth_login_gauth_google_response() {
         backdrop_write_record('gauth_accounts', $account);
       }
     }
+    backdrop_goto($redirect_url);
   }
-  backdrop_goto();
 }
 
+
 /**
- * Finds an existing user based on info from Google.
+ * Find an existing user based on info from Google.
  *
  * @param array $info
  *   The 'userinfo' array from OAuth.
@@ -139,61 +150,90 @@ function gauth_login_find_existing_user($info) {
   }
 }
 
+
 /**
  * Implements hook_form_alter().
  */
 function gauth_login_form_alter(&$form, &$form_state, $form_id) {
   if ($form_id == 'user_login' || $form_id == 'user_login_block') {
+    $css_path = backdrop_get_path('module', 'gauth_login') . '/css/';
+    $button_style = config_get('gauth_login.settings', 'gauth_login_button_style');
     $form['submit_google'] = array(
       '#type' => 'submit',
       '#value' => t(''),
       '#submit' => array('gauth_login_user_login_submit'),
       '#limit_validation_errors' => array(),
       '#weight' => 1000,
+      '#attributes' => array(
+        'class' => array('gauth-login-button-style-' . $button_style),
+      ),
+      '#attached' => array(
+        'css' => array(
+          $css_path . 'gauth_login.login.css',
+        ),
+      ),
     );
-    backdrop_add_css(backdrop_get_path('module', 'gauth_login') . '/gauth_login.css');
   }
 }
 
+
 /**
- * Login using google, submit handler
+ * Login using Google, submit handler.
  */
 function gauth_login_user_login_submit() {
-  if (config_get('gauth.settings','gauth_login_client_id')) {
-    $info = libraries_load('google-api-php-client');
-    if (!$info['loaded']) {
-      backdrop_set_message(t("Can't authenticate with google as library is missing check Status report or Readme for requirements"), 'error');
-      return FALSE;
-    }
+  $config = config('gauth_login.settings');
+  if ($config->get('gauth_login_client_id')) {
+    gauth_load_google_api();
     $client = new Google_Client();
     $client->setApplicationName("Google OAuth2");
-    $client->setClientId(config_get('gauth.settings','gauth_login_client_id'));
-    $client->setClientSecret(config_get('gauth.settings','gauth_login_client_secret'));
-    $client->setRedirectUri(url('gauth/response_handler', array('https' => TRUE, 'absolute' => TRUE)));
-    $client->setDeveloperKey(config_get('gauth.settings','gauth_login_developer_key'));
-    $scopes = gauth_google_services_scopes();
-    $client->addScope($scopes['oauth2']);
+    $client->setClientId($config->get('gauth_login_client_id'));
+    $client->setClientSecret($config->get('gauth_login_client_secret'));
+    $client->setRedirectUri(gauth_callback_url());
+    $client->setDeveloperKey($config->get('gauth_login_developer_key'));
+    $scopes = gauth_google_services_scopes('oauth2');
+    $client->addScope($scopes);
     if (!isset($_SESSION['gauth_login_state'])) {
-      $state = md5(rand());
+      $state = array(
+        'src' => 'gauth_login',
+        'hash' => md5(rand()),
+      );
+      if (isset($_GET['destination'])) {
+        $state['destination'] = $_GET['destination'];
+        unset($_GET['destination']);
+      }
     }
     else {
       $state = $_SESSION['gauth_login_state'];
     }
     $_SESSION['gauth_login_state'] = $state;
+    $state = backdrop_json_encode($state);
     $client->setState($state);
-    $url = 'https://accounts.google.com/o/oauth2/auth?response_type=code&redirect_uri=' . url('gauth/response_handler', array('https' => TRUE, 'absolute' => TRUE)) . '&client_id=' . config_get('gauth.settings','gauth_login_client_id') . '&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&access_type=offline&state=' . $_SESSION['gauth_login_state'];
-    if (isset($_GET['destination'])) {
-      unset($_GET['destination']);
+
+    $url = $client->createAuthUrl();
+    if ($restrict_domain = $config->get('gauth_login_domain_restriction')) {
+      $url .= '&hd=' . $restrict_domain;
     }
+
     backdrop_goto($url);
   }
   else {
-    backdrop_set_message(t('Gauth Login is not configured. Please contact site administrator'), 'error');
+    backdrop_set_message(t('Gauth Login is not configured. Please contact site administrator.'), 'error');
   }
 }
 
+
 /**
- * Function returns uid of passed google id
+ * Implements hook_user_delete().
+ */
+function gauth_login_user_delete($user) {
+  db_delete('gauth_login')
+    ->condition('uid', $user->uid)
+    ->execute();
+}
+
+
+/**
+ * Return uid of passed Google id.
  */
 function gauth_login_load_google_id($id) {
   $rs = db_select('gauth_login', 'gl')
@@ -202,13 +242,4 @@ function gauth_login_load_google_id($id) {
     ->execute()
     ->fetchAssoc();
   return empty($rs) ? FALSE : $rs['uid'];
-}
-
-/**
- * Implmenentation of hook_user_delete();
- */
-function gauth_login_user_delete($user) {
-  db_delete('gauth_login')
-    ->condition('uid', $user->uid)
-    ->execute();
 }

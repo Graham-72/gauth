@@ -4,6 +4,7 @@
  * Install and uninstall functions for the Google Auth Login module.
  */
 
+
 /**
  * Implements hook_schema().
  */
@@ -38,19 +39,44 @@ function gauth_login_schema() {
   return $schema;
 }
 
-/**
- * Implements hook_install().
- */
-function gauth_login_install() {
-  backdrop_install_schema('gauth_login_services');
-}
 
 /**
- * Implements hook_uninstall().
+ * Convert Google Auth Login variables to config settings.
  */
-function gauth_login_uninstall() {
-  backdrop_uninstall_schema('gauth_login_services');
-  variable_del('gauth_login_client_id');
-  variable_del('gauth_login_client_secret');
-  variable_del('gauth_login_developer_key');
+function gauth_login_update_1000() {
+  $config = config('gauth_login.settings');
+  $config->set('gauth_login_client_id',
+    update_variable_get('gauth_login_client_id', 'novalue'));
+  $config->set('gauth_login_client_secret',
+    update_variable_get('gauth_login_client_secret', 'novalue'));
+  $config->set('gauth_login_developer_key',
+    update_variable_get('gauth_login_developer_key', 'novalue'));
+  $config->set('gauth_login_prom_message',
+    update_variable_get('gauth_login_prom_message', 'TRUE'));
+  $config->set('gauth_login_domain_restriction',
+    update_variable_get('gauth_login_domain_restriction', 'FALSE'));
+  $config->set('gauth_login_create_user',
+    update_variable_get('gauth_login_create_user', 'TRUE'));
+  $config->set('gauth_login_create_user_not_allowed_message',
+    update_variable_get('gauth_login_create_user_not_allowed_message',
+      t('Cannot find a user with this email. Did you use a different Google account while registering?')));
+  $config->save();
+  update_variable_del('gauth_login_client_id');
+  update_variable_del('gauth_login_client_secret');
+  update_variable_del('gauth_login_developer_key');
+  update_variable_del('gauth_login_prom_message');
+  update_variable_del('gauth_login_domain_restriction');
+  update_variable_del('gauth_login_create_user');
+  update_variable_del('gauth_login_create_user_not_allowed_message');
+}
+
+
+/**
+ * Add "Sign in with Google" button style option to Google Auth settings.
+ */
+function gauth_login_update_1001() {
+  $config = config('gauth_login.settings');
+  if (empty($config->get('gauth_login_button_style')))
+    $config->set('gauth_login_button_style', 'light');
+    $config->save();
 }

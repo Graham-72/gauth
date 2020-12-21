@@ -4,10 +4,12 @@
  * Administration pages for Google Auth User Services.
  */
 
+
 /**
  * Menu callback; Listing of all current services accounts.
  */
 function gauth_user_services_list() {
+  backdrop_set_title(t('Google Auth User Services'));
 
   $query = db_select('gauth_user_services', 'gu')->extend('PagerDefault');
   $query->fields('gu');
@@ -18,8 +20,9 @@ function gauth_user_services_list() {
   return theme('gauth_user_services_list', array('accounts' => $accounts));
 }
 
+
 /**
- * Returns HTML for the page containing the list of accounts.
+ * Return HTML for the page containing the list of accounts.
  *
  * @param array $variables
  *   An associative array containing:
@@ -33,11 +36,15 @@ function theme_gauth_user_services_list($variables) {
   $accounts = $variables['accounts'];
   $header = array(
     t('Name'),
-    t('Api key'),
+    t('API key'),
     t('Client Id'),
     t('Client Secret'),
     t('Services'),
-    array('data' => t('Operations'), 'colspan' => 2),
+    t('Access Type'),
+    array(
+      'data' => t('Operations'),
+      'colspan' => 2,
+    ),
   );
   $rows = array();
   foreach ($accounts as $account) {
@@ -47,6 +54,7 @@ function theme_gauth_user_services_list($variables) {
     $row[] = $account->client_id;
     $row[] = $account->client_secret;
     $row[] = implode(", ", gauth_google_services_names($account->services));
+    $row[] = $account->access_type;
     $row[] = l(t('edit'), 'admin/config/services/gauth_user/edit/' . $account->id);
     $row[] = l(t('delete'), 'admin/config/services/gauth_user/delete/' . $account->id);
     $rows[] = $row;
@@ -70,8 +78,9 @@ function theme_gauth_user_services_list($variables) {
   return $build;
 }
 
+
 /**
- * Form builder; Edit an services account.
+ * Form builder: Edit a services account.
  *
  * @param array $form_state
  *   An associative array containing the current state of the form.
@@ -83,6 +92,13 @@ function theme_gauth_user_services_list($variables) {
  * @see gauth_user_services_edit_form_validate()
  */
 function gauth_user_services_edit_form($form, &$form_state, $id = NULL) {
+  if ($id) {
+    backdrop_set_title(t('Edit Google Auth User Services'));
+  }
+  else {
+    backdrop_set_title(t('Add Google Auth User Services'));
+  }
+
   $account = array();
   if ($id) {
     $account = gauth_user_services_load($id, FALSE);
@@ -117,22 +133,22 @@ function gauth_user_services_edit_form($form, &$form_state, $id = NULL) {
   );
   $form['developer_key'] = array(
     '#type' => 'textfield',
-    '#title' => t('Api Key'),
-    '#description' => t('The api key of google account.'),
+    '#title' => t('API Key'),
+    '#description' => t('The server api key of the web application.'),
     '#default_value' => isset($account['developer_key']) ? $account['developer_key'] : '',
     '#required' => TRUE,
   );
   $form['client_id'] = array(
     '#type' => 'textfield',
     '#title' => t('Client Id'),
-    '#description' => t('The client id of google account.'),
+    '#description' => t('The CLIENT ID in the "Client ID for web application" section.'),
     '#default_value' => isset($account['client_id']) ? $account['client_id'] : '',
     '#required' => TRUE,
   );
   $form['client_secret'] = array(
     '#type' => 'textfield',
     '#title' => t('Client Secret Key'),
-    '#description' => t('The client secrets key of google account.'),
+    '#description' => t('The CLIENT SECRET in the "Client ID for web application" section.'),
     '#default_value' => isset($account['client_secret']) ? $account['client_secret'] : '',
     '#required' => TRUE,
   );
@@ -140,11 +156,21 @@ function gauth_user_services_edit_form($form, &$form_state, $id = NULL) {
   $form['services'] = array(
     '#type' => 'select',
     '#title' => t('Services'),
-    '#description' => t('Services that will be enabled to be used by this account'),
+    '#description' => t('Services that will be enabled to be used by this account.'),
     '#options' => $options,
     '#multiple' => TRUE,
     '#default_value' => isset($account['services']) ? explode(",", $account['services']) : array(),
     '#required' => TRUE,
+  );
+  $form['access_type'] = array(
+    '#type' => 'radios',
+    '#title' => t('Access Type'),
+    '#description' => t('The Access Type of the account. Select offline if the site can perform actions even when the user is not online.'),
+    '#options' => array(
+      'offline' => t('Offline'),
+      'online' => t('Online'),
+    ),
+    '#default_value' => isset($account['access_type']) ? $account['access_type'] : '',
   );
   $form['submit'] = array(
     '#type' => 'submit',
@@ -154,30 +180,39 @@ function gauth_user_services_edit_form($form, &$form_state, $id = NULL) {
   return $form;
 }
 
+
 /**
- * Validate handler for adding a new account to google auth services accounts.
+ * Validate handler for adding a new account to Google Auth User Services accounts.
  */
 function gauth_user_services_edit_form_validate($form, &$form_state) {
   $accounts = gauth_user_services_load();
   $accounts = array_keys($accounts);
   if (in_array($form_state['values']['name'], $accounts)) {
     if (!isset($form_state['values']['is_new'])) {
-      form_set_error('name', t('Name already in use. Please choose a unique name for the services account'));
+      form_set_error('name',
+        t('Name already in use. Please choose a unique name for the services account'));
     }
   }
 }
 
+
 /**
- * Submit handler for adding a new account to google auth services accounts.
+ * Submit handler for adding a new account to Google Auth User Services accounts.
  */
 function gauth_user_services_edit_form_submit($form, &$form_state) {
   $id = gauth_user_services_save($form_state['values']);
-  backdrop_set_message(t('Services Account saved.  Click !url to configure permissions for this account', array('!url' => l(t('here'), 'admin/people/permissions', array('fragment' => 'module-gauth_user')))));
+  backdrop_set_message(
+    t('Services Account saved.  Click !url to configure permissions for this account',
+      array('!url' => l
+        (t('here'),
+        'admin/config/people/permissions',
+        array('fragment' => 'module-gauth_user')))));
   $form_state['redirect'] = 'admin/config/services/gauth_user';
 }
 
+
 /**
- * Form builder; Form for deleting an google auth services account.
+ * Form builder: Form for deleting a Google Auth User Services account.
  *
  * @param int $id
  *   Id of the account to be deleted.
@@ -198,8 +233,9 @@ function gauth_user_services_delete_form($form, &$form_state, $id) {
   return confirm_form($form, $question, $path, $description, $yes, $no);
 }
 
+
 /**
- * Submit handler to delete an google auth services account.
+ * Submit handler to delete a Google Auth User Services account.
  */
 function gauth_user_services_delete_form_submit($form, &$form_state) {
   if ($form_state['values']['id'] != NULL) {

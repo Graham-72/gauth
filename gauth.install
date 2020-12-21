@@ -4,6 +4,7 @@
  * Install and uninstall functions for the Google OAuth module.
  */
 
+
 /**
  * Implements hook_schema().
  */
@@ -52,6 +53,13 @@ function gauth_schema() {
         'description' => 'The OAuth access token.',
         'type' => 'text',
       ),
+      'access_type' => array(
+        'description' => 'Stores the access type of the account',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => 'offline',
+      ),
       'is_authenticated' => array(
         'description' => 'Is the account authenticated and ready to use?.',
         'type' => 'int',
@@ -72,71 +80,86 @@ function gauth_schema() {
     ),
   );
 
+  $schema['cache_gauth_scopes'] = backdrop_get_schema_unprocessed('system', 'cache');
+
   return $schema;
 }
 
-/**
- * Implements hook_install().
- */
-function gauth_install() {
-  backdrop_install_schema('gauth_accounts');
-}
 
 /**
- * Implements hook_uninstall().
+ * Convert Google Auth variables to config settings.
  */
-function gauth_uninstall() {
-  backdrop_uninstall_schema('gauth_accounts');
+function gauth_update_1000() {
+  $config = config('gauth.settings');
+  $config->set('gauth_google_api_services',
+    update_variable_get('gauth_google_api_services', array()));
+  $config->save();
+  update_variable_del('gauth_google_api_services');
+
 }
 
+
 /**
- * Implements hook_requirements().
+ * Update table gauth_accounts and add cache table if needed.
  */
-function gauth_requirements($phase) {
-  $requirements = array();
-  if ($phase == 'runtime') {
-    $t = get_t();
-    $requirements['gauth'] = array(
-      'title' => $t('Google OAuth2'),
-      'value' => '',
-      'description' => '',
-      'severity' => REQUIREMENT_OK,
+function gauth_update_1001() {
+  // We'd like to be able to update from any version of Drupal GAuth from 1.4
+  // to 2.0 as well as from the 1.x Backdrop version (which was based on
+  // Drupal 1.4, and didn't have a hook_update_1000() routine). So we'll check
+  // for existence of the various table columns added by the various updates
+  // and add them if needed.
+
+  // From update 7002
+  $lacks_uid = empty(db_query("
+    SHOW COLUMNS
+    FROM `gauth_accounts`
+    LIKE 'uid'
+    ")->fetchField());
+  if ($lacks_uid) {
+    $field = array(
+      'type' => 'int',
+      'unsigned' => TRUE,
+      'not null' => TRUE,
+      'default' => 0,
+      'description' => 'The  users uid of the user who created the gauth account.',
     );
-    $info = libraries_load('google-api-php-client');
-    if (!$info['loaded']) {
-      $url = l($t('here'), $info['download url']);
-      $version = array_keys($info['versions']);
-      $requirements['gauth']['description'] = $t('Install version "@version" of the Google api php client library code (from !here) in a libraries directory such as "sites/all/libraries/google-api-php-client."', array('@version' => $version[0], '!here' => $url));
-      $requirements['gauth']['severity'] = REQUIREMENT_ERROR;
+    db_add_field('gauth_accounts', 'uid', $field);
+    db_update('gauth_accounts')
+      ->fields(array('uid' => 1))
+      ->execute();
+  }
+
+  // From update 7003
+  $lacks_access_type = empty(db_query("
+    SHOW COLUMNS
+    FROM `gauth_accounts`
+    LIKE 'access_type'
+    ")->fetchField());
+  if ($lacks_access_type) {
+    $field = array(
+      'type' => 'varchar',
+      'length' => 255,
+      'not null' => TRUE,
+      'default' => 'offline',
+      'description' => 'Stores the access type of the account.',
+    );
+    db_add_field('gauth_accounts', 'access_type', $field);
+    db_update('gauth_accounts')
+      ->fields(array('access_type' => 'offline'))
+      ->execute();
     }
-    else {
-      $requirements['gauth']['value'] = $t($info['version']);
+
+  // From update 7004
+  $lacks_cache = empty(db_query("
+    SHOW TABLES LIKE 'cache_gauth_scopes'
+    ")->fetchField());
+  if ($lacks_cache) {
+    $module = 'gauth';
+    $schema = backdrop_get_schema_unprocessed($module);
+    _backdrop_schema_initialize($schema, $module, FALSE);
+    unset($schema['gauth_accounts']);
+    foreach ($schema as $name => $table) {
+      db_create_table($name, $table);
     }
   }
-  return $requirements;
-}
-
-/**
- * Move settings from variables to config.
- */
-function gauth_update_1000()
-{
-  // Migrate variables to config.
-  $config = config('gauth.settings');
-  $config->set('gauth_login_client_id', variable_get('gauth_login_client_id', ''));
-  $config->set('gauth_login_client_secret', variable_get('gauth_login_client_secret', ''));
-  $config->set('gauth_login_developer_key', variable_get('gauth_login_developer_key', ''));
-  $config->save();
-
-  // Delete variables.
-  update_variable_del('gauth_login_client_id');
-  update_variable_del('gauth_login_client_secret');
-  update_variable_del('gauth_login_developer_key');
-}
-
-/**
- * Implements hook_update_last_removed().
- */
-function gauth_update_last_removed() {
-  return 7002;
 }

@@ -1,34 +1,9 @@
 <?php
 /**
  * @file
- * Google Auth Api for backdrop.
+ * Google Auth API for Backdrop.
  */
 
-/**
- * Implements hook_init().
- */
-function gauth_init() {
-  $path = libraries_get_path('google-api-php-client');
-  if ($path) {
-    set_include_path($path."/src/" . PATH_SEPARATOR . get_include_path());
-  }
-}
-
-/**
- * Implements hook_help().
- */
-function gauth_help($path, $arg) {
-  switch ($path) {
-    case 'admin/help#gauth':
-      $path = $GLOBALS['base_url'] . '/' . backdrop_get_path('module', 'gauth');
-      $output = '<h3>' . t('About') . '</h3>';
-      $output .= '<p>' . t("This module allows you to authenticate with google and use this authentication to carry other api requests. This module will help you to manage accounts, authenticate with google (i.e. get access token) and use this authentication to carry api requests in other modules.") . '</p>';
-      $output .= '<h3>' . t('Uses') . '</h3>';
-      $output .= '<p>' . t("This module allows you to enter google account details like client id, client secret key, developer key, select google services to be enabled and gets the OAuth2 access token from google.  You can also revoke access(unauthenticate) a account.") . '</p>';
-      $output .= '<p>' . t("For more details read the <a href='@url'>README.txt</a> file in the Google Auth module directory.", array('@url' => "$path/README.txt")) . '</p>';
-      return $output;
-  }
-}
 
 /**
  * Implements hook_menu().
@@ -36,32 +11,32 @@ function gauth_help($path, $arg) {
 function gauth_menu() {
   $items = array();
   $items['admin/config/services/gauth_account'] = array(
-    'title' => 'Google Account Settings',
-    'description' => 'Google Account settings.',
+    'title' => 'Google auth',
+    'description' => 'Configure Google account settings.',
     'page callback' => 'gauth_account_list',
     'access arguments' => array('administer site configuration'),
     'file' => 'gauth.admin.inc',
   );
   $items['admin/config/services/gauth_account/add'] = array(
-    'title' => 'Add Account',
-    'description' => 'Google Account Add.',
+    'title' => 'Add account',
+    'description' => 'Add a Google account.',
     'page callback' => 'backdrop_get_form',
     'page arguments' => array('gauth_account_edit_form'),
     'access arguments' => array('administer site configuration'),
-    'type' => MENU_LOCAL_ACTION,
     'file' => 'gauth.admin.inc',
+    'type' => MENU_LOCAL_ACTION,
   );
   $items['admin/config/services/gauth_account/edit/%'] = array(
-    'title' => 'Google Account Edit',
-    'description' => 'Google Account Edit.',
+    'title' => 'Edit account',
+    'description' => 'Edit a Google account.',
     'page callback' => 'backdrop_get_form',
     'page arguments' => array('gauth_account_edit_form', 5),
     'access arguments' => array('administer site configuration'),
     'file' => 'gauth.admin.inc',
   );
   $items['admin/config/services/gauth_account/delete/%'] = array(
-    'title' => 'Google Account Delete',
-    'description' => 'Google Account delete.',
+    'title' => 'Delete account',
+    'description' => 'Delete a Google account.',
     'page callback' => 'backdrop_get_form',
     'page arguments' => array('gauth_account_delete_form', 5),
     'access arguments' => array('administer site configuration'),
@@ -73,7 +48,7 @@ function gauth_menu() {
     'type' => MENU_CALLBACK,
   );
   $items['gauth/revoke_token/%'] = array(
-    'title' => 'Google Account Token Revoke',
+    'title' => 'Google account token tevoke',
     'description' => 'Revoke a access token.',
     'page callback' => 'backdrop_get_form',
     'page arguments' => array('gauth_account_token_revoke_form', 2),
@@ -82,6 +57,7 @@ function gauth_menu() {
   );
   return $items;
 }
+
 
 /**
  * Implements hook_theme().
@@ -95,45 +71,6 @@ function gauth_theme() {
   );
 }
 
-/**
- * Implements hook_libraries_info().
- */
-function gauth_libraries_info() {
-  $path = libraries_get_path('google-api-php-client');
-  set_include_path($path."/src/" . PATH_SEPARATOR . get_include_path());
-  $libraries['google-api-php-client'] = array(
-    'name' => 'Google OAuth2 Library',
-    'vendor url' => 'http://code.google.com/p/google-api-php-client',
-    'download url' => 'http://github.com/google/google-api-php-client/archive/master.zip',
-    'version arguments' => array(
-      'file' => 'src/Google/Client.php',
-      'pattern' => '/LIBVER = "([0-9\.a-z]+)/',
-      'lines' => 40,
-    ),
-    'versions' => array(
-      '1.0.5-beta' => array(
-        'files' => array(
-          'php' => array(
-            'src/Google/Client.php',
-          )
-        ),
-      ),
-      '1.1.5' => array(
-        'files' => array(
-          'php' => array(
-            'src/Google/autoload.php',
-          )
-        )
-      )
-    ),
-    'files' => array(
-      'php' => array(
-        'src/Google/Client.php',
-      ),
-    ),
-  );
-  return $libraries;
-}
 
 /**
  * Implements hook_user_delete().
@@ -145,6 +82,51 @@ function gauth_user_delete($user) {
   }
 }
 
+
+/**
+ * Implements hook_menu_site_status_alter().
+ */
+function gauth_menu_site_status_alter(&$menu_site_status, $path) {
+  if ($menu_site_status == MENU_SITE_OFFLINE &&
+    user_is_anonymous() &&
+    $path == 'gauth/response_handler') {
+    // Disable offline mode.
+    $menu_site_status = MENU_SITE_ONLINE;
+  }
+}
+
+
+/**
+ * Implements hook_flush_caches().
+ */
+function gauth_flush_caches() {
+  if (db_table_exists('cache_gauth_scopes')) {
+    return array('cache_gauth_scopes');
+  }
+}
+
+
+/**
+ * Implements hook_config_info().
+ */
+function gauth_config_info() {
+  $prefixes['gauth.settings'] = array(
+    'label' => t('Google Auth settings'),
+    'group' => t('Configuration'),
+  );
+  return $prefixes;
+}
+
+
+/**
+ * Load the GAuth API.
+ */
+function gauth_load_google_api() {
+  require_once backdrop_get_path('module', 'gauth') .
+    '/libraries/google-api-php-client/vendor/autoload.php';
+}
+
+
 /**
  * Function to handle authentication and response from google.
  *
@@ -152,11 +134,7 @@ function gauth_user_delete($user) {
  *   Account id of the account to be authenticated.
  */
 function gauth_response_handler($account_id = NULL) {
-  $info = libraries_load('google-api-php-client');
-  if (!$info['loaded']) {
-    backdrop_set_message(t("Can't authenticate with google as library is missing check Status report or Readme for requirements"), 'error');
-    return FALSE;
-  }
+  gauth_load_google_api();
   if ($account_id == NULL && isset($_SESSION['gauth_account_id'])) {
     $account_id = $_SESSION['gauth_account_id'];
   }
@@ -170,16 +148,20 @@ function gauth_response_handler($account_id = NULL) {
       $client->setApplicationName("Google OAuth2");
       $client->setClientId($account['client_id']);
       $client->setClientSecret($account['client_secret']);
-      $client->setRedirectUri(url('gauth/response_handler', array('https' => TRUE, 'absolute' => TRUE)));
+      $client->setRedirectUri(gauth_callback_url());
       $client->setDeveloperKey($account['developer_key']);
-      $scopes = gauth_google_services_scopes();
-      foreach (explode(",", $account['services']) as $service) {
-        $client->addScope($scopes[$service]);
+      if ($account['access_type'] == 'offline') {
+        $client->setApprovalPrompt('force');
       }
+      $client->setAccessType($account['access_type']);
+      $scopes = gauth_google_services_scopes(explode(",", $account['services']));
+      // Let other modules change scopes
+      backdrop_alter('gauth_account_scopes',   $scopes, $account['id']);
+      $client->addScope($scopes);
     }
     if (isset($_GET['code'])) {
-      $client->authenticate($_GET['code']);
-      $account['access_token'] = $client->getAccessToken();
+      $client->fetchAccessTokenWithAuthCode($_GET['code']);
+      $account['access_token'] = json_encode($client->getAccessToken());
       gauth_account_save($account);
       unset($_SESSION['gauth_account_id']);
       if (!user_access('administer site configuration') && module_exists('gauth_user')) {
@@ -188,126 +170,55 @@ function gauth_response_handler($account_id = NULL) {
       else {
         backdrop_goto('admin/config/services/gauth_account');
       }
-      backdrop_set_message(t('Api Account saved'));
+      backdrop_set_message(t('API Account saved'));
     }
     if ($client) {
       $auth_url = $client->createAuthUrl();
       backdrop_goto($auth_url);
     }
   }
-  // Let other modules act of google response.
+  // Let other modules act on google response.
   module_invoke_all('gauth_google_response');
 }
+
 
 /**
  * Returns a array services api versions.
  */
-function gauth_google_services_scopes() {
-  return array(
-    'adexchangeseller' => 'https://www.googleapis.com/auth/adexchange.seller',
-    'adexchangebuyer' => 'https://www.googleapis.com/auth/adexchange.buyer',
-    'adsense' => 'https://www.googleapis.com/auth/adsense',
-    'adsensehost' => 'https://www.googleapis.com/auth/adsensehost',
-    'analytics' => array(
-      'https://www.googleapis.com/auth/analytics',
-      'https://www.googleapis.com/auth/analytics.edit',
-      'https://www.googleapis.com/auth/analytics.manage.users',
-      'https://www.googleapis.com/auth/analytics.provision',
-    ),
-    'bigquery' => array(
-      'https://www.googleapis.com/auth/bigquery',
-      'https://www.googleapis.com/auth/bigquery.insertdata',
-      'https://www.googleapis.com/auth/cloud-platform',
-      'https://www.googleapis.com/auth/devstorage.full_control',
-    ),
-    'blogger' => 'https://www.googleapis.com/auth/blogger',
-    'books' => 'https://www.googleapis.com/auth/books',
-    'calendar' => 'https://www.googleapis.com/auth/calendar',
-    'compute' => array(
-      'https://www.googleapis.com/auth/compute',
-      'https://www.googleapis.com/auth/devstorage.full_control',
-    ),
-    'customsearch' => '',
-    'dfareporting' => 'https://www.googleapis.com/auth/dfareporting',
-    'drive' => array(
-      'https://www.googleapis.com/auth/drive',
-      'https://www.googleapis.com/auth/drive.appdata',
-      'https://www.googleapis.com/auth/drive.file',
-      'https://www.googleapis.com/auth/drive.scripts',
-    ),
-    'freebase' => '',
-    'fustiontables' => 'https://www.googleapis.com/auth/fusiontables',
-    'licensing' => '',
-    'oauth2' => array(
-      'https://www.googleapis.com/auth/plus.login',
-      'https://www.googleapis.com/auth/plus.me',
-      'https://www.googleapis.com/auth/userinfo.email',
-      'https://www.googleapis.com/auth/userinfo.profile',
-    ),
-    'orkut' => 'https://www.googleapis.com/auth/orkut',
-    'pagespeedonline' => '',
-    'prediction' => array(
-      'https://www.googleapis.com/auth/devstorage.full_control',
-      'https://www.googleapis.com/auth/prediction',
-    ),
-    'shopping' => 'https://www.googleapis.com/auth/content',
-    'siteVerification' => 'https://www.googleapis.com/auth/siteverification',
-    'storage' => 'https://www.googleapis.com/auth/devstorage.full_control',
-    'taskqueue' => array(
-      'https://www.googleapis.com/auth/taskqueue',
-      'https://www.googleapis.com/auth/taskqueue.consumer',
-    ),
-    'tasks' => 'https://www.googleapis.com/auth/tasks',
-    'translate' => '',
-    'urlshortener' => 'https://www.googleapis.com/auth/urlshortener',
-    'webfonts' => '',
-    'youtube' => array(
-      'https://www.googleapis.com/auth/youtube',
-      'https://www.googleapis.com/auth/youtube.readonly',
-      'https://www.googleapis.com/auth/youtube.upload',
-      'https://www.googleapis.com/auth/youtubepartner',
-      'https://www.googleapis.com/auth/youtubepartner-channel-audit',
-    ),
-  );
+function gauth_google_services_scopes($services) {
+  if (!$services) {
+    return FALSE;
+  }
+  if (!is_array($services)) {
+    $services = array($services);
+  }
+  $cache = cache_get_multiple($services, 'cache_gauth_scopes');
+  if (!empty($cache)) {
+    $scopes = array();
+    foreach ($cache as $s => $c) {
+      if ($c->data) {
+        $scopes = array_merge($scopes, $c->data);
+      }
+    }
+    return $scopes;
+  }
+  else {
+    $services = array_flip($services);
+    $scopes = _gauth_read_scope_info();
+    return array_intersect_key($scopes, $services);
+  }
 }
 
+
 /**
- * Returns a array services api names.
+ * Returns an array of services api names.
  */
 function gauth_google_services_names($services = FALSE) {
-  $names = array(
-    'adexchangeseller' => t('Google AdExchangeSeller'),
-    'adexchangebuyer' => t('Google Adexchangebuyer'),
-    'adsense' => t('Google AdSense'),
-    'adsensehost' => t('Google AdSenseHost'),
-    'analytics' => t('Google Analytics'),
-    'bigquery' => t('Google Bigquery'),
-    'blogger' => t('Google Blogger'),
-    'books' => t('Google Books'),
-    'calendar' => t('Google Calendar'),
-    'compute' => t('Google Compute'),
-    'customsearch' => t('Google Customsearch'),
-    'dfareporting' => t('Google Dfareporting'),
-    'drive' => t('Google Drive'),
-    'freebase' => t('Google Freebase'),
-    'fusiontables' => t('Google Freebasetables'),
-    'licensing' => t('Google Licensing'),
-    'moderator' => t('Google Moderator'),
-    'oauth2' => t('Google Oauth2'),
-    'orkut' => t('Google Orkut'),
-    'pagespeedonline' => t('Google Pagespeedonline'),
-    'plus' => t('Google Plus'),
-    'prediction' => t('Google Prediction'),
-    'shopping' => t('Google Shopping'),
-    'siteVerification' => t('Google SiteVerification'),
-    'storage' => t('Google Storage'),
-    'taskqueue' => t('Google Taskqueue'),
-    'tasks' => t('Google Tasks'),
-    'translate' => t('Google Translate'),
-    'urlshortener' => t('Google Urlshortener'),
-    'webfonts' => t('Google Webfonts'),
-    'youtube' => t('Google Youtube'),
-  );
+  $names = config_get('gauth.settings', 'gauth_google_api_services');
+  if (empty($names)) {
+    _gauth_read_scope_info(); // This updates the stored config value.
+    $names = config_get('gauth.settings', 'gauth_google_api_services');
+  }
   if (!$services) {
     return $names;
   }
@@ -320,7 +231,233 @@ function gauth_google_services_names($services = FALSE) {
   }
 }
 
+
+/**
+ * Helper function which reads the installed library and discovery api to build
+ * cache for scopes and names, which is stored in config data.
+ *
+ * @return $scopes - an array of scope information.
+ *
+ * As a side effect, this sets the gauth_google_api_services config variable.
+ */
+function _gauth_read_scope_info() {
+  gauth_load_google_api();
+  $path = backdrop_get_path('module', 'gauth') . '/libraries/google-api-php-client/vendor/google/apiclient-services/src/Google/Service/';
+  $files = scandir($path);
+  $names = array(
+    'abusiveexperiencereport' => 'Abusive Experience Report API',
+    'acceleratedmobilepageurl' => 'Accelerated Mobile Pages (AMP) URL API',
+    'accessapproval' => 'Access Approval API',
+    'accesscontextmanager' => 'Access Context Manager API',
+    'adexchangebuyer' => 'Ad Exchange Buyer API',
+    'adexchangebuyer2' => 'Ad Exchange Buyer API II',
+    'adexperiencereport' => 'Ad Experience Report API',
+    'admin' => 'Admin Reports API',
+    'adsense' => 'AdSense Management API',
+    'adsensehost' => 'AdSense Host API',
+    'alertcenter' => 'G Suite Alert Center API',
+    'analytics' => 'Google Analytics API',
+    'analyticsreporting' => 'Analytics Reporting API',
+    'androiddeviceprovisioning' => 'Android Device Provisioning Partner API',
+    'androidenterprise' => 'Google Play EMM API',
+    'androidmanagement' => 'Android Management API',
+    'androidpublisher' => 'Google Play Developer API',
+    'appengine' => 'App Engine Admin API',
+    'appsactivity' => 'Drive Activity API',
+    'bigquery' => 'BigQuery API',
+    'bigqueryconnection' => 'BigQuery Connection API',
+    'bigquerydatatransfer' => 'BigQuery Data Transfer API',
+    'bigqueryreservation' => 'BigQuery Reservation API',
+    'bigtableadmin' => 'Cloud Bigtable Admin API',
+    'binaryauthorization' => 'Binary Authorization API',
+    'blogger' => 'Blogger API',
+    'books' => 'Books API',
+    'calendar' => 'Calendar API',
+    'chat' => 'Hangouts Chat API',
+    'civicinfo' => 'Google Civic Information API',
+    'classroom' => 'Google Classroom API',
+    'cloudasset' => 'Cloud Asset API',
+    'cloudbilling' => 'Cloud Billing API',
+    'cloudbuild' => 'Cloud Build API',
+    'clouddebugger' => 'Stackdriver Debugger API',
+    'clouderrorreporting' => 'Stackdriver Error Reporting API',
+    'cloudfunctions' => 'Cloud Functions API',
+    'cloudidentity' => 'Cloud Identity API',
+    'cloudiot' => 'Cloud IoT API',
+    'cloudkms' => 'Cloud Key Management Service (KMS) API',
+    'cloudprivatecatalog' => 'Cloud Private Catalog API',
+    'cloudprivatecatalogproducer' => 'Cloud Private Catalog Producer API',
+    'cloudprofiler' => 'Stackdriver Profiler API',
+    'cloudresourcemanager' => 'Cloud Resource Manager API',
+    'cloudscheduler' => 'Cloud Scheduler API',
+    'cloudsearch' => 'Cloud Search API',
+    'cloudshell' => 'Cloud Shell API',
+    'cloudtasks' => 'Cloud Tasks API',
+    'cloudtrace' => 'Stackdriver Trace API',
+    'commentanalyzer' => 'Perspective Comment Analyzer API',
+    'composer' => 'Cloud Composer API',
+    'compute' => 'Compute Engine API',
+    'container' => 'Kubernetes Engine API',
+    'containeranalysis' => 'Container Analysis API',
+    'content' => 'Content API for Shopping',
+    'customsearch' => 'CustomSearch API',
+    'dataflow' => 'Dataflow API',
+    'datafusion' => 'Cloud Data Fusion API',
+    'dataproc' => 'Cloud Dataproc API',
+    'datastore' => 'Cloud Datastore API',
+    'deploymentmanager' => 'Google Cloud Deployment Manager API',
+    'dfareporting' => 'DCM/DFA Reporting And Trafficking API',
+    'dialogflow' => 'Dialogflow API',
+    'digitalassetlinks' => 'Digital Asset Links API',
+    'discovery' => 'API Discovery Service',
+    'dlp' => 'Cloud Data Loss Prevention (DLP) API',
+    'dns' => 'Google Cloud DNS API',
+    'docs' => 'Google Docs API',
+    'domainsrdap' => 'Domains RDAP API',
+    'doubleclickbidmanager' => 'DoubleClick Bid Manager API',
+    'doubleclicksearch' => 'Search Ads 360 API',
+    'drive' => 'Drive API',
+    'driveactivity' => 'Drive Activity API',
+    'factchecktools' => 'Fact Check Tools API',
+    'fcm' => 'Firebase Cloud Messaging API',
+    'file' => 'Cloud Filestore API',
+    'firebase' => 'Firebase Management API',
+    'firebasedynamiclinks' => 'Firebase Dynamic Links API',
+    'firebasehosting' => 'Firebase Hosting API',
+    'firebaserules' => 'Firebase Rules API',
+    'firestore' => 'Cloud Firestore API',
+    'fitness' => 'Fitness',
+    'fusiontables' => 'Fusion Tables API',
+    'games' => 'Google Play Game Services API',
+    'gamesConfiguration' => 'Google Play Game Services Publishing API',
+    'gamesManagement' => 'Google Play Game Services Management API',
+    'genomics' => 'Genomics API',
+    'gmail' => 'Gmail API',
+    'groupsmigration' => 'Groups Migration API',
+    'groupssettings' => 'Groups Settings API',
+    'healthcare' => 'Cloud Healthcare API',
+    'homegraph' => 'HomeGraph API',
+    'iam' => 'Identity and Access Management (IAM) API',
+    'iamcredentials' => 'IAM Service Account Credentials API',
+    'iap' => 'Cloud Identity-Aware Proxy API',
+    'identitytoolkit' => 'Google Identity Toolkit API',
+    'indexing' => 'Indexing API',
+    'jobs' => 'Cloud Talent Solution API',
+    'kgsearch' => 'Knowledge Graph Search API',
+    'language' => 'Cloud Natural Language API',
+    'libraryagent' => 'Library Agent API',
+    'licensing' => 'Enterprise License Manager API',
+    'logging' => 'Stackdriver Logging API',
+    'manufacturers' => 'Manufacturer Center API',
+    'mirror' => 'Google Mirror API',
+    'ml' => 'Cloud Machine Learning Engine',
+    'monitoring' => 'Stackdriver Monitoring API',
+    'oauth2' => 'Google OAuth2 API',
+    'osconfig' => 'Cloud OS Config API',
+    'oslogin' => 'Cloud OS Login API',
+    'pagespeedonline' => 'PageSpeed Insights API',
+    'people' => 'People API',
+    'playcustomapp' => 'Google Play Custom App Publishing API',
+    'plus' => 'Google+ API',
+    'plusDomains' => 'Google+ Domains API',
+    'poly' => 'Poly API',
+    'proximitybeacon' => 'Proximity Beacon API',
+    'pubsub' => 'Cloud Pub/Sub API',
+    'redis' => 'Google Cloud Memorystore for Redis API',
+    'remotebuildexecution' => 'Remote Build Execution API',
+    'replicapool' => 'Replica Pool API',
+    'reseller' => 'Enterprise Apps Reseller API',
+    'run' => 'Cloud Run API',
+    'runtimeconfig' => 'Cloud Runtime Configuration API',
+    'safebrowsing' => 'Safe Browsing API',
+    'script' => 'Apps Script API',
+    'searchconsole' => 'Google Search Console URL Testing Tools API',
+    'securitycenter' => 'Cloud Security Command Center API',
+    'servicebroker' => 'Service Broker API',
+    'serviceconsumermanagement' => 'Service Consumer Management API',
+    'servicecontrol' => 'Service Control API',
+    'servicemanagement' => 'Service Management API',
+    'servicenetworking' => 'Service Networking API',
+    'serviceusage' => 'Service Usage API',
+    'sheets' => 'Google Sheets API',
+    'siteVerification' => 'Google Site Verification API',
+    'slides' => 'Google Slides API',
+    'sourcerepo' => 'Cloud Source Repositories API',
+    'spanner' => 'Cloud Spanner API',
+    'speech' => 'Cloud Speech-to-Text API',
+    'sqladmin' => 'Cloud SQL Admin API',
+    'storage' => 'Cloud Storage JSON API',
+    'storagetransfer' => 'Storage Transfer API',
+    'streetviewpublish' => 'Street View Publish API',
+    'surveys' => 'Surveys API',
+    'tagmanager' => 'Tag Manager API',
+    'tasks' => 'Tasks API',
+    'testing' => 'Cloud Testing API',
+    'texttospeech' => 'Cloud Text-to-Speech API',
+    'toolresults' => 'Cloud Tool Results API',
+    'tpu' => 'Cloud TPU API',
+    'translate' => 'Cloud Translation API',
+    'urlshortener' => 'URL Shortener API',
+    'vault' => 'G Suite Vault API',
+    'verifiedaccess' => 'Chrome Verified Access API',
+    'videointelligence' => 'Cloud Video Intelligence API',
+    'vision' => 'Cloud Vision API',
+    'webfonts' => 'Google Fonts Developer API',
+    'webmasters' => 'Search Console API',
+    'websecurityscanner' => 'Web Security Scanner API',
+    'youtube' => 'YouTube Data API',
+    'youtubeAnalytics' => 'YouTube Analytics API',
+    'youtubereporting' => 'YouTube Reporting API',
+  );
+  $api_names = array();
+  foreach ($files as $file) {
+    if (substr($file, -3) == 'php') {
+      require_once $path . $file;
+
+      $cname = substr($file, 0, -4);
+      $tname = strtolower($cname);
+      if (isset($names[$tname])) {
+        $api_names[$tname] = $names[$tname];
+      }
+      else {
+        $api_names[$tname] = $cname;
+      }
+    }
+  }
+
+  $scopes = array();
+  $client = gauth_client_get();
+  foreach (get_declared_classes() as $class) {
+    if (is_subclass_of($class, 'Google_Service')) {
+      $classes[] = $class;
+      $temp = new ReflectionClass($class);
+      $instance = $temp->newInstance($client);
+      $aname = $instance->serviceName;
+      if (!isset($api_names[$aname])) {
+        $aname = $temp->getName();
+        $aname = strtolower(str_replace('Google_Service_', '', $aname));
+      }
+      $scopes[$aname] = $temp->getConstants();
+      cache_set($aname, $scopes[$aname], 'cache_gauth_scopes');
+    }
+  }
+  config_set('gauth.settings', 'gauth_google_api_services', $api_names);
+  return $scopes;
+}
+
+
+/**
+ * Checks https settings and returns appropriate callback url.
+ */
+function gauth_callback_url() {
+  global $is_https;
+  return url('gauth/response_handler', array('https' => $is_https, 'absolute' => TRUE));
+}
+
+
 /*** API Functions start ***/
+
+
 /**
  * Get an array of all accounts or load a specific account.
  *
@@ -361,6 +498,7 @@ function gauth_account_load($account_id = NULL, $by_name = TRUE, $fields = 'gaut
   return $accounts;
 }
 
+
 /**
  * Save an account.
  *
@@ -376,7 +514,10 @@ function gauth_account_load($account_id = NULL, $by_name = TRUE, $fields = 'gaut
 function gauth_account_save(&$account) {
   global $user;
   if (isset($account['id'])) {
-    $fields = array('id' => $account['id'], 'uid' => isset($account['uid']) ? $account['uid'] : $user->uid);
+    $fields = array(
+      'id' => $account['id'],
+      'uid' => isset($account['uid']) ? $account['uid'] : $user->uid,
+    );
     if (isset($_SESSION['gauth_account_id']) && isset($account['access_token']) && $_SESSION['gauth_account_id'] == $account['id']) {
       $fields['access_token'] = $account['access_token'];
       $fields['is_authenticated'] = TRUE;
@@ -414,6 +555,12 @@ function gauth_account_save(&$account) {
           $is_authenticated = FALSE;
         }
       }
+      if (isset($account['access_type'])) {
+        $fields['access_type'] = check_plain($account['access_type']);
+        if ($is_authenticated && $old_account['access_type'] != $account['access_type']) {
+          $is_authenticated = FALSE;
+        }
+      }
       $fields['is_authenticated'] = $is_authenticated;
     }
     // Let other modules modify the account before saving existing account.
@@ -446,6 +593,7 @@ function gauth_account_save(&$account) {
       'developer_key' => check_plain($account['developer_key']),
       'client_id' => check_plain($account['client_id']),
       'client_secret' => check_plain($account['client_secret']),
+      'access_type' => check_plain($account['access_type']),
       'uid' => $user->uid,
     );
     if (is_array($account['services'])) {
@@ -467,6 +615,7 @@ function gauth_account_save(&$account) {
     }
   }
 }
+
 
 /**
  * Delete an account.
@@ -490,6 +639,7 @@ function gauth_account_delete($account_id, $by_name = TRUE) {
     ->execute();
 }
 
+
 /**
  * Check if an account is authenticated or not.
  *
@@ -502,6 +652,7 @@ function gauth_account_is_authenticated($account_id, $by_name = TRUE) {
   return gauth_account_load($account_id, $by_name, array('is_authenticated'));
 }
 
+
 /**
  * Get Google_client object of an account.
  *
@@ -512,11 +663,15 @@ function gauth_account_is_authenticated($account_id, $by_name = TRUE) {
  *   Set False if passing account id and True for account name
  */
 function gauth_client_get($account_id = NULL, $by_name = TRUE) {
-  $info = libraries_load('google-api-php-client');
-  if (!$info['loaded']) {
-    backdrop_set_message(t("Can't create client object as library is missing check Status report or Readme for requirements"), 'error');
-    return FALSE;
-  }
+
+//   $info = libraries_load('google-api-php-client');
+//   if (!$info['loaded']) {
+//     backdrop_set_message(t("Can't create client object as library is missing check Status report or Readme for requirements"), 'error');
+//     return FALSE;
+//   }
+
+  gauth_load_google_api();
+
   if ($account_id == NULL) {
     $client = new Google_Client();
   }
@@ -530,13 +685,42 @@ function gauth_client_get($account_id = NULL, $by_name = TRUE) {
     $client = new Google_Client();
     $client->setClientId($account['client_id']);
     $client->setAccessToken($account['access_token']);
+    $client->setAccessType($account['access_type']);
     $client->setClientSecret($account['client_secret']);
     $client->setDeveloperKey($account['developer_key']);
+    if ($account['access_type'] == 'offline') {
+      $client->setApprovalPrompt('force');
+    }
   }
   $client->setApplicationName("Google OAuth2");
-  $client->setRedirectUri(url('gauth/response_handler', array('https' => TRUE, 'absolute' => TRUE)));
+  $client->setRedirectUri(gauth_callback_url());
+  if ($account_id == NULL) {
+    return $client;
+  }
+  if ($client->isAccessTokenExpired()) {
+    if ($client->getRefreshToken() != '') { // Access Type is Offline
+      $client->refreshToken($client->getRefreshToken());
+      $token = $client->getAccessToken();
+      $account['access_token'] = json_encode($token);
+      backdrop_write_record('gauth_accounts', $account, 'id');
+    }
+    else {
+      $names = explode('|', $account['name']);
+      if ($names[count($names) -1] == $GLOBALS['user']->uid) { // Services account
+        gauth_account_authenticate($account_id, $by_name);
+      }
+      else {
+        $client->revokeToken();
+        $account['is_authenticated'] = FALSE;
+        $account['access_token'] = '';
+        backdrop_write_record('gauth_accounts', $account, 'id');
+        backdrop_set_message(t('Access token is expired. If you are admin then you need to authenticate again. Consider configuring access type to offline.'));
+      }
+    }
+  }
   return $client;
 }
+
 
 /**
  * Authenticate a google account.
@@ -555,6 +739,7 @@ function gauth_account_authenticate($account_id, $by_name) {
     gauth_response_handler($account_id);
   }
 }
+
 
 /**
  * Unauthenticate an account.
@@ -581,7 +766,7 @@ function gauth_account_revoke_token($account_id, $by_name = TRUE) {
 }
 
 /**
- * Function loads gauth account id by user id.
+ * Load a gauth account id by user id.
  */
 function gauth_account_load_by_uid($uid) {
   return db_select('gauth_accounts')
@@ -589,17 +774,4 @@ function gauth_account_load_by_uid($uid) {
       ->condition('uid', $uid, '=')
       ->execute()
       ->fetchField();
-}
-
-
-/**
- * Implements hook_config_info().
- */
-function gauth_config_info()
-{
-    $prefixes['gauth.settings'] = array(
-        'label' => t('Gauth settings'),
-        'group' => t('Configuration'),
-    );
-    return $prefixes;
 }

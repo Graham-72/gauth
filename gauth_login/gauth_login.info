@@ -1,7 +1,7 @@
-name = Google Login Support
-description = "Google Authentication for login.  This module provides addon feature for login using google"
+name = Google Auth Login
+description = "Google Authentication for login. Allows users to login to Backdrop site via Google."
 backdrop = 1.x
 type = module
 dependencies[] = gauth
-package = Google Api
+package = Google API
 configure = admin/config/services/gauth_login

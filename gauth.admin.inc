@@ -4,10 +4,13 @@
  * Administration pages for Google OAuth settings.
  */
 
+
 /**
- * Menu callback; Listing of all current Api accounts.
+ * Menu callback; Listing of all current API accounts.
  */
 function gauth_account_list() {
+  backdrop_set_title(t('Google Auth Accounts'));
+
   $query = db_select('gauth_accounts', 'ga')->extend('PagerDefault');
   $query->fields('ga');
 
@@ -16,6 +19,7 @@ function gauth_account_list() {
     ->execute();
   return theme('gauth_account_list', array('accounts' => $accounts));
 }
+
 
 /**
  * Returns HTML for the page containing the list of accounts.
@@ -32,12 +36,17 @@ function theme_gauth_account_list($variables) {
   $accounts = $variables['accounts'];
   $header = array(
     t('Name'),
-    t('Api key'),
+    t('API key'),
     t('Client Id'),
     t('Client Secret'),
     t('User'),
     t('Services'),
-    array('data' => t('Operations'), 'colspan' => 3),
+    t('Access Type'),
+    t('Redirect Url'),
+    array(
+      'data' => t('Operations'),
+      'colspan' => 3,
+    ),
   );
   $rows = array();
   foreach ($accounts as $account) {
@@ -49,16 +58,18 @@ function theme_gauth_account_list($variables) {
     $row[] = $account->client_secret;
     $row[] = l($account_user->name, "user/$account->uid");
     $row[] = implode(", ", gauth_google_services_names($account->services));
+    $row[] = $account->access_type;
+    $row[] = '<pre>' . gauth_callback_url() . '</pre>';
     $row[] = l(t('edit'), 'admin/config/services/gauth_account/edit/' . $account->id);
     $row[] = l(t('delete'), 'admin/config/services/gauth_account/delete/' . $account->id);
-    $row[] = $account->is_authenticated ? l(t('Revoke'), 'gauth/revoke_token/' . $account->id) : l(t('Authenticate'), 'gauth/response_handler/' . $account->id);
+    $row[] = $account->is_authenticated ? l(t('revoke'), 'gauth/revoke_token/' . $account->id) : l(t('Authenticate'), 'gauth/response_handler/' . $account->id);
     $rows[] = $row;
   }
   if (empty($rows)) {
     $rows[] = array(
       array(
         'colspan' => 5,
-        'data' => t('There are currently no Api Accounts. <a href="!url">Add a new one</a>.', array('!url' => url('admin/config/services/gauth_account/add'))),
+        'data' => t('There are currently no API Accounts. <a href="!url">Add a new one</a>.', array('!url' => url('admin/config/services/gauth_account/add'))),
       ),
     );
   }
@@ -74,6 +85,7 @@ function theme_gauth_account_list($variables) {
   return $build;
 }
 
+
 /**
  * Form builder; Edit an account.
  *
@@ -87,6 +99,13 @@ function theme_gauth_account_list($variables) {
  * @see gauth_account_edit_form_validate()
  */
 function gauth_account_edit_form($form, &$form_state, $id = NULL) {
+  if ($id) {
+    backdrop_set_title(t('Google Auth Edit Account'));
+  }
+  else {
+    backdrop_set_title(t('Google Auth Add Account'));
+  }
+
   $form['id'] = array(
     '#type' => 'value',
     '#value' => $id,
@@ -104,22 +123,22 @@ function gauth_account_edit_form($form, &$form_state, $id = NULL) {
   );
   $form['developer_key'] = array(
     '#type' => 'textfield',
-    '#title' => t('Api Key'),
-    '#description' => t('The api key of google account.'),
+    '#title' => t('API Key'),
+    '#description' => t('The server API key of web application.'),
     '#default_value' => isset($account['developer_key']) ? $account['developer_key'] : '',
     '#required' => TRUE,
   );
   $form['client_id'] = array(
     '#type' => 'textfield',
     '#title' => t('Client Id'),
-    '#description' => t('The client id of google account.'),
+    '#description' => t('The Client ID of the web application.'),
     '#default_value' => isset($account['client_id']) ? $account['client_id'] : '',
     '#required' => TRUE,
   );
   $form['client_secret'] = array(
     '#type' => 'textfield',
     '#title' => t('Client Secret Key'),
-    '#description' => t('The client secrets key of google account.'),
+    '#description' => t('The client secret key of the web application.'),
     '#default_value' => isset($account['client_secret']) ? $account['client_secret'] : '',
     '#required' => TRUE,
   );
@@ -127,11 +146,28 @@ function gauth_account_edit_form($form, &$form_state, $id = NULL) {
   $form['services'] = array(
     '#type' => 'select',
     '#title' => t('Services'),
-    '#description' => t('Services that will be enabled to be used by this account'),
+    '#description' => t('Services that will be enabled to be used by this account.'),
     '#options' => $options,
     '#multiple' => TRUE,
     '#default_value' => isset($account['services']) ? explode(",", $account['services']) : array(),
     '#required' => TRUE,
+  );
+  $form['access_type'] = array(
+    '#type' => 'radios',
+    '#title' => t('Access Type'),
+    '#description' => t('The Access Type of the account. Select offline if the site can perform actions even when the user is not online.'),
+    '#options' => array(
+      'offline' => t('Offline'),
+      'online' => t('Online'),
+    ),
+    '#default_value' => isset($account['access_type']) ? $account['access_type'] : 'offline',
+  );
+  $form['callback_url'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Redirect Url'),
+    '#description' => t('Copy this url and paste it in google project as a authorized redirect url.'),
+    '#default_value' => gauth_callback_url(),
+    '#disabled' => TRUE,
   );
   $form['uid'] = array(
     '#type' => 'value',
@@ -143,6 +179,7 @@ function gauth_account_edit_form($form, &$form_state, $id = NULL) {
   );
   return $form;
 }
+
 
 /**
  * Validate handler for adding a new account to google auth accounts.
@@ -157,6 +194,7 @@ function gauth_account_edit_form_validate($form, &$form_state) {
   }
 }
 
+
 /**
  * Submit handler for adding a new account to google auth accounts.
  */
@@ -165,9 +203,10 @@ function gauth_account_edit_form_submit($form, &$form_state) {
   if (!$id['is_authenticated']) {
     gauth_account_authenticate($id['id'], FALSE);
   }
-  backdrop_set_message(t('Api Account saved'));
+  backdrop_set_message(t('API Account saved'));
   $form_state['redirect'] = 'admin/config/services/gauth_account';
 }
+
 
 /**
  * Form builder; Form for deleting an google auth account.
@@ -191,6 +230,7 @@ function gauth_account_delete_form($form, &$form_state, $id) {
   return confirm_form($form, $question, $path, $description, $yes, $no);
 }
 
+
 /**
  * Submit handler to delete an google auth account.
  */
@@ -209,6 +249,7 @@ function gauth_account_delete_form_submit($form, &$form_state) {
   }
   $form_state['redirect'] = 'admin/config/services/gauth_account';
 }
+
 
 /**
  * Form builder; Form for revoking access of an google auth account.
@@ -231,6 +272,7 @@ function gauth_account_token_revoke_form($form, &$form_state, $id) {
   $no = check_plain(t('Cancel'));
   return confirm_form($form, $question, $path, $description, $yes, $no);
 }
+
 
 /**
  * Submit handler to revoke access of an google auth account.

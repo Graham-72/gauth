@@ -1,8 +1,9 @@
 <?php
 /**
  * @file
- * Install and uninstall functions for the Google Auth User module.
+ * Install and uninstall functions for the Google Auth User Services module.
  */
+
 
 /**
  * Implements hook_schema().
@@ -47,6 +48,13 @@ function gauth_user_schema() {
         'description' => 'Services which will be enabled for this account.',
         'type' => 'text',
       ),
+      'access_type' => array(
+        'description' => 'Stores the access type of the account',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => 'offline',
+      ),
     ),
     'primary key' => array('id'),
     'unique keys' => array(
@@ -57,16 +65,54 @@ function gauth_user_schema() {
   return $schema;
 }
 
-/**
- * Implements hook_install().
- */
-function gauth_user_install() {
-  backdrop_install_schema('gauth_user_services');
-}
 
 /**
- * Implements hook_uninstall().
+ * Uninstall function. Remove user permissions upon uninstallation.
+ *
+ * @see user_modules_uninstalled()
+ * @see gauth_user_services_load()
  */
 function gauth_user_uninstall() {
-  backdrop_uninstall_schema('gauth_user_services');
+  // Ordinarily, the user module removes permissions when a module is
+  // uninstalled. However, by the time user_modules_uninstalled() gets called,
+  // the gauth_user_services table is already gone. So we'll remove those
+  // permissions here.
+  require_once 'gauth_user.module';
+  $removed_permissions = array_keys(gauth_user_permission());
+  $roles = user_roles();
+  foreach ($roles as $role_name => $role_label) {
+    user_role_revoke_permissions($role_name, $removed_permissions);
+  }
+}
+
+
+/**
+ * Ensure db column 'access type' is present in table gauth_user_services.
+ */
+function gauth_user_update_1000() {
+  // We'd like to be able to update from any version of Drupal GAuth from 1.4
+  // to 2.0 as well as from the 1.x Backdrop version (which was based on
+  // Drupal 1.4, and didn't have a hook_update_1000() routine). So we'll check
+  // for existence of the various table columns added by the various updates
+  // and add them if needed.
+
+  // From update 7001
+  $lacks_access_type = empty(db_query("
+    SHOW COLUMNS
+    FROM `gauth_user_services`
+    LIKE 'access_type'
+    ")->fetchField());
+  if ($lacks_access_type) {
+    $field = array(
+      'type' => 'varchar',
+      'length' => 255,
+      'not null' => TRUE,
+      'default' => 'offline',
+      'description' => 'Stores the access type of the account.',
+    );
+    db_add_field('gauth_user_services', 'access_type', $field);
+    db_update('gauth_user_services')
+      ->fields(array('access_type' => 'offline'))
+      ->execute();
+  }
 }

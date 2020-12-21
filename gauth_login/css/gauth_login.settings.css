@@ -1,0 +1,5 @@
+/* Position of radio buttons relative to button images on the Settings page */
+#gauth-login-settings .form-item-gauth-login-button-style input {
+  position: relative;
+  top: -17px;
+}

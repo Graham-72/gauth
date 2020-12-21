@@ -1,7 +1,7 @@
-name = Google Auth User Support
-description = "Google Authentication for end user.  This module provides addon feature for end user to authenticate for a service"
+name = Google Auth User Services
+description = "Google Authentication for end user.  This module provides an add-on feature for an end user to authenticate for a Google Service."
 backdrop = 1.x
 type = module
 dependencies[] = gauth
-package = Google Api
+package = Google API
 configure = admin/config/services/gauth_user

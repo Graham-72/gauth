@@ -1,23 +1,9 @@
 <?php
 /**
  * @file
- * Google Auth Api for backdrop.
+ * Google Auth User Services API for Backdrop.
  */
 
-/**
- * Implements hook_help().
- */
-function gauth_user_help($path, $arg) {
-  switch ($path) {
-    case 'admin/help#gauth_user':
-      $path = $GLOBALS['base_url'] . '/' . backdrop_get_path('module', 'gauth');
-      $output = '<h3>' . t('About') . '</h3>';
-      $output .= '<p>' . t("This module allows admin to define services and handle in permissions that which role can authenticate for which google service, this authentication can then be used to carry other api requests on the users account.") . '</p>';
-      $output .= '<h3>' . t('Uses') . '</h3>';
-      $output .= '<p>' . t("This module allows you to enter google account details like client id, client secret key, developer key, select google services to be enabled and creates a tab on my account page for end users to authenticate and fetch OAuth2 access token from google. End user can also revoke access(unauthenticate) a account previously authenticated using the same.") . '</p>';
-      return $output;
-  }
-}
 
 /**
  * Implements hook_menu().
@@ -25,20 +11,20 @@ function gauth_user_help($path, $arg) {
 function gauth_user_menu() {
   $items = array();
   $items['admin/config/services/gauth_user'] = array(
-    'title' => 'Google Account Services Settings',
-    'description' => 'Google Account services settings.',
+    'title' => 'Google auth user services',
+    'description' => 'Configure Google AuthAuth services.',
     'page callback' => 'gauth_user_services_list',
     'access arguments' => array('administer site configuration'),
     'file' => 'gauth_user.admin.inc',
   );
   $items['admin/config/services/gauth_user/add'] = array(
-    'title' => 'Add Account',
+    'title' => 'Add account',
     'description' => 'Google Services Account Add.',
     'page callback' => 'backdrop_get_form',
     'page arguments' => array('gauth_user_services_edit_form'),
     'access arguments' => array('administer site configuration'),
-    'type' => MENU_LOCAL_ACTION,
     'file' => 'gauth_user.admin.inc',
+    'type' => MENU_LOCAL_ACTION,
   );
   $items['admin/config/services/gauth_user/edit/%'] = array(
     'title' => 'Google Services Account Edit',
@@ -83,12 +69,13 @@ function gauth_user_menu() {
     'page arguments' => array(1),
     'access callback' => 'gauth_user_auth_services_enabled',
     'access arguments' => array(1),
-    'type' => MENU_LOCAL_TASK,
     'file' => 'gauth_user.pages.inc',
     'weight' => 100,
+    'type' => MENU_LOCAL_TASK,
   );
   return $items;
 }
+
 
 /**
  * Implements hook_permission().
@@ -97,15 +84,18 @@ function gauth_user_permission() {
   $accounts = gauth_user_services_load();
   // Generate standard services account permissions for all services.
   $perms = array();
-  foreach ($accounts as $type) {
+  foreach ($accounts as $account) {
     $perms += array(
-      "authenticate $type->id gauth services account" => array(
-        'title' => t('%type_name: Authenticate for gauth services account', array('%type_name' => $type->name)),
+      "authenticate $account->id gauth services account" => array(
+        'title' => t('%account_name: Authenticate for gauth services account',
+          array('%account_name' => $account->name)),
       ),
     );
   }
   return $perms;
 }
+
+
 /**
  * Implements hook_theme().
  */
@@ -122,7 +112,10 @@ function gauth_user_theme() {
   );
 }
 
+
 /*** API Functions start ***/
+
+
 /**
  * Get an array of all accounts or load a specific account.
  *
@@ -136,6 +129,14 @@ function gauth_user_theme() {
  * @returns An array of accounts and their details.
  */
 function gauth_user_services_load($account_id = NULL, $by_name = TRUE, $fields = 'gauth_user_services') {
+  // This function gets called via gauth_user_permission() from
+  // user_modules_uninstalled() during uninstallation, which is after the db
+  // table has been dropped. So we'll always check for existence of the table.
+
+  if (empty(db_query("SHOW TABLES LIKE 'gauth_user_services'")->fetchField())) {
+    return array();
+  }
+
   $accounts = array();
   if ($by_name) {
     $filter = 'name';
@@ -162,6 +163,7 @@ function gauth_user_services_load($account_id = NULL, $by_name = TRUE, $fields =
   }
   return $accounts;
 }
+
 
 /**
  * Save an account.
@@ -196,6 +198,9 @@ function gauth_user_services_save(&$account) {
       }
       $fields['services'] = check_plain($account['services']);
     }
+    if (isset($account['access_type'])) {
+      $fields['access_type'] = $account['access_type'];
+    }
     if (backdrop_write_record('gauth_user_services', $fields, 'id') == SAVED_UPDATED) {
       return $fields;
     }
@@ -219,6 +224,7 @@ function gauth_user_services_save(&$account) {
       'developer_key' => check_plain($account['developer_key']),
       'client_id' => check_plain($account['client_id']),
       'client_secret' => check_plain($account['client_secret']),
+      'access_type' => $account['access_type'],
     );
     if (is_array($account['services'])) {
       $account['services'] = implode(",", $account['services']);
@@ -238,8 +244,9 @@ function gauth_user_services_save(&$account) {
   }
 }
 
+
 /**
- * Delete an service account.
+ * Delete a service account.
  *
  * @param string $account_id
  *   Name or id of the account to be deleted
@@ -258,8 +265,9 @@ function gauth_user_services_delete($account_id, $by_name = TRUE) {
     ->execute();
 }
 
+
 /**
- * Function returns the permission or the account types allowed for a user.
+ * Return the permission or the account types allowed for a user.
  */
 function gauth_user_auth_services_enabled($user, $perm = TRUE, $specific_perm = '') {
   if ($perm) {
@@ -300,21 +308,23 @@ function gauth_user_auth_services_enabled($user, $perm = TRUE, $specific_perm = 
   }
 }
 
+
 /**
- * Function returns the access true if the account is owned by the user viewing else false.
+ * Return TRUE if the account is owned by the user viewing, else FALSE.
  */
 function gauth_user_auth_services_access($user, $account_id) {
   $account = gauth_account_load($account_id, FALSE);
   if ($account['uid'] == $user->uid) {
     return TRUE;
   }
-  else{
+  else {
     return FALSE;
   }
 }
 
+
 /**
- * Function return the types of services created.
+ * Return the types of services created.
  */
 function gauth_user_services_types($id = NULL) {
   $accounts = gauth_user_services_load($id, FALSE);

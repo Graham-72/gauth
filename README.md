@@ -1,94 +1,75 @@
 Google Auth
-============
+===========
 
-This 'gauth' module allows you to authenticate with google,
-and use this authentication to carry other api requests.
+This  module allows you to authenticate with Google and use this authentication
+to carry out API requests by other modules, enabling users to manage
+accounts, authenticate with Google (i.e. get an access token) and use this
+authentication to perform API requests.
 
-This module provides functionality for use by other modules,
-enabling users to manage accounts, authenticate with google
-(i.e. get an access token) and use this authentication to
-perform api requests.
+It allows you to enter Google account details like the Client ID, Client Secret
+Key, Developer Key, and to select Google Services to be enabled. It then gets
+the OAuth2 access token from Google.
 
-This module allows you to enter google account details like client id,
-client secret key, developer key, and to select google services to be
-enabled. It then gets the OAuth2 access token from Google.
+The account management page shows an authenticate link if the account is not
+authenticated and a revoke link if the account is authenticated.
 
-The account management page shows a authenticate link if the account
-is not authenticated and revoke link if the account is authenticated.
+This module includes two sub-modules:
 
-This is a port from the Drupal module of the same name. It contains
-two sub-modules: gauth_login and gauth_user.
+* Google Auth Login (`gauth_login`) lets a user login to their Backdrop
+account using their Google login;
 
-
-Requirements
-------------
-
-This module depends on the Google api php client library which you
-need to download and install in your libraries folder.
-
- * [Google api php client library](https://github.com/googleapis/google-api-php-client)
-
+* Google Auth User Support (`gauth_user`) lets a user authenticate for Google
+Services.
 
 Installation
 ------------
 
-- Install this module using the official Backdrop CMS instructions at
-  https://backdropcms.org/guide/modules.
+- Install this module using [the official Backdrop CMS instructions](  https://backdropcms.org/guide/modules).
 
-- Also install the Libraries module for Backdrop and add the Google
-  API client library to your sites libraries folder in a
-  subdirectory 'google-api-php-client'.
+- Visit the configuration page under Administration > Configuration > Web
+Services > Google account settings (admin/config/services/gauth_account) and
+enter the required information.
 
-- The full names of the three component modules which appear in
-  Backdrop's Functionality/Modules listing in a section named
-  'Google API' are:
-  + Google Auth
-  + Google Auth User Support
-  + Google Login Support
-
-- Each of these three component modules has configuration settings.
-
+- You will need to perform corresponding configuration in the Google Developer's
+Console.
 
 Documentation
 -------------
 
-Additional documentation is located in the Wiki:
-https://github.com/backdrop-contrib/gauth/wiki/Documentation.
+Additional documentation is located in [the Wiki](https://github.com/backdrop-contrib/gauth/wiki/Documentation).
 
+Differences from Drupal 7
+-------------------------
+
+The Drupal 7 version required the Libraries module and you needed to install the
+google-api-php-client library in the libraries folder. The Backdrop module does
+not need the Libraries module; the google-api-php-client library is included
+in this module.
 
 Issues
 ------
 
-Bugs and Feature requests should be reported in the Issue Queue:
-https://github.com/backdrop-contrib/gauth/issues.
-
+Bugs and feature requests should be reported in [the Issue Queue](https://github.com/backdrop-contrib/gauth/issues).
 
 Current Maintainers
 -------------------
 
-* [Robert J. Lang](https://github.com/bugfolder)
-
+- [Graham Oliver](https://github.com/Graham-72/)
+- [Robert J. Lang](https://github.com/bugfolder)
 
 Credits
 -------
 
-- Ported to Backdrop CMS by [Graham Oliver](https://github.com/Graham-72)
-- Maintained for Drupal by [Sadashiv Dalvi (sadashiv)](https://github.com/sadashivdalvi)
-
+- 2.x version ported to Backdrop CMS by [Robert J. Lang](https://github.com/bugfolder).
+- 1.x version ported to Backdrop CMS by [Graham Oliver](https://github.com/Graham-72/).
+- Originally written for Drupal by [Sadashiv Dalvi](https://github.com/sadashivdalvi).
 
 License
 -------
 
-This project is GPL v2 software.
+This project is GPL v3 software.
 See the LICENSE.txt file in this directory for complete text.
 
-
-
-
-
-
-
-
-
-
-
+The Google API PHP Client library is released under the Apache 2.0 license. See
+the LICENSE.txt file in the /libraries/google-api-php-client directory for
+complete text.
