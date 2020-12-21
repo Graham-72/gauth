@@ -1,4 +1,5 @@
-# Google Auth
+Google Auth
+============
 
 This 'gauth' module allows you to authenticate with google,
 and use this authentication to carry other api requests.
@@ -18,13 +19,18 @@ is not authenticated and revoke link if the account is authenticated.
 This is a port from the Drupal module of the same name. It contains
 two sub-modules: gauth_login and gauth_user.
 
-## Requirements
+
+Requirements
+------------
 
 This module depends on the Google api php client library which you
 need to download and install in your libraries folder.
 
+ * [Google api php client library](https://github.com/googleapis/google-api-php-client)
 
-## Installation
+
+Installation
+------------
 
 - Install this module using the official Backdrop CMS instructions at
   https://backdropcms.org/guide/modules.
@@ -43,27 +49,46 @@ need to download and install in your libraries folder.
 - Each of these three component modules has configuration settings.
 
 
-## Help & Documentation
+Documentation
+-------------
 
-See readme.txt for more information about installation and use.
+Additional documentation is located in the Wiki:
+https://github.com/backdrop-contrib/gauth/wiki/Documentation.
 
 
-## License
+Issues
+------
 
-This project is GPL v2 software. See the LICENSE.txt file in this directory for complete text.
+Bugs and Feature requests should be reported in the Issue Queue:
+https://github.com/backdrop-contrib/gauth/issues.
+
+
+Current Maintainers
+-------------------
+
+- Seeking maintainers.
+
+
+Credits
+-------
+
+- Ported to Backdrop CMS by [Graham Oliver[(https://github.com/Graham-72)
+- Maintained for Drupal by Sadashiv Dalvi (sadashiv)
+
+
+License
+-------
+
+This project is GPL v2 software. 
+See the LICENSE.txt file in this directory for complete text.
+
+
+
+
+
+
+
     
-        
-## Current porting to Backdrop
 
-Graham Oliver (github.com/Graham-72/)
 
-## Credits
 
-### Maintainer for Drupal:
-
-- Sadashiv Dalvi (sadashiv)
-
-### Acknowledgement
-
-This port to Backdrop would not, of course, be possible without all
-the work done by the developer and maintainer of the Drupal module.
