@@ -12,14 +12,14 @@ function gauth_user_menu() {
   $items = array();
   $items['admin/config/services/gauth_user'] = array(
     'title' => 'Google auth user services',
-    'description' => 'Configure Google AuthAuth services.',
+    'description' => 'Configure Google Auth services.',
     'page callback' => 'gauth_user_services_list',
     'access arguments' => array('administer site configuration'),
     'file' => 'gauth_user.admin.inc',
   );
   $items['admin/config/services/gauth_user/add'] = array(
     'title' => 'Add account',
-    'description' => 'Google Services Account Add.',
+    'description' => 'Add Google Auth services account.',
     'page callback' => 'backdrop_get_form',
     'page arguments' => array('gauth_user_services_edit_form'),
     'access arguments' => array('administer site configuration'),
@@ -27,16 +27,16 @@ function gauth_user_menu() {
     'type' => MENU_LOCAL_ACTION,
   );
   $items['admin/config/services/gauth_user/edit/%'] = array(
-    'title' => 'Google Services Account Edit',
-    'description' => 'Google Services Account Edit.',
+    'title' => 'Edit Google Auth services account',
+    'description' => 'Add or edit a Google Auth services account.',
     'page callback' => 'backdrop_get_form',
     'page arguments' => array('gauth_user_services_edit_form', 5),
     'access arguments' => array('administer site configuration'),
     'file' => 'gauth_user.admin.inc',
   );
   $items['admin/config/services/gauth_user/delete/%'] = array(
-    'title' => 'Google Services Account Delete',
-    'description' => 'Google Services Account delete.',
+    'title' => 'Delete Google Auth services account',
+    'description' => 'Delete a Google Auth services account.',
     'page callback' => 'backdrop_get_form',
     'page arguments' => array('gauth_user_services_delete_form', 5),
     'access arguments' => array('administer site configuration'),
@@ -64,7 +64,7 @@ function gauth_user_menu() {
     'file' => 'gauth_user.pages.inc',
   );
   $items['user/%user/gauth'] = array(
-    'title' => 'Gauth Services Authentication',
+    'title' => 'Google Auth services authentication',
     'page callback' => 'gauth_user_services_authenticate',
     'page arguments' => array(1),
     'access callback' => 'gauth_user_auth_services_enabled',

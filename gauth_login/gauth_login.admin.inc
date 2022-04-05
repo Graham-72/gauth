@@ -12,8 +12,6 @@
  *   An array containing form items to place on the module settings page.
  */
 function gauth_login_settings() {
-  backdrop_set_title(t('Google Auth Login'));
-
   $config = config('gauth_login.settings');
   $form['#config'] = 'gauth_login.settings';
 

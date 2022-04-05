@@ -9,8 +9,6 @@
  * Menu callback; Listing of all current API accounts.
  */
 function gauth_account_list() {
-  backdrop_set_title(t('Google Auth Accounts'));
-
   $query = db_select('gauth_accounts', 'ga')->extend('PagerDefault');
   $query->fields('ga');
 
@@ -100,10 +98,10 @@ function theme_gauth_account_list($variables) {
  */
 function gauth_account_edit_form($form, &$form_state, $id = NULL) {
   if ($id) {
-    backdrop_set_title(t('Google Auth Edit Account'));
+    backdrop_set_title(t('Edit Google Auth account'));
   }
   else {
-    backdrop_set_title(t('Google Auth Add Account'));
+    backdrop_set_title(t('Add Google Auth account'));
   }
 
   $form['id'] = array(

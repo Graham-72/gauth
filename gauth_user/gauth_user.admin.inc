@@ -9,8 +9,6 @@
  * Menu callback; Listing of all current services accounts.
  */
 function gauth_user_services_list() {
-  backdrop_set_title(t('Google Auth User Services'));
-
   $query = db_select('gauth_user_services', 'gu')->extend('PagerDefault');
   $query->fields('gu');
 
@@ -93,10 +91,10 @@ function theme_gauth_user_services_list($variables) {
  */
 function gauth_user_services_edit_form($form, &$form_state, $id = NULL) {
   if ($id) {
-    backdrop_set_title(t('Edit Google Auth User Services'));
+    backdrop_set_title(t('Edit Google Auth user services'));
   }
   else {
-    backdrop_set_title(t('Add Google Auth User Services'));
+    backdrop_set_title(t('Add Google Auth user services'));
   }
 
   $account = array();
