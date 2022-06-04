@@ -33,11 +33,6 @@ enter the required information.
 - You will need to perform corresponding configuration in the Google Developer's
 Console.
 
-Documentation
--------------
-
-Additional documentation is located in [the Wiki](https://github.com/backdrop-contrib/gauth/wiki/Documentation).
-
 Differences from Drupal 7
 -------------------------
 
