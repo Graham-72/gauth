@@ -242,7 +242,7 @@ function gauth_google_services_names($services = FALSE) {
  */
 function _gauth_read_scope_info() {
   gauth_load_google_api();
-  $path = backdrop_get_path('module', 'gauth') . '/libraries/google-api-php-client/vendor/google/apiclient-services/src/Google/Service/';
+  $path = backdrop_get_path('module', 'gauth') . '/libraries/google-api-php-client/vendor/google/apiclient-services/src/';
   $files = scandir($path);
   $names = array(
     'abusiveexperiencereport' => 'Abusive Experience Report API',
