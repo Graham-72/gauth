@@ -16,7 +16,6 @@ function gauth_user_services_authenticate($user) {
   return $page;
 }
 
-
 /**
  * Returns HTML for the page containing the list of services accounts.
  *
@@ -55,7 +54,6 @@ function theme_gauth_user_services_authenticate_list($variables) {
   return theme('table', array('header' => $header, 'rows' => $rows));
 }
 
-
 /**
  * Function creates a service account of the specified type.
  */
@@ -73,7 +71,6 @@ function gauth_user_services_user_account_create($type) {
   gauth_account_authenticate($type . '|' . $GLOBALS['user']->uid, TRUE);
 }
 
-
 /**
  * Function returns a form to confirm delete of account.
  */
@@ -89,7 +86,6 @@ function gauth_user_services_user_account_delete($form, &$form_state, $account_i
   $no = check_plain(t('Cancel'));
   return confirm_form($form, $question, $path, $description, $yes, $no);
 }
-
 
 /**
  * Delete account form submit handler.
@@ -110,7 +106,6 @@ function gauth_user_services_user_account_delete_submit($form, &$form_state) {
   $form_state['redirect'] =  'user/' . arg(1) . '/gauth';
 }
 
-
 /**
  * Function returns a form to confirm revoke access token of account.
  */
@@ -126,7 +121,6 @@ function gauth_user_services_user_account_revoke($form, &$form_state, $account_i
   $no = check_plain(t('Cancel'));
   return confirm_form($form, $question, $path, $description, $yes, $no);
 }
-
 
 /**
  * Revoke access form submit handler

@@ -4,7 +4,6 @@
  * Install and uninstall functions for the Google OAuth module.
  */
 
-
 /**
  * Implements hook_schema().
  */
@@ -85,7 +84,6 @@ function gauth_schema() {
   return $schema;
 }
 
-
 /**
  * Convert Google Auth variables to config settings.
  */
@@ -97,7 +95,6 @@ function gauth_update_1000() {
   update_variable_del('gauth_google_api_services');
 
 }
-
 
 /**
  * Update table gauth_accounts and add cache table if needed.

@@ -4,7 +4,6 @@
  * Administration pages for Google OAuth settings.
  */
 
-
 /**
  * Menu callback; Listing of all current API accounts.
  */
@@ -17,7 +16,6 @@ function gauth_account_list() {
     ->execute();
   return theme('gauth_account_list', array('accounts' => $accounts));
 }
-
 
 /**
  * Returns HTML for the page containing the list of accounts.
@@ -82,7 +80,6 @@ function theme_gauth_account_list($variables) {
 
   return $build;
 }
-
 
 /**
  * Form builder; Edit an account.
@@ -178,7 +175,6 @@ function gauth_account_edit_form($form, &$form_state, $id = NULL) {
   return $form;
 }
 
-
 /**
  * Validate handler for adding a new account to google auth accounts.
  */
@@ -192,7 +188,6 @@ function gauth_account_edit_form_validate($form, &$form_state) {
   }
 }
 
-
 /**
  * Submit handler for adding a new account to google auth accounts.
  */
@@ -204,7 +199,6 @@ function gauth_account_edit_form_submit($form, &$form_state) {
   backdrop_set_message(t('API Account saved'));
   $form_state['redirect'] = 'admin/config/services/gauth_account';
 }
-
 
 /**
  * Form builder; Form for deleting an google auth account.
@@ -228,7 +222,6 @@ function gauth_account_delete_form($form, &$form_state, $id) {
   return confirm_form($form, $question, $path, $description, $yes, $no);
 }
 
-
 /**
  * Submit handler to delete an google auth account.
  */
@@ -247,7 +240,6 @@ function gauth_account_delete_form_submit($form, &$form_state) {
   }
   $form_state['redirect'] = 'admin/config/services/gauth_account';
 }
-
 
 /**
  * Form builder; Form for revoking access of an google auth account.
@@ -270,7 +262,6 @@ function gauth_account_token_revoke_form($form, &$form_state, $id) {
   $no = check_plain(t('Cancel'));
   return confirm_form($form, $question, $path, $description, $yes, $no);
 }
-
 
 /**
  * Submit handler to revoke access of an google auth account.

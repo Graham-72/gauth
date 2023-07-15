@@ -4,7 +4,6 @@
  * Install and uninstall functions for the Google Auth Login module.
  */
 
-
 /**
  * Implements hook_schema().
  */
@@ -39,7 +38,6 @@ function gauth_login_schema() {
   return $schema;
 }
 
-
 /**
  * Convert Google Auth Login variables to config settings.
  */
@@ -69,7 +67,6 @@ function gauth_login_update_1000() {
   update_variable_del('gauth_login_create_user');
   update_variable_del('gauth_login_create_user_not_allowed_message');
 }
-
 
 /**
  * Add "Sign in with Google" button style option to Google Auth settings.

@@ -4,7 +4,6 @@
  * Install and uninstall functions for the Google Auth User Services module.
  */
 
-
 /**
  * Implements hook_schema().
  */
@@ -65,7 +64,6 @@ function gauth_user_schema() {
   return $schema;
 }
 
-
 /**
  * Uninstall function. Remove user permissions upon uninstallation.
  *
@@ -84,7 +82,6 @@ function gauth_user_uninstall() {
     user_role_revoke_permissions($role_name, $removed_permissions);
   }
 }
-
 
 /**
  * Ensure db column 'access type' is present in table gauth_user_services.

@@ -4,7 +4,6 @@
  * Administration pages for Google Auth User Services.
  */
 
-
 /**
  * Menu callback; Listing of all current services accounts.
  */
@@ -17,7 +16,6 @@ function gauth_user_services_list() {
     ->execute();
   return theme('gauth_user_services_list', array('accounts' => $accounts));
 }
-
 
 /**
  * Return HTML for the page containing the list of accounts.
@@ -75,7 +73,6 @@ function theme_gauth_user_services_list($variables) {
 
   return $build;
 }
-
 
 /**
  * Form builder: Edit a services account.
@@ -178,7 +175,6 @@ function gauth_user_services_edit_form($form, &$form_state, $id = NULL) {
   return $form;
 }
 
-
 /**
  * Validate handler for adding a new account to Google Auth User Services accounts.
  */
@@ -193,7 +189,6 @@ function gauth_user_services_edit_form_validate($form, &$form_state) {
   }
 }
 
-
 /**
  * Submit handler for adding a new account to Google Auth User Services accounts.
  */
@@ -207,7 +202,6 @@ function gauth_user_services_edit_form_submit($form, &$form_state) {
         array('fragment' => 'module-gauth_user')))));
   $form_state['redirect'] = 'admin/config/services/gauth_user';
 }
-
 
 /**
  * Form builder: Form for deleting a Google Auth User Services account.
@@ -230,7 +224,6 @@ function gauth_user_services_delete_form($form, &$form_state, $id) {
   $no = check_plain(t('Cancel'));
   return confirm_form($form, $question, $path, $description, $yes, $no);
 }
-
 
 /**
  * Submit handler to delete a Google Auth User Services account.

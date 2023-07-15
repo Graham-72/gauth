@@ -4,7 +4,6 @@
  * Google Auth User Services API for Backdrop.
  */
 
-
 /**
  * Implements hook_menu().
  */
@@ -76,7 +75,6 @@ function gauth_user_menu() {
   return $items;
 }
 
-
 /**
  * Implements hook_permission().
  */
@@ -95,7 +93,6 @@ function gauth_user_permission() {
   return $perms;
 }
 
-
 /**
  * Implements hook_theme().
  */
@@ -112,9 +109,7 @@ function gauth_user_theme() {
   );
 }
 
-
 /*** API Functions start ***/
-
 
 /**
  * Get an array of all accounts or load a specific account.
@@ -163,7 +158,6 @@ function gauth_user_services_load($account_id = NULL, $by_name = TRUE, $fields =
   }
   return $accounts;
 }
-
 
 /**
  * Save an account.
@@ -244,7 +238,6 @@ function gauth_user_services_save(&$account) {
   }
 }
 
-
 /**
  * Delete a service account.
  *
@@ -264,7 +257,6 @@ function gauth_user_services_delete($account_id, $by_name = TRUE) {
     ->condition($filter, $account_id, '=')
     ->execute();
 }
-
 
 /**
  * Return the permission or the account types allowed for a user.
@@ -308,7 +300,6 @@ function gauth_user_auth_services_enabled($user, $perm = TRUE, $specific_perm = 
   }
 }
 
-
 /**
  * Return TRUE if the account is owned by the user viewing, else FALSE.
  */
@@ -321,7 +312,6 @@ function gauth_user_auth_services_access($user, $account_id) {
     return FALSE;
   }
 }
-
 
 /**
  * Return the types of services created.

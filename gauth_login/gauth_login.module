@@ -4,7 +4,6 @@
  * Google Auth Login API for Backdrop.
  */
 
-
 /**
  * Implements hook_menu().
  */
@@ -21,7 +20,6 @@ function gauth_login_menu() {
   return $items;
 }
 
-
 /**
  * Implements hook_config_info().
  */
@@ -32,7 +30,6 @@ function gauth_login_config_info() {
   );
   return $prefixes;
 }
-
 
 /**
  * Implements hook_gauth_google_response().
@@ -126,7 +123,6 @@ function gauth_login_gauth_google_response() {
   }
 }
 
-
 /**
  * Find an existing user based on info from Google.
  *
@@ -149,7 +145,6 @@ function gauth_login_find_existing_user($info) {
     }
   }
 }
-
 
 /**
  * Implements hook_form_alter().
@@ -175,7 +170,6 @@ function gauth_login_form_alter(&$form, &$form_state, $form_id) {
     );
   }
 }
-
 
 /**
  * Login using Google, submit handler.
@@ -221,7 +215,6 @@ function gauth_login_user_login_submit() {
   }
 }
 
-
 /**
  * Implements hook_user_delete().
  */
@@ -230,7 +223,6 @@ function gauth_login_user_delete($user) {
     ->condition('uid', $user->uid)
     ->execute();
 }
-
 
 /**
  * Return uid of passed Google id.

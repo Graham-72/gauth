@@ -4,7 +4,6 @@
  * Administration pages for GAuth Login settings.
  */
 
-
 /**
  * Administrative settings.
  *
@@ -97,7 +96,6 @@ function gauth_login_settings() {
   );
   return system_settings_form($form);
 }
-
 
 /**
  * Validation handler for login settings.

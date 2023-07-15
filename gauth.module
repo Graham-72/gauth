@@ -4,7 +4,6 @@
  * Google Auth API for Backdrop.
  */
 
-
 /**
  * Implements hook_menu().
  */
@@ -48,7 +47,7 @@ function gauth_menu() {
     'type' => MENU_CALLBACK,
   );
   $items['gauth/revoke_token/%'] = array(
-    'title' => 'Google account token tevoke',
+    'title' => 'Google account token revoke',
     'description' => 'Revoke a access token.',
     'page callback' => 'backdrop_get_form',
     'page arguments' => array('gauth_account_token_revoke_form', 2),
@@ -57,7 +56,6 @@ function gauth_menu() {
   );
   return $items;
 }
-
 
 /**
  * Implements hook_theme().
@@ -71,7 +69,6 @@ function gauth_theme() {
   );
 }
 
-
 /**
  * Implements hook_user_delete().
  */
@@ -81,7 +78,6 @@ function gauth_user_delete($user) {
     gauth_account_delete($gauth_account);
   }
 }
-
 
 /**
  * Implements hook_menu_site_status_alter().
@@ -95,7 +91,6 @@ function gauth_menu_site_status_alter(&$menu_site_status, $path) {
   }
 }
 
-
 /**
  * Implements hook_flush_caches().
  */
@@ -104,7 +99,6 @@ function gauth_flush_caches() {
     return array('cache_gauth_scopes');
   }
 }
-
 
 /**
  * Implements hook_config_info().
@@ -117,7 +111,6 @@ function gauth_config_info() {
   return $prefixes;
 }
 
-
 /**
  * Load the GAuth API.
  */
@@ -125,7 +118,6 @@ function gauth_load_google_api() {
   require_once backdrop_get_path('module', 'gauth') .
     '/libraries/google-api-php-client/vendor/autoload.php';
 }
-
 
 /**
  * Function to handle authentication and response from google.
@@ -181,7 +173,6 @@ function gauth_response_handler($account_id = NULL) {
   module_invoke_all('gauth_google_response');
 }
 
-
 /**
  * Returns a array services api versions.
  */
@@ -209,7 +200,6 @@ function gauth_google_services_scopes($services) {
   }
 }
 
-
 /**
  * Returns an array of services api names.
  */
@@ -230,7 +220,6 @@ function gauth_google_services_names($services = FALSE) {
     return $service_names;
   }
 }
-
 
 /**
  * Helper function which reads the installed library and discovery api to build
@@ -445,7 +434,6 @@ function _gauth_read_scope_info() {
   return $scopes;
 }
 
-
 /**
  * Checks https settings and returns appropriate callback url.
  */
@@ -454,9 +442,7 @@ function gauth_callback_url() {
   return url('gauth/response_handler', array('https' => $is_https, 'absolute' => TRUE));
 }
 
-
 /*** API Functions start ***/
-
 
 /**
  * Get an array of all accounts or load a specific account.
@@ -497,7 +483,6 @@ function gauth_account_load($account_id = NULL, $by_name = TRUE, $fields = 'gaut
   }
   return $accounts;
 }
-
 
 /**
  * Save an account.
@@ -616,7 +601,6 @@ function gauth_account_save(&$account) {
   }
 }
 
-
 /**
  * Delete an account.
  *
@@ -639,7 +623,6 @@ function gauth_account_delete($account_id, $by_name = TRUE) {
     ->execute();
 }
 
-
 /**
  * Check if an account is authenticated or not.
  *
@@ -651,7 +634,6 @@ function gauth_account_delete($account_id, $by_name = TRUE) {
 function gauth_account_is_authenticated($account_id, $by_name = TRUE) {
   return gauth_account_load($account_id, $by_name, array('is_authenticated'));
 }
-
 
 /**
  * Get Google_client object of an account.
@@ -721,7 +703,6 @@ function gauth_client_get($account_id = NULL, $by_name = TRUE) {
   return $client;
 }
 
-
 /**
  * Authenticate a google account.
  *
@@ -739,7 +720,6 @@ function gauth_account_authenticate($account_id, $by_name) {
     gauth_response_handler($account_id);
   }
 }
-
 
 /**
  * Unauthenticate an account.
