@@ -144,6 +144,7 @@ function gauth_account_edit_form($form, &$form_state, $id = NULL) {
     '#description' => t('Services that will be enabled to be used by this account.'),
     '#options' => $options,
     '#multiple' => TRUE,
+    '#size' => 15,
     '#default_value' => isset($account['services']) ? explode(",", $account['services']) : array(),
     '#required' => TRUE,
   );
