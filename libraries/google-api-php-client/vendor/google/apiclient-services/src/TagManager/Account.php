@@ -24,6 +24,12 @@ class Account extends \Google\Model
    */
   public $accountId;
   /**
+   * @var AccountFeatures
+   */
+  public $features;
+  protected $featuresType = AccountFeatures::class;
+  protected $featuresDataType = '';
+  /**
    * @var string
    */
   public $fingerprint;
@@ -57,6 +63,20 @@ class Account extends \Google\Model
   public function getAccountId()
   {
     return $this->accountId;
+  }
+  /**
+   * @param AccountFeatures
+   */
+  public function setFeatures(AccountFeatures $features)
+  {
+    $this->features = $features;
+  }
+  /**
+   * @return AccountFeatures
+   */
+  public function getFeatures()
+  {
+    return $this->features;
   }
   /**
    * @param string

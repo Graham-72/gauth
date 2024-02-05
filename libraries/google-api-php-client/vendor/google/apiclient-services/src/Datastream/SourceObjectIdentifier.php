@@ -19,10 +19,24 @@ namespace Google\Service\Datastream;
 
 class SourceObjectIdentifier extends \Google\Model
 {
+  /**
+   * @var MysqlObjectIdentifier
+   */
+  public $mysqlIdentifier;
   protected $mysqlIdentifierType = MysqlObjectIdentifier::class;
   protected $mysqlIdentifierDataType = '';
+  /**
+   * @var OracleObjectIdentifier
+   */
+  public $oracleIdentifier;
   protected $oracleIdentifierType = OracleObjectIdentifier::class;
   protected $oracleIdentifierDataType = '';
+  /**
+   * @var PostgresqlObjectIdentifier
+   */
+  public $postgresqlIdentifier;
+  protected $postgresqlIdentifierType = PostgresqlObjectIdentifier::class;
+  protected $postgresqlIdentifierDataType = '';
 
   /**
    * @param MysqlObjectIdentifier
@@ -51,6 +65,20 @@ class SourceObjectIdentifier extends \Google\Model
   public function getOracleIdentifier()
   {
     return $this->oracleIdentifier;
+  }
+  /**
+   * @param PostgresqlObjectIdentifier
+   */
+  public function setPostgresqlIdentifier(PostgresqlObjectIdentifier $postgresqlIdentifier)
+  {
+    $this->postgresqlIdentifier = $postgresqlIdentifier;
+  }
+  /**
+   * @return PostgresqlObjectIdentifier
+   */
+  public function getPostgresqlIdentifier()
+  {
+    return $this->postgresqlIdentifier;
   }
 }
 

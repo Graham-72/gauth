@@ -19,12 +19,38 @@ namespace Google\Service\Datastream;
 
 class OracleSourceConfig extends \Google\Model
 {
+  /**
+   * @var DropLargeObjects
+   */
+  public $dropLargeObjects;
   protected $dropLargeObjectsType = DropLargeObjects::class;
   protected $dropLargeObjectsDataType = '';
+  /**
+   * @var OracleRdbms
+   */
+  public $excludeObjects;
   protected $excludeObjectsType = OracleRdbms::class;
   protected $excludeObjectsDataType = '';
+  /**
+   * @var OracleRdbms
+   */
+  public $includeObjects;
   protected $includeObjectsType = OracleRdbms::class;
   protected $includeObjectsDataType = '';
+  /**
+   * @var int
+   */
+  public $maxConcurrentBackfillTasks;
+  /**
+   * @var int
+   */
+  public $maxConcurrentCdcTasks;
+  /**
+   * @var StreamLargeObjects
+   */
+  public $streamLargeObjects;
+  protected $streamLargeObjectsType = StreamLargeObjects::class;
+  protected $streamLargeObjectsDataType = '';
 
   /**
    * @param DropLargeObjects
@@ -67,6 +93,48 @@ class OracleSourceConfig extends \Google\Model
   public function getIncludeObjects()
   {
     return $this->includeObjects;
+  }
+  /**
+   * @param int
+   */
+  public function setMaxConcurrentBackfillTasks($maxConcurrentBackfillTasks)
+  {
+    $this->maxConcurrentBackfillTasks = $maxConcurrentBackfillTasks;
+  }
+  /**
+   * @return int
+   */
+  public function getMaxConcurrentBackfillTasks()
+  {
+    return $this->maxConcurrentBackfillTasks;
+  }
+  /**
+   * @param int
+   */
+  public function setMaxConcurrentCdcTasks($maxConcurrentCdcTasks)
+  {
+    $this->maxConcurrentCdcTasks = $maxConcurrentCdcTasks;
+  }
+  /**
+   * @return int
+   */
+  public function getMaxConcurrentCdcTasks()
+  {
+    return $this->maxConcurrentCdcTasks;
+  }
+  /**
+   * @param StreamLargeObjects
+   */
+  public function setStreamLargeObjects(StreamLargeObjects $streamLargeObjects)
+  {
+    $this->streamLargeObjects = $streamLargeObjects;
+  }
+  /**
+   * @return StreamLargeObjects
+   */
+  public function getStreamLargeObjects()
+  {
+    return $this->streamLargeObjects;
   }
 }
 

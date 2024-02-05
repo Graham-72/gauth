@@ -1,1 +1,0 @@
-This version is release 2.12.5, google-api-php-client--PHP5.6.

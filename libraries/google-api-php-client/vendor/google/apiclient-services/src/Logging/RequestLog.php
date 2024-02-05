@@ -65,6 +65,10 @@ class RequestLog extends \Google\Collection
    * @var string
    */
   public $latency;
+  /**
+   * @var LogLine[]
+   */
+  public $line;
   protected $lineType = LogLine::class;
   protected $lineDataType = 'array';
   /**
@@ -103,8 +107,16 @@ class RequestLog extends \Google\Collection
    * @var string
    */
   public $responseSize;
+  /**
+   * @var SourceReference[]
+   */
+  public $sourceReference;
   protected $sourceReferenceType = SourceReference::class;
   protected $sourceReferenceDataType = 'array';
+  /**
+   * @var string
+   */
+  public $spanId;
   /**
    * @var string
    */
@@ -461,6 +473,20 @@ class RequestLog extends \Google\Collection
   public function getSourceReference()
   {
     return $this->sourceReference;
+  }
+  /**
+   * @param string
+   */
+  public function setSpanId($spanId)
+  {
+    $this->spanId = $spanId;
+  }
+  /**
+   * @return string
+   */
+  public function getSpanId()
+  {
+    return $this->spanId;
   }
   /**
    * @param string

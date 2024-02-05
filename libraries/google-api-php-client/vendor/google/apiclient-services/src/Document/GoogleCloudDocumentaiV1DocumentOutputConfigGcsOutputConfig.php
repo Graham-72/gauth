@@ -22,8 +22,32 @@ class GoogleCloudDocumentaiV1DocumentOutputConfigGcsOutputConfig extends \Google
   /**
    * @var string
    */
+  public $fieldMask;
+  /**
+   * @var string
+   */
   public $gcsUri;
+  /**
+   * @var GoogleCloudDocumentaiV1DocumentOutputConfigGcsOutputConfigShardingConfig
+   */
+  public $shardingConfig;
+  protected $shardingConfigType = GoogleCloudDocumentaiV1DocumentOutputConfigGcsOutputConfigShardingConfig::class;
+  protected $shardingConfigDataType = '';
 
+  /**
+   * @param string
+   */
+  public function setFieldMask($fieldMask)
+  {
+    $this->fieldMask = $fieldMask;
+  }
+  /**
+   * @return string
+   */
+  public function getFieldMask()
+  {
+    return $this->fieldMask;
+  }
   /**
    * @param string
    */
@@ -37,6 +61,20 @@ class GoogleCloudDocumentaiV1DocumentOutputConfigGcsOutputConfig extends \Google
   public function getGcsUri()
   {
     return $this->gcsUri;
+  }
+  /**
+   * @param GoogleCloudDocumentaiV1DocumentOutputConfigGcsOutputConfigShardingConfig
+   */
+  public function setShardingConfig(GoogleCloudDocumentaiV1DocumentOutputConfigGcsOutputConfigShardingConfig $shardingConfig)
+  {
+    $this->shardingConfig = $shardingConfig;
+  }
+  /**
+   * @return GoogleCloudDocumentaiV1DocumentOutputConfigGcsOutputConfigShardingConfig
+   */
+  public function getShardingConfig()
+  {
+    return $this->shardingConfig;
   }
 }
 

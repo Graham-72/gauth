@@ -17,10 +17,31 @@
 
 namespace Google\Service\ChromeManagement;
 
-class GoogleChromeManagementV1GraphicsInfo extends \Google\Model
+class GoogleChromeManagementV1GraphicsInfo extends \Google\Collection
 {
+  protected $collection_key = 'displayDevices';
+  /**
+   * @var GoogleChromeManagementV1GraphicsAdapterInfo
+   */
+  public $adapterInfo;
   protected $adapterInfoType = GoogleChromeManagementV1GraphicsAdapterInfo::class;
   protected $adapterInfoDataType = '';
+  /**
+   * @var GoogleChromeManagementV1DisplayDevice[]
+   */
+  public $displayDevices;
+  protected $displayDevicesType = GoogleChromeManagementV1DisplayDevice::class;
+  protected $displayDevicesDataType = 'array';
+  /**
+   * @var bool
+   */
+  public $eprivacySupported;
+  /**
+   * @var GoogleChromeManagementV1TouchScreenInfo
+   */
+  public $touchScreenInfo;
+  protected $touchScreenInfoType = GoogleChromeManagementV1TouchScreenInfo::class;
+  protected $touchScreenInfoDataType = '';
 
   /**
    * @param GoogleChromeManagementV1GraphicsAdapterInfo
@@ -35,6 +56,48 @@ class GoogleChromeManagementV1GraphicsInfo extends \Google\Model
   public function getAdapterInfo()
   {
     return $this->adapterInfo;
+  }
+  /**
+   * @param GoogleChromeManagementV1DisplayDevice[]
+   */
+  public function setDisplayDevices($displayDevices)
+  {
+    $this->displayDevices = $displayDevices;
+  }
+  /**
+   * @return GoogleChromeManagementV1DisplayDevice[]
+   */
+  public function getDisplayDevices()
+  {
+    return $this->displayDevices;
+  }
+  /**
+   * @param bool
+   */
+  public function setEprivacySupported($eprivacySupported)
+  {
+    $this->eprivacySupported = $eprivacySupported;
+  }
+  /**
+   * @return bool
+   */
+  public function getEprivacySupported()
+  {
+    return $this->eprivacySupported;
+  }
+  /**
+   * @param GoogleChromeManagementV1TouchScreenInfo
+   */
+  public function setTouchScreenInfo(GoogleChromeManagementV1TouchScreenInfo $touchScreenInfo)
+  {
+    $this->touchScreenInfo = $touchScreenInfo;
+  }
+  /**
+   * @return GoogleChromeManagementV1TouchScreenInfo
+   */
+  public function getTouchScreenInfo()
+  {
+    return $this->touchScreenInfo;
   }
 }
 

@@ -25,9 +25,17 @@ class GoogleCloudRunV2Execution extends \Google\Collection
    */
   public $annotations;
   /**
+   * @var int
+   */
+  public $cancelledCount;
+  /**
    * @var string
    */
   public $completionTime;
+  /**
+   * @var GoogleCloudRunV2Condition[]
+   */
+  public $conditions;
   protected $conditionsType = GoogleCloudRunV2Condition::class;
   protected $conditionsDataType = 'array';
   /**
@@ -69,6 +77,10 @@ class GoogleCloudRunV2Execution extends \Google\Collection
   /**
    * @var string
    */
+  public $logUri;
+  /**
+   * @var string
+   */
   public $name;
   /**
    * @var string
@@ -85,7 +97,15 @@ class GoogleCloudRunV2Execution extends \Google\Collection
   /**
    * @var int
    */
+  public $retriedCount;
+  /**
+   * @var int
+   */
   public $runningCount;
+  /**
+   * @var bool
+   */
+  public $satisfiesPzs;
   /**
    * @var string
    */
@@ -98,6 +118,10 @@ class GoogleCloudRunV2Execution extends \Google\Collection
    * @var int
    */
   public $taskCount;
+  /**
+   * @var GoogleCloudRunV2TaskTemplate
+   */
+  public $template;
   protected $templateType = GoogleCloudRunV2TaskTemplate::class;
   protected $templateDataType = '';
   /**
@@ -122,6 +146,20 @@ class GoogleCloudRunV2Execution extends \Google\Collection
   public function getAnnotations()
   {
     return $this->annotations;
+  }
+  /**
+   * @param int
+   */
+  public function setCancelledCount($cancelledCount)
+  {
+    $this->cancelledCount = $cancelledCount;
+  }
+  /**
+   * @return int
+   */
+  public function getCancelledCount()
+  {
+    return $this->cancelledCount;
   }
   /**
    * @param string
@@ -280,6 +318,20 @@ class GoogleCloudRunV2Execution extends \Google\Collection
   /**
    * @param string
    */
+  public function setLogUri($logUri)
+  {
+    $this->logUri = $logUri;
+  }
+  /**
+   * @return string
+   */
+  public function getLogUri()
+  {
+    return $this->logUri;
+  }
+  /**
+   * @param string
+   */
   public function setName($name)
   {
     $this->name = $name;
@@ -336,6 +388,20 @@ class GoogleCloudRunV2Execution extends \Google\Collection
   /**
    * @param int
    */
+  public function setRetriedCount($retriedCount)
+  {
+    $this->retriedCount = $retriedCount;
+  }
+  /**
+   * @return int
+   */
+  public function getRetriedCount()
+  {
+    return $this->retriedCount;
+  }
+  /**
+   * @param int
+   */
   public function setRunningCount($runningCount)
   {
     $this->runningCount = $runningCount;
@@ -346,6 +412,20 @@ class GoogleCloudRunV2Execution extends \Google\Collection
   public function getRunningCount()
   {
     return $this->runningCount;
+  }
+  /**
+   * @param bool
+   */
+  public function setSatisfiesPzs($satisfiesPzs)
+  {
+    $this->satisfiesPzs = $satisfiesPzs;
+  }
+  /**
+   * @return bool
+   */
+  public function getSatisfiesPzs()
+  {
+    return $this->satisfiesPzs;
   }
   /**
    * @param string

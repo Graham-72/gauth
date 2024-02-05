@@ -19,6 +19,10 @@ namespace Google\Service\CloudHealthcare;
 
 class DeidentifyFhirStoreRequest extends \Google\Model
 {
+  /**
+   * @var DeidentifyConfig
+   */
+  public $config;
   protected $configType = DeidentifyConfig::class;
   protected $configDataType = '';
   /**
@@ -29,8 +33,16 @@ class DeidentifyFhirStoreRequest extends \Google\Model
    * @var string
    */
   public $gcsConfigUri;
+  /**
+   * @var FhirFilter
+   */
+  public $resourceFilter;
   protected $resourceFilterType = FhirFilter::class;
   protected $resourceFilterDataType = '';
+  /**
+   * @var bool
+   */
+  public $skipModifiedResources;
 
   /**
    * @param DeidentifyConfig
@@ -87,6 +99,20 @@ class DeidentifyFhirStoreRequest extends \Google\Model
   public function getResourceFilter()
   {
     return $this->resourceFilter;
+  }
+  /**
+   * @param bool
+   */
+  public function setSkipModifiedResources($skipModifiedResources)
+  {
+    $this->skipModifiedResources = $skipModifiedResources;
+  }
+  /**
+   * @return bool
+   */
+  public function getSkipModifiedResources()
+  {
+    return $this->skipModifiedResources;
   }
 }
 

@@ -20,6 +20,12 @@ namespace Google\Service\CloudSearch;
 class IntegerPropertyOptions extends \Google\Model
 {
   /**
+   * @var IntegerFacetingOptions
+   */
+  public $integerFacetingOptions;
+  protected $integerFacetingOptionsType = IntegerFacetingOptions::class;
+  protected $integerFacetingOptionsDataType = '';
+  /**
    * @var string
    */
   public $maximumValue;
@@ -27,6 +33,10 @@ class IntegerPropertyOptions extends \Google\Model
    * @var string
    */
   public $minimumValue;
+  /**
+   * @var IntegerOperatorOptions
+   */
+  public $operatorOptions;
   protected $operatorOptionsType = IntegerOperatorOptions::class;
   protected $operatorOptionsDataType = '';
   /**
@@ -34,6 +44,20 @@ class IntegerPropertyOptions extends \Google\Model
    */
   public $orderedRanking;
 
+  /**
+   * @param IntegerFacetingOptions
+   */
+  public function setIntegerFacetingOptions(IntegerFacetingOptions $integerFacetingOptions)
+  {
+    $this->integerFacetingOptions = $integerFacetingOptions;
+  }
+  /**
+   * @return IntegerFacetingOptions
+   */
+  public function getIntegerFacetingOptions()
+  {
+    return $this->integerFacetingOptions;
+  }
   /**
    * @param string
    */

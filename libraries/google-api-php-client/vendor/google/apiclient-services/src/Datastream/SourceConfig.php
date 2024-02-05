@@ -19,10 +19,24 @@ namespace Google\Service\Datastream;
 
 class SourceConfig extends \Google\Model
 {
+  /**
+   * @var MysqlSourceConfig
+   */
+  public $mysqlSourceConfig;
   protected $mysqlSourceConfigType = MysqlSourceConfig::class;
   protected $mysqlSourceConfigDataType = '';
+  /**
+   * @var OracleSourceConfig
+   */
+  public $oracleSourceConfig;
   protected $oracleSourceConfigType = OracleSourceConfig::class;
   protected $oracleSourceConfigDataType = '';
+  /**
+   * @var PostgresqlSourceConfig
+   */
+  public $postgresqlSourceConfig;
+  protected $postgresqlSourceConfigType = PostgresqlSourceConfig::class;
+  protected $postgresqlSourceConfigDataType = '';
   /**
    * @var string
    */
@@ -55,6 +69,20 @@ class SourceConfig extends \Google\Model
   public function getOracleSourceConfig()
   {
     return $this->oracleSourceConfig;
+  }
+  /**
+   * @param PostgresqlSourceConfig
+   */
+  public function setPostgresqlSourceConfig(PostgresqlSourceConfig $postgresqlSourceConfig)
+  {
+    $this->postgresqlSourceConfig = $postgresqlSourceConfig;
+  }
+  /**
+   * @return PostgresqlSourceConfig
+   */
+  public function getPostgresqlSourceConfig()
+  {
+    return $this->postgresqlSourceConfig;
   }
   /**
    * @param string

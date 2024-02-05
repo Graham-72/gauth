@@ -19,12 +19,24 @@ namespace Google\Service\Spanner;
 
 class Type extends \Google\Model
 {
+  /**
+   * @var Type
+   */
+  public $arrayElementType;
   protected $arrayElementTypeType = Type::class;
   protected $arrayElementTypeDataType = '';
   /**
    * @var string
    */
   public $code;
+  /**
+   * @var string
+   */
+  public $protoTypeFqn;
+  /**
+   * @var StructType
+   */
+  public $structType;
   protected $structTypeType = StructType::class;
   protected $structTypeDataType = '';
   /**
@@ -59,6 +71,20 @@ class Type extends \Google\Model
   public function getCode()
   {
     return $this->code;
+  }
+  /**
+   * @param string
+   */
+  public function setProtoTypeFqn($protoTypeFqn)
+  {
+    $this->protoTypeFqn = $protoTypeFqn;
+  }
+  /**
+   * @return string
+   */
+  public function getProtoTypeFqn()
+  {
+    return $this->protoTypeFqn;
   }
   /**
    * @param StructType

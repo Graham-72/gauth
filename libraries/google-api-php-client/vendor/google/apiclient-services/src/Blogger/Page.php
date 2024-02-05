@@ -19,8 +19,16 @@ namespace Google\Service\Blogger;
 
 class Page extends \Google\Model
 {
+  /**
+   * @var PageAuthor
+   */
+  public $author;
   protected $authorType = PageAuthor::class;
   protected $authorDataType = '';
+  /**
+   * @var PageBlog
+   */
+  public $blog;
   protected $blogType = PageBlog::class;
   protected $blogDataType = '';
   /**
@@ -55,6 +63,10 @@ class Page extends \Google\Model
    * @var string
    */
   public $title;
+  /**
+   * @var string
+   */
+  public $trashed;
   /**
    * @var string
    */
@@ -203,6 +215,20 @@ class Page extends \Google\Model
   public function getTitle()
   {
     return $this->title;
+  }
+  /**
+   * @param string
+   */
+  public function setTrashed($trashed)
+  {
+    $this->trashed = $trashed;
+  }
+  /**
+   * @return string
+   */
+  public function getTrashed()
+  {
+    return $this->trashed;
   }
   /**
    * @param string

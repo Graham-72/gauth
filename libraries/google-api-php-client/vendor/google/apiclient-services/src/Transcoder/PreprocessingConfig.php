@@ -19,16 +19,46 @@ namespace Google\Service\Transcoder;
 
 class PreprocessingConfig extends \Google\Model
 {
+  /**
+   * @var Audio
+   */
+  public $audio;
   protected $audioType = Audio::class;
   protected $audioDataType = '';
+  /**
+   * @var Color
+   */
+  public $color;
   protected $colorType = Color::class;
   protected $colorDataType = '';
+  /**
+   * @var Crop
+   */
+  public $crop;
   protected $cropType = Crop::class;
   protected $cropDataType = '';
+  /**
+   * @var Deblock
+   */
+  public $deblock;
   protected $deblockType = Deblock::class;
   protected $deblockDataType = '';
+  /**
+   * @var Deinterlace
+   */
+  public $deinterlace;
+  protected $deinterlaceType = Deinterlace::class;
+  protected $deinterlaceDataType = '';
+  /**
+   * @var Denoise
+   */
+  public $denoise;
   protected $denoiseType = Denoise::class;
   protected $denoiseDataType = '';
+  /**
+   * @var Pad
+   */
+  public $pad;
   protected $padType = Pad::class;
   protected $padDataType = '';
 
@@ -87,6 +117,20 @@ class PreprocessingConfig extends \Google\Model
   public function getDeblock()
   {
     return $this->deblock;
+  }
+  /**
+   * @param Deinterlace
+   */
+  public function setDeinterlace(Deinterlace $deinterlace)
+  {
+    $this->deinterlace = $deinterlace;
+  }
+  /**
+   * @return Deinterlace
+   */
+  public function getDeinterlace()
+  {
+    return $this->deinterlace;
   }
   /**
    * @param Denoise

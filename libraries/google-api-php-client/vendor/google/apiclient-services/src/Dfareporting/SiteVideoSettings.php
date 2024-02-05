@@ -19,6 +19,10 @@ namespace Google\Service\Dfareporting;
 
 class SiteVideoSettings extends \Google\Model
 {
+  /**
+   * @var SiteCompanionSetting
+   */
+  public $companionSettings;
   protected $companionSettingsType = SiteCompanionSetting::class;
   protected $companionSettingsDataType = '';
   /**
@@ -29,14 +33,30 @@ class SiteVideoSettings extends \Google\Model
    * @var bool
    */
   public $obaEnabled;
+  /**
+   * @var ObaIcon
+   */
+  public $obaSettings;
   protected $obaSettingsType = ObaIcon::class;
   protected $obaSettingsDataType = '';
   /**
    * @var string
    */
   public $orientation;
+  /**
+   * @var string
+   */
+  public $publisherSpecificationId;
+  /**
+   * @var SiteSkippableSetting
+   */
+  public $skippableSettings;
   protected $skippableSettingsType = SiteSkippableSetting::class;
   protected $skippableSettingsDataType = '';
+  /**
+   * @var SiteTranscodeSetting
+   */
+  public $transcodeSettings;
   protected $transcodeSettingsType = SiteTranscodeSetting::class;
   protected $transcodeSettingsDataType = '';
 
@@ -109,6 +129,20 @@ class SiteVideoSettings extends \Google\Model
   public function getOrientation()
   {
     return $this->orientation;
+  }
+  /**
+   * @param string
+   */
+  public function setPublisherSpecificationId($publisherSpecificationId)
+  {
+    $this->publisherSpecificationId = $publisherSpecificationId;
+  }
+  /**
+   * @return string
+   */
+  public function getPublisherSpecificationId()
+  {
+    return $this->publisherSpecificationId;
   }
   /**
    * @param SiteSkippableSetting

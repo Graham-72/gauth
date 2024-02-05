@@ -17,23 +17,79 @@
 
 namespace Google\Service\Container;
 
-class NodeNetworkConfig extends \Google\Model
+class NodeNetworkConfig extends \Google\Collection
 {
+  protected $collection_key = 'additionalPodNetworkConfigs';
+  /**
+   * @var AdditionalNodeNetworkConfig[]
+   */
+  public $additionalNodeNetworkConfigs;
+  protected $additionalNodeNetworkConfigsType = AdditionalNodeNetworkConfig::class;
+  protected $additionalNodeNetworkConfigsDataType = 'array';
+  /**
+   * @var AdditionalPodNetworkConfig[]
+   */
+  public $additionalPodNetworkConfigs;
+  protected $additionalPodNetworkConfigsType = AdditionalPodNetworkConfig::class;
+  protected $additionalPodNetworkConfigsDataType = 'array';
   /**
    * @var bool
    */
   public $createPodRange;
+  /**
+   * @var bool
+   */
+  public $enablePrivateNodes;
+  /**
+   * @var NetworkPerformanceConfig
+   */
+  public $networkPerformanceConfig;
   protected $networkPerformanceConfigType = NetworkPerformanceConfig::class;
   protected $networkPerformanceConfigDataType = '';
+  /**
+   * @var PodCIDROverprovisionConfig
+   */
+  public $podCidrOverprovisionConfig;
+  protected $podCidrOverprovisionConfigType = PodCIDROverprovisionConfig::class;
+  protected $podCidrOverprovisionConfigDataType = '';
   /**
    * @var string
    */
   public $podIpv4CidrBlock;
+  public $podIpv4RangeUtilization;
   /**
    * @var string
    */
   public $podRange;
 
+  /**
+   * @param AdditionalNodeNetworkConfig[]
+   */
+  public function setAdditionalNodeNetworkConfigs($additionalNodeNetworkConfigs)
+  {
+    $this->additionalNodeNetworkConfigs = $additionalNodeNetworkConfigs;
+  }
+  /**
+   * @return AdditionalNodeNetworkConfig[]
+   */
+  public function getAdditionalNodeNetworkConfigs()
+  {
+    return $this->additionalNodeNetworkConfigs;
+  }
+  /**
+   * @param AdditionalPodNetworkConfig[]
+   */
+  public function setAdditionalPodNetworkConfigs($additionalPodNetworkConfigs)
+  {
+    $this->additionalPodNetworkConfigs = $additionalPodNetworkConfigs;
+  }
+  /**
+   * @return AdditionalPodNetworkConfig[]
+   */
+  public function getAdditionalPodNetworkConfigs()
+  {
+    return $this->additionalPodNetworkConfigs;
+  }
   /**
    * @param bool
    */
@@ -47,6 +103,20 @@ class NodeNetworkConfig extends \Google\Model
   public function getCreatePodRange()
   {
     return $this->createPodRange;
+  }
+  /**
+   * @param bool
+   */
+  public function setEnablePrivateNodes($enablePrivateNodes)
+  {
+    $this->enablePrivateNodes = $enablePrivateNodes;
+  }
+  /**
+   * @return bool
+   */
+  public function getEnablePrivateNodes()
+  {
+    return $this->enablePrivateNodes;
   }
   /**
    * @param NetworkPerformanceConfig
@@ -63,6 +133,20 @@ class NodeNetworkConfig extends \Google\Model
     return $this->networkPerformanceConfig;
   }
   /**
+   * @param PodCIDROverprovisionConfig
+   */
+  public function setPodCidrOverprovisionConfig(PodCIDROverprovisionConfig $podCidrOverprovisionConfig)
+  {
+    $this->podCidrOverprovisionConfig = $podCidrOverprovisionConfig;
+  }
+  /**
+   * @return PodCIDROverprovisionConfig
+   */
+  public function getPodCidrOverprovisionConfig()
+  {
+    return $this->podCidrOverprovisionConfig;
+  }
+  /**
    * @param string
    */
   public function setPodIpv4CidrBlock($podIpv4CidrBlock)
@@ -75,6 +159,14 @@ class NodeNetworkConfig extends \Google\Model
   public function getPodIpv4CidrBlock()
   {
     return $this->podIpv4CidrBlock;
+  }
+  public function setPodIpv4RangeUtilization($podIpv4RangeUtilization)
+  {
+    $this->podIpv4RangeUtilization = $podIpv4RangeUtilization;
+  }
+  public function getPodIpv4RangeUtilization()
+  {
+    return $this->podIpv4RangeUtilization;
   }
   /**
    * @param string

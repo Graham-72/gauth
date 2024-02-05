@@ -28,9 +28,15 @@ class ResultMetadata extends \Google\Model
    */
   public $description;
   /**
+   * @var JsonSchema
+   */
+  public $jsonSchema;
+  protected $jsonSchemaType = JsonSchema::class;
+  protected $jsonSchemaDataType = '';
+  /**
    * @var string
    */
-  public $field;
+  public $name;
 
   /**
    * @param string
@@ -61,18 +67,32 @@ class ResultMetadata extends \Google\Model
     return $this->description;
   }
   /**
+   * @param JsonSchema
+   */
+  public function setJsonSchema(JsonSchema $jsonSchema)
+  {
+    $this->jsonSchema = $jsonSchema;
+  }
+  /**
+   * @return JsonSchema
+   */
+  public function getJsonSchema()
+  {
+    return $this->jsonSchema;
+  }
+  /**
    * @param string
    */
-  public function setField($field)
+  public function setName($name)
   {
-    $this->field = $field;
+    $this->name = $name;
   }
   /**
    * @return string
    */
-  public function getField()
+  public function getName()
   {
-    return $this->field;
+    return $this->name;
   }
 }
 

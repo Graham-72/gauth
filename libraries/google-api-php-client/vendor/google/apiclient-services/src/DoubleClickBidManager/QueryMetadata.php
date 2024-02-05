@@ -21,37 +21,15 @@ class QueryMetadata extends \Google\Collection
 {
   protected $collection_key = 'shareEmailAddress';
   /**
-   * @var string
+   * @var DataRange
    */
   public $dataRange;
+  protected $dataRangeType = DataRange::class;
+  protected $dataRangeDataType = '';
   /**
    * @var string
    */
   public $format;
-  /**
-   * @var string
-   */
-  public $googleCloudStoragePathForLatestReport;
-  /**
-   * @var string
-   */
-  public $googleDrivePathForLatestReport;
-  /**
-   * @var string
-   */
-  public $latestReportRunTimeMs;
-  /**
-   * @var string
-   */
-  public $locale;
-  /**
-   * @var int
-   */
-  public $reportCount;
-  /**
-   * @var bool
-   */
-  public $running;
   /**
    * @var bool
    */
@@ -66,14 +44,14 @@ class QueryMetadata extends \Google\Collection
   public $title;
 
   /**
-   * @param string
+   * @param DataRange
    */
-  public function setDataRange($dataRange)
+  public function setDataRange(DataRange $dataRange)
   {
     $this->dataRange = $dataRange;
   }
   /**
-   * @return string
+   * @return DataRange
    */
   public function getDataRange()
   {
@@ -92,90 +70,6 @@ class QueryMetadata extends \Google\Collection
   public function getFormat()
   {
     return $this->format;
-  }
-  /**
-   * @param string
-   */
-  public function setGoogleCloudStoragePathForLatestReport($googleCloudStoragePathForLatestReport)
-  {
-    $this->googleCloudStoragePathForLatestReport = $googleCloudStoragePathForLatestReport;
-  }
-  /**
-   * @return string
-   */
-  public function getGoogleCloudStoragePathForLatestReport()
-  {
-    return $this->googleCloudStoragePathForLatestReport;
-  }
-  /**
-   * @param string
-   */
-  public function setGoogleDrivePathForLatestReport($googleDrivePathForLatestReport)
-  {
-    $this->googleDrivePathForLatestReport = $googleDrivePathForLatestReport;
-  }
-  /**
-   * @return string
-   */
-  public function getGoogleDrivePathForLatestReport()
-  {
-    return $this->googleDrivePathForLatestReport;
-  }
-  /**
-   * @param string
-   */
-  public function setLatestReportRunTimeMs($latestReportRunTimeMs)
-  {
-    $this->latestReportRunTimeMs = $latestReportRunTimeMs;
-  }
-  /**
-   * @return string
-   */
-  public function getLatestReportRunTimeMs()
-  {
-    return $this->latestReportRunTimeMs;
-  }
-  /**
-   * @param string
-   */
-  public function setLocale($locale)
-  {
-    $this->locale = $locale;
-  }
-  /**
-   * @return string
-   */
-  public function getLocale()
-  {
-    return $this->locale;
-  }
-  /**
-   * @param int
-   */
-  public function setReportCount($reportCount)
-  {
-    $this->reportCount = $reportCount;
-  }
-  /**
-   * @return int
-   */
-  public function getReportCount()
-  {
-    return $this->reportCount;
-  }
-  /**
-   * @param bool
-   */
-  public function setRunning($running)
-  {
-    $this->running = $running;
-  }
-  /**
-   * @return bool
-   */
-  public function getRunning()
-  {
-    return $this->running;
   }
   /**
    * @param bool

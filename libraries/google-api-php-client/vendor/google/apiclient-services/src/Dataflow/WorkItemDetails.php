@@ -28,8 +28,16 @@ class WorkItemDetails extends \Google\Collection
    * @var string
    */
   public $endTime;
+  /**
+   * @var MetricUpdate[]
+   */
+  public $metrics;
   protected $metricsType = MetricUpdate::class;
   protected $metricsDataType = 'array';
+  /**
+   * @var ProgressTimeseries
+   */
+  public $progress;
   protected $progressType = ProgressTimeseries::class;
   protected $progressDataType = '';
   /**
@@ -40,6 +48,12 @@ class WorkItemDetails extends \Google\Collection
    * @var string
    */
   public $state;
+  /**
+   * @var StragglerInfo
+   */
+  public $stragglerInfo;
+  protected $stragglerInfoType = StragglerInfo::class;
+  protected $stragglerInfoDataType = '';
   /**
    * @var string
    */
@@ -128,6 +142,20 @@ class WorkItemDetails extends \Google\Collection
   public function getState()
   {
     return $this->state;
+  }
+  /**
+   * @param StragglerInfo
+   */
+  public function setStragglerInfo(StragglerInfo $stragglerInfo)
+  {
+    $this->stragglerInfo = $stragglerInfo;
+  }
+  /**
+   * @return StragglerInfo
+   */
+  public function getStragglerInfo()
+  {
+    return $this->stragglerInfo;
   }
   /**
    * @param string

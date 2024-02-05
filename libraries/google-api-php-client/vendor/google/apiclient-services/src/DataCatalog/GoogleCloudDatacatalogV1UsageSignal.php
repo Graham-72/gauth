@@ -20,12 +20,54 @@ namespace Google\Service\DataCatalog;
 class GoogleCloudDatacatalogV1UsageSignal extends \Google\Model
 {
   /**
+   * @var GoogleCloudDatacatalogV1CommonUsageStats[]
+   */
+  public $commonUsageWithinTimeRange;
+  protected $commonUsageWithinTimeRangeType = GoogleCloudDatacatalogV1CommonUsageStats::class;
+  protected $commonUsageWithinTimeRangeDataType = 'map';
+  /**
+   * @var string
+   */
+  public $favoriteCount;
+  /**
    * @var string
    */
   public $updateTime;
+  /**
+   * @var GoogleCloudDatacatalogV1UsageStats[]
+   */
+  public $usageWithinTimeRange;
   protected $usageWithinTimeRangeType = GoogleCloudDatacatalogV1UsageStats::class;
   protected $usageWithinTimeRangeDataType = 'map';
 
+  /**
+   * @param GoogleCloudDatacatalogV1CommonUsageStats[]
+   */
+  public function setCommonUsageWithinTimeRange($commonUsageWithinTimeRange)
+  {
+    $this->commonUsageWithinTimeRange = $commonUsageWithinTimeRange;
+  }
+  /**
+   * @return GoogleCloudDatacatalogV1CommonUsageStats[]
+   */
+  public function getCommonUsageWithinTimeRange()
+  {
+    return $this->commonUsageWithinTimeRange;
+  }
+  /**
+   * @param string
+   */
+  public function setFavoriteCount($favoriteCount)
+  {
+    $this->favoriteCount = $favoriteCount;
+  }
+  /**
+   * @return string
+   */
+  public function getFavoriteCount()
+  {
+    return $this->favoriteCount;
+  }
   /**
    * @param string
    */

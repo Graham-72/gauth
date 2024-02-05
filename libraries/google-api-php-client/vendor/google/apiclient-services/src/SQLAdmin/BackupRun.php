@@ -27,8 +27,16 @@ class BackupRun extends \Google\Model
    * @var string
    */
   public $description;
+  /**
+   * @var DiskEncryptionConfiguration
+   */
+  public $diskEncryptionConfiguration;
   protected $diskEncryptionConfigurationType = DiskEncryptionConfiguration::class;
   protected $diskEncryptionConfigurationDataType = '';
+  /**
+   * @var DiskEncryptionStatus
+   */
+  public $diskEncryptionStatus;
   protected $diskEncryptionStatusType = DiskEncryptionStatus::class;
   protected $diskEncryptionStatusDataType = '';
   /**
@@ -39,6 +47,10 @@ class BackupRun extends \Google\Model
    * @var string
    */
   public $enqueuedTime;
+  /**
+   * @var OperationError
+   */
+  public $error;
   protected $errorType = OperationError::class;
   protected $errorDataType = '';
   /**
@@ -69,6 +81,10 @@ class BackupRun extends \Google\Model
    * @var string
    */
   public $status;
+  /**
+   * @var string
+   */
+  public $timeZone;
   /**
    * @var string
    */
@@ -273,6 +289,20 @@ class BackupRun extends \Google\Model
   public function getStatus()
   {
     return $this->status;
+  }
+  /**
+   * @param string
+   */
+  public function setTimeZone($timeZone)
+  {
+    $this->timeZone = $timeZone;
+  }
+  /**
+   * @return string
+   */
+  public function getTimeZone()
+  {
+    return $this->timeZone;
   }
   /**
    * @param string

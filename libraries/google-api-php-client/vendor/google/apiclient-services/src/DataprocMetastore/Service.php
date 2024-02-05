@@ -31,22 +31,42 @@ class Service extends \Google\Model
    * @var string
    */
   public $databaseType;
+  /**
+   * @var EncryptionConfig
+   */
+  public $encryptionConfig;
   protected $encryptionConfigType = EncryptionConfig::class;
   protected $encryptionConfigDataType = '';
   /**
    * @var string
    */
   public $endpointUri;
+  /**
+   * @var HiveMetastoreConfig
+   */
+  public $hiveMetastoreConfig;
   protected $hiveMetastoreConfigType = HiveMetastoreConfig::class;
   protected $hiveMetastoreConfigDataType = '';
   /**
    * @var string[]
    */
   public $labels;
+  /**
+   * @var MaintenanceWindow
+   */
+  public $maintenanceWindow;
   protected $maintenanceWindowType = MaintenanceWindow::class;
   protected $maintenanceWindowDataType = '';
+  /**
+   * @var MetadataIntegration
+   */
+  public $metadataIntegration;
   protected $metadataIntegrationType = MetadataIntegration::class;
   protected $metadataIntegrationDataType = '';
+  /**
+   * @var MetadataManagementActivity
+   */
+  public $metadataManagementActivity;
   protected $metadataManagementActivityType = MetadataManagementActivity::class;
   protected $metadataManagementActivityDataType = '';
   /**
@@ -57,6 +77,10 @@ class Service extends \Google\Model
    * @var string
    */
   public $network;
+  /**
+   * @var NetworkConfig
+   */
+  public $networkConfig;
   protected $networkConfigType = NetworkConfig::class;
   protected $networkConfigDataType = '';
   /**
@@ -68,6 +92,12 @@ class Service extends \Google\Model
    */
   public $releaseChannel;
   /**
+   * @var ScalingConfig
+   */
+  public $scalingConfig;
+  protected $scalingConfigType = ScalingConfig::class;
+  protected $scalingConfigDataType = '';
+  /**
    * @var string
    */
   public $state;
@@ -75,6 +105,12 @@ class Service extends \Google\Model
    * @var string
    */
   public $stateMessage;
+  /**
+   * @var TelemetryConfig
+   */
+  public $telemetryConfig;
+  protected $telemetryConfigType = TelemetryConfig::class;
+  protected $telemetryConfigDataType = '';
   /**
    * @var string
    */
@@ -299,6 +335,20 @@ class Service extends \Google\Model
     return $this->releaseChannel;
   }
   /**
+   * @param ScalingConfig
+   */
+  public function setScalingConfig(ScalingConfig $scalingConfig)
+  {
+    $this->scalingConfig = $scalingConfig;
+  }
+  /**
+   * @return ScalingConfig
+   */
+  public function getScalingConfig()
+  {
+    return $this->scalingConfig;
+  }
+  /**
    * @param string
    */
   public function setState($state)
@@ -325,6 +375,20 @@ class Service extends \Google\Model
   public function getStateMessage()
   {
     return $this->stateMessage;
+  }
+  /**
+   * @param TelemetryConfig
+   */
+  public function setTelemetryConfig(TelemetryConfig $telemetryConfig)
+  {
+    $this->telemetryConfig = $telemetryConfig;
+  }
+  /**
+   * @return TelemetryConfig
+   */
+  public function getTelemetryConfig()
+  {
+    return $this->telemetryConfig;
   }
   /**
    * @param string

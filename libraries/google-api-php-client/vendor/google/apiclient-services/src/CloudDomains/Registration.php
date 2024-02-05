@@ -20,12 +20,20 @@ namespace Google\Service\CloudDomains;
 class Registration extends \Google\Collection
 {
   protected $collection_key = 'supportedPrivacy';
+  /**
+   * @var ContactSettings
+   */
+  public $contactSettings;
   protected $contactSettingsType = ContactSettings::class;
   protected $contactSettingsDataType = '';
   /**
    * @var string
    */
   public $createTime;
+  /**
+   * @var DnsSettings
+   */
+  public $dnsSettings;
   protected $dnsSettingsType = DnsSettings::class;
   protected $dnsSettingsDataType = '';
   /**
@@ -44,14 +52,26 @@ class Registration extends \Google\Collection
    * @var string[]
    */
   public $labels;
+  /**
+   * @var ManagementSettings
+   */
+  public $managementSettings;
   protected $managementSettingsType = ManagementSettings::class;
   protected $managementSettingsDataType = '';
   /**
    * @var string
    */
   public $name;
+  /**
+   * @var ContactSettings
+   */
+  public $pendingContactSettings;
   protected $pendingContactSettingsType = ContactSettings::class;
   protected $pendingContactSettingsDataType = '';
+  /**
+   * @var string
+   */
+  public $registerFailureReason;
   /**
    * @var string
    */
@@ -60,6 +80,10 @@ class Registration extends \Google\Collection
    * @var string[]
    */
   public $supportedPrivacy;
+  /**
+   * @var string
+   */
+  public $transferFailureReason;
 
   /**
    * @param ContactSettings
@@ -204,6 +228,20 @@ class Registration extends \Google\Collection
   /**
    * @param string
    */
+  public function setRegisterFailureReason($registerFailureReason)
+  {
+    $this->registerFailureReason = $registerFailureReason;
+  }
+  /**
+   * @return string
+   */
+  public function getRegisterFailureReason()
+  {
+    return $this->registerFailureReason;
+  }
+  /**
+   * @param string
+   */
   public function setState($state)
   {
     $this->state = $state;
@@ -228,6 +266,20 @@ class Registration extends \Google\Collection
   public function getSupportedPrivacy()
   {
     return $this->supportedPrivacy;
+  }
+  /**
+   * @param string
+   */
+  public function setTransferFailureReason($transferFailureReason)
+  {
+    $this->transferFailureReason = $transferFailureReason;
+  }
+  /**
+   * @return string
+   */
+  public function getTransferFailureReason()
+  {
+    return $this->transferFailureReason;
   }
 }
 

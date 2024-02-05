@@ -20,24 +20,40 @@ namespace Google\Service\Bigquery;
 class Dataset extends \Google\Collection
 {
   protected $collection_key = 'tags';
+  /**
+   * @var DatasetAccess[]
+   */
+  public $access;
   protected $accessType = DatasetAccess::class;
   protected $accessDataType = 'array';
   /**
    * @var string
    */
   public $creationTime;
+  /**
+   * @var DatasetReference
+   */
+  public $datasetReference;
   protected $datasetReferenceType = DatasetReference::class;
   protected $datasetReferenceDataType = '';
   /**
    * @var string
    */
   public $defaultCollation;
+  /**
+   * @var EncryptionConfiguration
+   */
+  public $defaultEncryptionConfiguration;
   protected $defaultEncryptionConfigurationType = EncryptionConfiguration::class;
   protected $defaultEncryptionConfigurationDataType = '';
   /**
    * @var string
    */
   public $defaultPartitionExpirationMs;
+  /**
+   * @var string
+   */
+  public $defaultRoundingMode;
   /**
    * @var string
    */
@@ -50,6 +66,12 @@ class Dataset extends \Google\Collection
    * @var string
    */
   public $etag;
+  /**
+   * @var ExternalDatasetReference
+   */
+  public $externalDatasetReference;
+  protected $externalDatasetReferenceType = ExternalDatasetReference::class;
+  protected $externalDatasetReferenceDataType = '';
   /**
    * @var string
    */
@@ -90,6 +112,14 @@ class Dataset extends \Google\Collection
    * @var string
    */
   public $selfLink;
+  /**
+   * @var string
+   */
+  public $storageBillingModel;
+  /**
+   * @var DatasetTags[]
+   */
+  public $tags;
   protected $tagsType = DatasetTags::class;
   protected $tagsDataType = 'array';
 
@@ -180,6 +210,20 @@ class Dataset extends \Google\Collection
   /**
    * @param string
    */
+  public function setDefaultRoundingMode($defaultRoundingMode)
+  {
+    $this->defaultRoundingMode = $defaultRoundingMode;
+  }
+  /**
+   * @return string
+   */
+  public function getDefaultRoundingMode()
+  {
+    return $this->defaultRoundingMode;
+  }
+  /**
+   * @param string
+   */
   public function setDefaultTableExpirationMs($defaultTableExpirationMs)
   {
     $this->defaultTableExpirationMs = $defaultTableExpirationMs;
@@ -218,6 +262,20 @@ class Dataset extends \Google\Collection
   public function getEtag()
   {
     return $this->etag;
+  }
+  /**
+   * @param ExternalDatasetReference
+   */
+  public function setExternalDatasetReference(ExternalDatasetReference $externalDatasetReference)
+  {
+    $this->externalDatasetReference = $externalDatasetReference;
+  }
+  /**
+   * @return ExternalDatasetReference
+   */
+  public function getExternalDatasetReference()
+  {
+    return $this->externalDatasetReference;
   }
   /**
    * @param string
@@ -358,6 +416,20 @@ class Dataset extends \Google\Collection
   public function getSelfLink()
   {
     return $this->selfLink;
+  }
+  /**
+   * @param string
+   */
+  public function setStorageBillingModel($storageBillingModel)
+  {
+    $this->storageBillingModel = $storageBillingModel;
+  }
+  /**
+   * @return string
+   */
+  public function getStorageBillingModel()
+  {
+    return $this->storageBillingModel;
   }
   /**
    * @param DatasetTags[]

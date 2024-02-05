@@ -19,9 +19,53 @@ namespace Google\Service\Dialogflow;
 
 class GoogleCloudDialogflowCxV3AdvancedSettings extends \Google\Model
 {
+  /**
+   * @var GoogleCloudDialogflowCxV3GcsDestination
+   */
+  public $audioExportGcsDestination;
+  protected $audioExportGcsDestinationType = GoogleCloudDialogflowCxV3GcsDestination::class;
+  protected $audioExportGcsDestinationDataType = '';
+  /**
+   * @var GoogleCloudDialogflowCxV3AdvancedSettingsDtmfSettings
+   */
+  public $dtmfSettings;
+  protected $dtmfSettingsType = GoogleCloudDialogflowCxV3AdvancedSettingsDtmfSettings::class;
+  protected $dtmfSettingsDataType = '';
+  /**
+   * @var GoogleCloudDialogflowCxV3AdvancedSettingsLoggingSettings
+   */
+  public $loggingSettings;
   protected $loggingSettingsType = GoogleCloudDialogflowCxV3AdvancedSettingsLoggingSettings::class;
   protected $loggingSettingsDataType = '';
 
+  /**
+   * @param GoogleCloudDialogflowCxV3GcsDestination
+   */
+  public function setAudioExportGcsDestination(GoogleCloudDialogflowCxV3GcsDestination $audioExportGcsDestination)
+  {
+    $this->audioExportGcsDestination = $audioExportGcsDestination;
+  }
+  /**
+   * @return GoogleCloudDialogflowCxV3GcsDestination
+   */
+  public function getAudioExportGcsDestination()
+  {
+    return $this->audioExportGcsDestination;
+  }
+  /**
+   * @param GoogleCloudDialogflowCxV3AdvancedSettingsDtmfSettings
+   */
+  public function setDtmfSettings(GoogleCloudDialogflowCxV3AdvancedSettingsDtmfSettings $dtmfSettings)
+  {
+    $this->dtmfSettings = $dtmfSettings;
+  }
+  /**
+   * @return GoogleCloudDialogflowCxV3AdvancedSettingsDtmfSettings
+   */
+  public function getDtmfSettings()
+  {
+    return $this->dtmfSettings;
+  }
   /**
    * @param GoogleCloudDialogflowCxV3AdvancedSettingsLoggingSettings
    */

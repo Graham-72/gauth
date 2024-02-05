@@ -21,12 +21,36 @@ class ManagedZonePrivateVisibilityConfig extends \Google\Collection
 {
   protected $collection_key = 'networks';
   /**
+   * @var ManagedZonePrivateVisibilityConfigGKECluster[]
+   */
+  public $gkeClusters;
+  protected $gkeClustersType = ManagedZonePrivateVisibilityConfigGKECluster::class;
+  protected $gkeClustersDataType = 'array';
+  /**
    * @var string
    */
   public $kind;
+  /**
+   * @var ManagedZonePrivateVisibilityConfigNetwork[]
+   */
+  public $networks;
   protected $networksType = ManagedZonePrivateVisibilityConfigNetwork::class;
   protected $networksDataType = 'array';
 
+  /**
+   * @param ManagedZonePrivateVisibilityConfigGKECluster[]
+   */
+  public function setGkeClusters($gkeClusters)
+  {
+    $this->gkeClusters = $gkeClusters;
+  }
+  /**
+   * @return ManagedZonePrivateVisibilityConfigGKECluster[]
+   */
+  public function getGkeClusters()
+  {
+    return $this->gkeClusters;
+  }
   /**
    * @param string
    */

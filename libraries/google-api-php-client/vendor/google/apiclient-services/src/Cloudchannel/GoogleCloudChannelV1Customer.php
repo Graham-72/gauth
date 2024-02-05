@@ -31,8 +31,16 @@ class GoogleCloudChannelV1Customer extends \Google\Model
    * @var string
    */
   public $cloudIdentityId;
+  /**
+   * @var GoogleCloudChannelV1CloudIdentityInfo
+   */
+  public $cloudIdentityInfo;
   protected $cloudIdentityInfoType = GoogleCloudChannelV1CloudIdentityInfo::class;
   protected $cloudIdentityInfoDataType = '';
+  /**
+   * @var string
+   */
+  public $correlationId;
   /**
    * @var string
    */
@@ -53,8 +61,16 @@ class GoogleCloudChannelV1Customer extends \Google\Model
    * @var string
    */
   public $orgDisplayName;
+  /**
+   * @var GoogleTypePostalAddress
+   */
+  public $orgPostalAddress;
   protected $orgPostalAddressType = GoogleTypePostalAddress::class;
   protected $orgPostalAddressDataType = '';
+  /**
+   * @var GoogleCloudChannelV1ContactInfo
+   */
+  public $primaryContactInfo;
   protected $primaryContactInfoType = GoogleCloudChannelV1ContactInfo::class;
   protected $primaryContactInfoDataType = '';
   /**
@@ -117,6 +133,20 @@ class GoogleCloudChannelV1Customer extends \Google\Model
   public function getCloudIdentityInfo()
   {
     return $this->cloudIdentityInfo;
+  }
+  /**
+   * @param string
+   */
+  public function setCorrelationId($correlationId)
+  {
+    $this->correlationId = $correlationId;
+  }
+  /**
+   * @return string
+   */
+  public function getCorrelationId()
+  {
+    return $this->correlationId;
   }
   /**
    * @param string

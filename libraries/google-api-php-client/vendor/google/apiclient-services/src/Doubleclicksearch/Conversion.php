@@ -31,6 +31,10 @@ class Conversion extends \Google\Collection
   /**
    * @var string
    */
+  public $adUserDataConsent;
+  /**
+   * @var string
+   */
   public $advertiserId;
   /**
    * @var string
@@ -76,10 +80,22 @@ class Conversion extends \Google\Collection
    * @var string
    */
   public $currencyCode;
+  /**
+   * @var CustomDimension[]
+   */
+  public $customDimension;
   protected $customDimensionType = CustomDimension::class;
   protected $customDimensionDataType = 'array';
+  /**
+   * @var CustomMetric[]
+   */
+  public $customMetric;
   protected $customMetricType = CustomMetric::class;
   protected $customMetricDataType = 'array';
+  /**
+   * @var string
+   */
+  public $customerId;
   /**
    * @var string
    */
@@ -176,6 +192,20 @@ class Conversion extends \Google\Collection
   public function getAdId()
   {
     return $this->adId;
+  }
+  /**
+   * @param string
+   */
+  public function setAdUserDataConsent($adUserDataConsent)
+  {
+    $this->adUserDataConsent = $adUserDataConsent;
+  }
+  /**
+   * @return string
+   */
+  public function getAdUserDataConsent()
+  {
+    return $this->adUserDataConsent;
   }
   /**
    * @param string
@@ -372,6 +402,20 @@ class Conversion extends \Google\Collection
   public function getCustomMetric()
   {
     return $this->customMetric;
+  }
+  /**
+   * @param string
+   */
+  public function setCustomerId($customerId)
+  {
+    $this->customerId = $customerId;
+  }
+  /**
+   * @return string
+   */
+  public function getCustomerId()
+  {
+    return $this->customerId;
   }
   /**
    * @param string

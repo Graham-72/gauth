@@ -19,14 +19,32 @@ namespace Google\Service\DisplayVideo;
 
 class Advertiser extends \Google\Model
 {
+  /**
+   * @var AdvertiserAdServerConfig
+   */
+  public $adServerConfig;
   protected $adServerConfigType = AdvertiserAdServerConfig::class;
   protected $adServerConfigDataType = '';
   /**
    * @var string
    */
   public $advertiserId;
+  /**
+   * @var AdvertiserBillingConfig
+   */
+  public $billingConfig;
+  protected $billingConfigType = AdvertiserBillingConfig::class;
+  protected $billingConfigDataType = '';
+  /**
+   * @var AdvertiserCreativeConfig
+   */
+  public $creativeConfig;
   protected $creativeConfigType = AdvertiserCreativeConfig::class;
   protected $creativeConfigDataType = '';
+  /**
+   * @var AdvertiserDataAccessConfig
+   */
+  public $dataAccessConfig;
   protected $dataAccessConfigType = AdvertiserDataAccessConfig::class;
   protected $dataAccessConfigDataType = '';
   /**
@@ -37,8 +55,16 @@ class Advertiser extends \Google\Model
    * @var string
    */
   public $entityStatus;
+  /**
+   * @var AdvertiserGeneralConfig
+   */
+  public $generalConfig;
   protected $generalConfigType = AdvertiserGeneralConfig::class;
   protected $generalConfigDataType = '';
+  /**
+   * @var IntegrationDetails
+   */
+  public $integrationDetails;
   protected $integrationDetailsType = IntegrationDetails::class;
   protected $integrationDetailsDataType = '';
   /**
@@ -53,6 +79,10 @@ class Advertiser extends \Google\Model
    * @var bool
    */
   public $prismaEnabled;
+  /**
+   * @var AdvertiserTargetingConfig
+   */
+  public $servingConfig;
   protected $servingConfigType = AdvertiserTargetingConfig::class;
   protected $servingConfigDataType = '';
   /**
@@ -87,6 +117,20 @@ class Advertiser extends \Google\Model
   public function getAdvertiserId()
   {
     return $this->advertiserId;
+  }
+  /**
+   * @param AdvertiserBillingConfig
+   */
+  public function setBillingConfig(AdvertiserBillingConfig $billingConfig)
+  {
+    $this->billingConfig = $billingConfig;
+  }
+  /**
+   * @return AdvertiserBillingConfig
+   */
+  public function getBillingConfig()
+  {
+    return $this->billingConfig;
   }
   /**
    * @param AdvertiserCreativeConfig

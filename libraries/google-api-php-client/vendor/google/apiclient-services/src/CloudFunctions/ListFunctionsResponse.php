@@ -20,7 +20,11 @@ namespace Google\Service\CloudFunctions;
 class ListFunctionsResponse extends \Google\Collection
 {
   protected $collection_key = 'unreachable';
-  protected $functionsType = CloudFunction::class;
+  /**
+   * @var CloudfunctionsFunction[]
+   */
+  public $functions;
+  protected $functionsType = CloudfunctionsFunction::class;
   protected $functionsDataType = 'array';
   /**
    * @var string
@@ -32,14 +36,14 @@ class ListFunctionsResponse extends \Google\Collection
   public $unreachable;
 
   /**
-   * @param CloudFunction[]
+   * @param CloudfunctionsFunction[]
    */
   public function setFunctions($functions)
   {
     $this->functions = $functions;
   }
   /**
-   * @return CloudFunction[]
+   * @return CloudfunctionsFunction[]
    */
   public function getFunctions()
   {

@@ -24,14 +24,26 @@ class LineItem extends \Google\Collection
    * @var string
    */
   public $advertiserId;
+  /**
+   * @var BiddingStrategy
+   */
+  public $bidStrategy;
   protected $bidStrategyType = BiddingStrategy::class;
   protected $bidStrategyDataType = '';
+  /**
+   * @var LineItemBudget
+   */
+  public $budget;
   protected $budgetType = LineItemBudget::class;
   protected $budgetDataType = '';
   /**
    * @var string
    */
   public $campaignId;
+  /**
+   * @var ConversionCountingConfig
+   */
+  public $conversionCounting;
   protected $conversionCountingType = ConversionCountingConfig::class;
   protected $conversionCountingDataType = '';
   /**
@@ -50,20 +62,28 @@ class LineItem extends \Google\Collection
    * @var bool
    */
   public $excludeNewExchanges;
+  /**
+   * @var LineItemFlight
+   */
+  public $flight;
   protected $flightType = LineItemFlight::class;
   protected $flightDataType = '';
+  /**
+   * @var FrequencyCap
+   */
+  public $frequencyCap;
   protected $frequencyCapType = FrequencyCap::class;
   protected $frequencyCapDataType = '';
   /**
    * @var string
    */
   public $insertionOrderId;
+  /**
+   * @var IntegrationDetails
+   */
+  public $integrationDetails;
   protected $integrationDetailsType = IntegrationDetails::class;
   protected $integrationDetailsDataType = '';
-  /**
-   * @var string[]
-   */
-  public $inventorySourceIds;
   /**
    * @var string
    */
@@ -72,22 +92,42 @@ class LineItem extends \Google\Collection
    * @var string
    */
   public $lineItemType;
+  /**
+   * @var MobileApp
+   */
+  public $mobileApp;
   protected $mobileAppType = MobileApp::class;
   protected $mobileAppDataType = '';
   /**
    * @var string
    */
   public $name;
+  /**
+   * @var Pacing
+   */
+  public $pacing;
   protected $pacingType = Pacing::class;
   protected $pacingDataType = '';
+  /**
+   * @var PartnerCost[]
+   */
+  public $partnerCosts;
   protected $partnerCostsType = PartnerCost::class;
   protected $partnerCostsDataType = 'array';
+  /**
+   * @var PartnerRevenueModel
+   */
+  public $partnerRevenueModel;
   protected $partnerRevenueModelType = PartnerRevenueModel::class;
   protected $partnerRevenueModelDataType = '';
   /**
    * @var string
    */
   public $reservationType;
+  /**
+   * @var TargetingExpansionConfig
+   */
+  public $targetingExpansion;
   protected $targetingExpansionType = TargetingExpansionConfig::class;
   protected $targetingExpansionDataType = '';
   /**
@@ -98,6 +138,12 @@ class LineItem extends \Google\Collection
    * @var string[]
    */
   public $warningMessages;
+  /**
+   * @var YoutubeAndPartnersSettings
+   */
+  public $youtubeAndPartnersSettings;
+  protected $youtubeAndPartnersSettingsType = YoutubeAndPartnersSettings::class;
+  protected $youtubeAndPartnersSettingsDataType = '';
 
   /**
    * @param string
@@ -282,20 +328,6 @@ class LineItem extends \Google\Collection
     return $this->integrationDetails;
   }
   /**
-   * @param string[]
-   */
-  public function setInventorySourceIds($inventorySourceIds)
-  {
-    $this->inventorySourceIds = $inventorySourceIds;
-  }
-  /**
-   * @return string[]
-   */
-  public function getInventorySourceIds()
-  {
-    return $this->inventorySourceIds;
-  }
-  /**
    * @param string
    */
   public function setLineItemId($lineItemId)
@@ -448,6 +480,20 @@ class LineItem extends \Google\Collection
   public function getWarningMessages()
   {
     return $this->warningMessages;
+  }
+  /**
+   * @param YoutubeAndPartnersSettings
+   */
+  public function setYoutubeAndPartnersSettings(YoutubeAndPartnersSettings $youtubeAndPartnersSettings)
+  {
+    $this->youtubeAndPartnersSettings = $youtubeAndPartnersSettings;
+  }
+  /**
+   * @return YoutubeAndPartnersSettings
+   */
+  public function getYoutubeAndPartnersSettings()
+  {
+    return $this->youtubeAndPartnersSettings;
   }
 }
 

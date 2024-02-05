@@ -20,26 +20,60 @@ namespace Google\Service\Storage;
 class Bucket extends \Google\Collection
 {
   protected $collection_key = 'defaultObjectAcl';
+  /**
+   * @var BucketAccessControl[]
+   */
+  public $acl;
   protected $aclType = BucketAccessControl::class;
   protected $aclDataType = 'array';
+  /**
+   * @var BucketAutoclass
+   */
+  public $autoclass;
   protected $autoclassType = BucketAutoclass::class;
   protected $autoclassDataType = '';
+  /**
+   * @var BucketBilling
+   */
+  public $billing;
   protected $billingType = BucketBilling::class;
   protected $billingDataType = '';
+  /**
+   * @var BucketCors[]
+   */
+  public $cors;
   protected $corsType = BucketCors::class;
   protected $corsDataType = 'array';
+  /**
+   * @var BucketCustomPlacementConfig
+   */
+  public $customPlacementConfig;
+  protected $customPlacementConfigType = BucketCustomPlacementConfig::class;
+  protected $customPlacementConfigDataType = '';
   /**
    * @var bool
    */
   public $defaultEventBasedHold;
+  /**
+   * @var ObjectAccessControl[]
+   */
+  public $defaultObjectAcl;
   protected $defaultObjectAclType = ObjectAccessControl::class;
   protected $defaultObjectAclDataType = 'array';
+  /**
+   * @var BucketEncryption
+   */
+  public $encryption;
   protected $encryptionType = BucketEncryption::class;
   protected $encryptionDataType = '';
   /**
    * @var string
    */
   public $etag;
+  /**
+   * @var BucketIamConfiguration
+   */
+  public $iamConfiguration;
   protected $iamConfigurationType = BucketIamConfiguration::class;
   protected $iamConfigurationDataType = '';
   /**
@@ -54,6 +88,10 @@ class Bucket extends \Google\Collection
    * @var string[]
    */
   public $labels;
+  /**
+   * @var BucketLifecycle
+   */
+  public $lifecycle;
   protected $lifecycleType = BucketLifecycle::class;
   protected $lifecycleDataType = '';
   /**
@@ -64,6 +102,10 @@ class Bucket extends \Google\Collection
    * @var string
    */
   public $locationType;
+  /**
+   * @var BucketLogging
+   */
+  public $logging;
   protected $loggingType = BucketLogging::class;
   protected $loggingDataType = '';
   /**
@@ -74,12 +116,26 @@ class Bucket extends \Google\Collection
    * @var string
    */
   public $name;
+  /**
+   * @var BucketObjectRetention
+   */
+  public $objectRetention;
+  protected $objectRetentionType = BucketObjectRetention::class;
+  protected $objectRetentionDataType = '';
+  /**
+   * @var BucketOwner
+   */
+  public $owner;
   protected $ownerType = BucketOwner::class;
   protected $ownerDataType = '';
   /**
    * @var string
    */
   public $projectNumber;
+  /**
+   * @var BucketRetentionPolicy
+   */
+  public $retentionPolicy;
   protected $retentionPolicyType = BucketRetentionPolicy::class;
   protected $retentionPolicyDataType = '';
   /**
@@ -95,6 +151,12 @@ class Bucket extends \Google\Collection
    */
   public $selfLink;
   /**
+   * @var BucketSoftDeletePolicy
+   */
+  public $softDeletePolicy;
+  protected $softDeletePolicyType = BucketSoftDeletePolicy::class;
+  protected $softDeletePolicyDataType = '';
+  /**
    * @var string
    */
   public $storageClass;
@@ -106,8 +168,16 @@ class Bucket extends \Google\Collection
    * @var string
    */
   public $updated;
+  /**
+   * @var BucketVersioning
+   */
+  public $versioning;
   protected $versioningType = BucketVersioning::class;
   protected $versioningDataType = '';
+  /**
+   * @var BucketWebsite
+   */
+  public $website;
   protected $websiteType = BucketWebsite::class;
   protected $websiteDataType = '';
 
@@ -166,6 +236,20 @@ class Bucket extends \Google\Collection
   public function getCors()
   {
     return $this->cors;
+  }
+  /**
+   * @param BucketCustomPlacementConfig
+   */
+  public function setCustomPlacementConfig(BucketCustomPlacementConfig $customPlacementConfig)
+  {
+    $this->customPlacementConfig = $customPlacementConfig;
+  }
+  /**
+   * @return BucketCustomPlacementConfig
+   */
+  public function getCustomPlacementConfig()
+  {
+    return $this->customPlacementConfig;
   }
   /**
    * @param bool
@@ -364,6 +448,20 @@ class Bucket extends \Google\Collection
     return $this->name;
   }
   /**
+   * @param BucketObjectRetention
+   */
+  public function setObjectRetention(BucketObjectRetention $objectRetention)
+  {
+    $this->objectRetention = $objectRetention;
+  }
+  /**
+   * @return BucketObjectRetention
+   */
+  public function getObjectRetention()
+  {
+    return $this->objectRetention;
+  }
+  /**
    * @param BucketOwner
    */
   public function setOwner(BucketOwner $owner)
@@ -446,6 +544,20 @@ class Bucket extends \Google\Collection
   public function getSelfLink()
   {
     return $this->selfLink;
+  }
+  /**
+   * @param BucketSoftDeletePolicy
+   */
+  public function setSoftDeletePolicy(BucketSoftDeletePolicy $softDeletePolicy)
+  {
+    $this->softDeletePolicy = $softDeletePolicy;
+  }
+  /**
+   * @return BucketSoftDeletePolicy
+   */
+  public function getSoftDeletePolicy()
+  {
+    return $this->softDeletePolicy;
   }
   /**
    * @param string

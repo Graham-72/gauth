@@ -19,33 +19,55 @@ namespace Google\Service\GKEHub;
 
 class MembershipFeatureState extends \Google\Model
 {
-  protected $anthosvmType = AnthosVMMembershipState::class;
-  protected $anthosvmDataType = '';
+  /**
+   * @var AppDevExperienceFeatureState
+   */
+  public $appdevexperience;
   protected $appdevexperienceType = AppDevExperienceFeatureState::class;
   protected $appdevexperienceDataType = '';
+  /**
+   * @var ClusterUpgradeMembershipState
+   */
+  public $clusterupgrade;
+  protected $clusterupgradeType = ClusterUpgradeMembershipState::class;
+  protected $clusterupgradeDataType = '';
+  /**
+   * @var ConfigManagementMembershipState
+   */
+  public $configmanagement;
   protected $configmanagementType = ConfigManagementMembershipState::class;
   protected $configmanagementDataType = '';
+  /**
+   * @var FleetObservabilityMembershipState
+   */
+  public $fleetobservability;
+  protected $fleetobservabilityType = FleetObservabilityMembershipState::class;
+  protected $fleetobservabilityDataType = '';
+  /**
+   * @var IdentityServiceMembershipState
+   */
+  public $identityservice;
   protected $identityserviceType = IdentityServiceMembershipState::class;
   protected $identityserviceDataType = '';
+  /**
+   * @var PolicyControllerMembershipState
+   */
+  public $policycontroller;
+  protected $policycontrollerType = PolicyControllerMembershipState::class;
+  protected $policycontrollerDataType = '';
+  /**
+   * @var ServiceMeshMembershipState
+   */
+  public $servicemesh;
   protected $servicemeshType = ServiceMeshMembershipState::class;
   protected $servicemeshDataType = '';
+  /**
+   * @var FeatureState
+   */
+  public $state;
   protected $stateType = FeatureState::class;
   protected $stateDataType = '';
 
-  /**
-   * @param AnthosVMMembershipState
-   */
-  public function setAnthosvm(AnthosVMMembershipState $anthosvm)
-  {
-    $this->anthosvm = $anthosvm;
-  }
-  /**
-   * @return AnthosVMMembershipState
-   */
-  public function getAnthosvm()
-  {
-    return $this->anthosvm;
-  }
   /**
    * @param AppDevExperienceFeatureState
    */
@@ -59,6 +81,20 @@ class MembershipFeatureState extends \Google\Model
   public function getAppdevexperience()
   {
     return $this->appdevexperience;
+  }
+  /**
+   * @param ClusterUpgradeMembershipState
+   */
+  public function setClusterupgrade(ClusterUpgradeMembershipState $clusterupgrade)
+  {
+    $this->clusterupgrade = $clusterupgrade;
+  }
+  /**
+   * @return ClusterUpgradeMembershipState
+   */
+  public function getClusterupgrade()
+  {
+    return $this->clusterupgrade;
   }
   /**
    * @param ConfigManagementMembershipState
@@ -75,6 +111,20 @@ class MembershipFeatureState extends \Google\Model
     return $this->configmanagement;
   }
   /**
+   * @param FleetObservabilityMembershipState
+   */
+  public function setFleetobservability(FleetObservabilityMembershipState $fleetobservability)
+  {
+    $this->fleetobservability = $fleetobservability;
+  }
+  /**
+   * @return FleetObservabilityMembershipState
+   */
+  public function getFleetobservability()
+  {
+    return $this->fleetobservability;
+  }
+  /**
    * @param IdentityServiceMembershipState
    */
   public function setIdentityservice(IdentityServiceMembershipState $identityservice)
@@ -87,6 +137,20 @@ class MembershipFeatureState extends \Google\Model
   public function getIdentityservice()
   {
     return $this->identityservice;
+  }
+  /**
+   * @param PolicyControllerMembershipState
+   */
+  public function setPolicycontroller(PolicyControllerMembershipState $policycontroller)
+  {
+    $this->policycontroller = $policycontroller;
+  }
+  /**
+   * @return PolicyControllerMembershipState
+   */
+  public function getPolicycontroller()
+  {
+    return $this->policycontroller;
   }
   /**
    * @param ServiceMeshMembershipState

@@ -19,12 +19,30 @@ namespace Google\Service\Dns;
 
 class RRSetRoutingPolicy extends \Google\Model
 {
+  /**
+   * @var RRSetRoutingPolicyGeoPolicy
+   */
+  public $geo;
   protected $geoType = RRSetRoutingPolicyGeoPolicy::class;
   protected $geoDataType = '';
   /**
    * @var string
    */
+  public $healthCheck;
+  /**
+   * @var string
+   */
   public $kind;
+  /**
+   * @var RRSetRoutingPolicyPrimaryBackupPolicy
+   */
+  public $primaryBackup;
+  protected $primaryBackupType = RRSetRoutingPolicyPrimaryBackupPolicy::class;
+  protected $primaryBackupDataType = '';
+  /**
+   * @var RRSetRoutingPolicyWrrPolicy
+   */
+  public $wrr;
   protected $wrrType = RRSetRoutingPolicyWrrPolicy::class;
   protected $wrrDataType = '';
 
@@ -45,6 +63,20 @@ class RRSetRoutingPolicy extends \Google\Model
   /**
    * @param string
    */
+  public function setHealthCheck($healthCheck)
+  {
+    $this->healthCheck = $healthCheck;
+  }
+  /**
+   * @return string
+   */
+  public function getHealthCheck()
+  {
+    return $this->healthCheck;
+  }
+  /**
+   * @param string
+   */
   public function setKind($kind)
   {
     $this->kind = $kind;
@@ -55,6 +87,20 @@ class RRSetRoutingPolicy extends \Google\Model
   public function getKind()
   {
     return $this->kind;
+  }
+  /**
+   * @param RRSetRoutingPolicyPrimaryBackupPolicy
+   */
+  public function setPrimaryBackup(RRSetRoutingPolicyPrimaryBackupPolicy $primaryBackup)
+  {
+    $this->primaryBackup = $primaryBackup;
+  }
+  /**
+   * @return RRSetRoutingPolicyPrimaryBackupPolicy
+   */
+  public function getPrimaryBackup()
+  {
+    return $this->primaryBackup;
   }
   /**
    * @param RRSetRoutingPolicyWrrPolicy

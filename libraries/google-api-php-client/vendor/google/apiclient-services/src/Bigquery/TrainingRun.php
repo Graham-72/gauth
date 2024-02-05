@@ -20,22 +20,50 @@ namespace Google\Service\Bigquery;
 class TrainingRun extends \Google\Collection
 {
   protected $collection_key = 'results';
+  /**
+   * @var GlobalExplanation[]
+   */
+  public $classLevelGlobalExplanations;
   protected $classLevelGlobalExplanationsType = GlobalExplanation::class;
   protected $classLevelGlobalExplanationsDataType = 'array';
+  /**
+   * @var DataSplitResult
+   */
+  public $dataSplitResult;
   protected $dataSplitResultType = DataSplitResult::class;
   protected $dataSplitResultDataType = '';
+  /**
+   * @var EvaluationMetrics
+   */
+  public $evaluationMetrics;
   protected $evaluationMetricsType = EvaluationMetrics::class;
   protected $evaluationMetricsDataType = '';
+  /**
+   * @var GlobalExplanation
+   */
+  public $modelLevelGlobalExplanation;
   protected $modelLevelGlobalExplanationType = GlobalExplanation::class;
   protected $modelLevelGlobalExplanationDataType = '';
+  /**
+   * @var IterationResult[]
+   */
+  public $results;
   protected $resultsType = IterationResult::class;
   protected $resultsDataType = 'array';
   /**
    * @var string
    */
   public $startTime;
+  /**
+   * @var TrainingOptions
+   */
+  public $trainingOptions;
   protected $trainingOptionsType = TrainingOptions::class;
   protected $trainingOptionsDataType = '';
+  /**
+   * @var string
+   */
+  public $trainingStartTime;
   /**
    * @var string
    */
@@ -142,6 +170,20 @@ class TrainingRun extends \Google\Collection
   public function getTrainingOptions()
   {
     return $this->trainingOptions;
+  }
+  /**
+   * @param string
+   */
+  public function setTrainingStartTime($trainingStartTime)
+  {
+    $this->trainingStartTime = $trainingStartTime;
+  }
+  /**
+   * @return string
+   */
+  public function getTrainingStartTime()
+  {
+    return $this->trainingStartTime;
   }
   /**
    * @param string

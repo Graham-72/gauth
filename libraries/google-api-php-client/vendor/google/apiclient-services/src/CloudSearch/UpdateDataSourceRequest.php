@@ -19,10 +19,22 @@ namespace Google\Service\CloudSearch;
 
 class UpdateDataSourceRequest extends \Google\Model
 {
+  /**
+   * @var DebugOptions
+   */
+  public $debugOptions;
   protected $debugOptionsType = DebugOptions::class;
   protected $debugOptionsDataType = '';
+  /**
+   * @var DataSource
+   */
+  public $source;
   protected $sourceType = DataSource::class;
   protected $sourceDataType = '';
+  /**
+   * @var string
+   */
+  public $updateMask;
 
   /**
    * @param DebugOptions
@@ -51,6 +63,20 @@ class UpdateDataSourceRequest extends \Google\Model
   public function getSource()
   {
     return $this->source;
+  }
+  /**
+   * @param string
+   */
+  public function setUpdateMask($updateMask)
+  {
+    $this->updateMask = $updateMask;
+  }
+  /**
+   * @return string
+   */
+  public function getUpdateMask()
+  {
+    return $this->updateMask;
   }
 }
 

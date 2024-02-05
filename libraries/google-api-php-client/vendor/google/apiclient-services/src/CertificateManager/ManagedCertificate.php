@@ -20,6 +20,10 @@ namespace Google\Service\CertificateManager;
 class ManagedCertificate extends \Google\Collection
 {
   protected $collection_key = 'domains';
+  /**
+   * @var AuthorizationAttemptInfo[]
+   */
+  public $authorizationAttemptInfo;
   protected $authorizationAttemptInfoType = AuthorizationAttemptInfo::class;
   protected $authorizationAttemptInfoDataType = 'array';
   /**
@@ -30,6 +34,14 @@ class ManagedCertificate extends \Google\Collection
    * @var string[]
    */
   public $domains;
+  /**
+   * @var string
+   */
+  public $issuanceConfig;
+  /**
+   * @var ProvisioningIssue
+   */
+  public $provisioningIssue;
   protected $provisioningIssueType = ProvisioningIssue::class;
   protected $provisioningIssueDataType = '';
   /**
@@ -78,6 +90,20 @@ class ManagedCertificate extends \Google\Collection
   public function getDomains()
   {
     return $this->domains;
+  }
+  /**
+   * @param string
+   */
+  public function setIssuanceConfig($issuanceConfig)
+  {
+    $this->issuanceConfig = $issuanceConfig;
+  }
+  /**
+   * @return string
+   */
+  public function getIssuanceConfig()
+  {
+    return $this->issuanceConfig;
   }
   /**
    * @param ProvisioningIssue

@@ -26,7 +26,7 @@ use Google\Service\Logging\LoggingEmpty;
  * Typical usage is:
  *  <code>
  *   $loggingService = new Google\Service\Logging(...);
- *   $views = $loggingService->views;
+ *   $views = $loggingService->folders_locations_buckets_views;
  *  </code>
  */
 class FoldersLocationsBucketsViews extends \Google\Service\Resource
@@ -41,7 +41,9 @@ class FoldersLocationsBucketsViews extends \Google\Service\Resource
    * @param LogView $postBody
    * @param array $optParams Optional parameters.
    *
-   * @opt_param string viewId Required. The id to use for this view.
+   * @opt_param string viewId Required. A client-assigned identifier such as "my-
+   * view". Identifiers are limited to 100 characters and can include only
+   * letters, digits, underscores, hyphens, and periods.
    * @return LogView
    */
   public function create($parent, LogView $postBody, $optParams = [])
@@ -69,7 +71,7 @@ class FoldersLocationsBucketsViews extends \Google\Service\Resource
     return $this->call('delete', [$params], LoggingEmpty::class);
   }
   /**
-   * Gets a view on a log bucket.. (views.get)
+   * Gets a view on a log bucket. (views.get)
    *
    * @param string $name Required. The resource name of the policy: "projects/[PRO
    * JECT_ID]/locations/[LOCATION_ID]/buckets/[BUCKET_ID]/views/[VIEW_ID]" For
@@ -107,11 +109,11 @@ class FoldersLocationsBucketsViews extends \Google\Service\Resource
     return $this->call('list', [$params], ListViewsResponse::class);
   }
   /**
-   * Updates a view on a log bucket. This method replaces the following fields in
-   * the existing view with values from the new view: filter. If an UNAVAILABLE
-   * error is returned, this indicates that system is not in a state where it can
-   * update the view. If this occurs, please try again in a few minutes.
-   * (views.patch)
+   * Updates a view on a log bucket. This method replaces the value of the filter
+   * field from the existing view with the corresponding value from the new view.
+   * If an UNAVAILABLE error is returned, this indicates that system is not in a
+   * state where it can update the view. If this occurs, please try again in a few
+   * minutes. (views.patch)
    *
    * @param string $name Required. The full resource name of the view to update "p
    * rojects/[PROJECT_ID]/locations/[LOCATION_ID]/buckets/[BUCKET_ID]/views/[VIEW_

@@ -20,12 +20,34 @@ namespace Google\Service\Speech;
 class LongRunningRecognizeResponse extends \Google\Collection
 {
   protected $collection_key = 'results';
+  /**
+   * @var TranscriptOutputConfig
+   */
+  public $outputConfig;
   protected $outputConfigType = TranscriptOutputConfig::class;
   protected $outputConfigDataType = '';
+  /**
+   * @var Status
+   */
+  public $outputError;
   protected $outputErrorType = Status::class;
   protected $outputErrorDataType = '';
+  /**
+   * @var string
+   */
+  public $requestId;
+  /**
+   * @var SpeechRecognitionResult[]
+   */
+  public $results;
   protected $resultsType = SpeechRecognitionResult::class;
   protected $resultsDataType = 'array';
+  /**
+   * @var SpeechAdaptationInfo
+   */
+  public $speechAdaptationInfo;
+  protected $speechAdaptationInfoType = SpeechAdaptationInfo::class;
+  protected $speechAdaptationInfoDataType = '';
   /**
    * @var string
    */
@@ -60,6 +82,20 @@ class LongRunningRecognizeResponse extends \Google\Collection
     return $this->outputError;
   }
   /**
+   * @param string
+   */
+  public function setRequestId($requestId)
+  {
+    $this->requestId = $requestId;
+  }
+  /**
+   * @return string
+   */
+  public function getRequestId()
+  {
+    return $this->requestId;
+  }
+  /**
    * @param SpeechRecognitionResult[]
    */
   public function setResults($results)
@@ -72,6 +108,20 @@ class LongRunningRecognizeResponse extends \Google\Collection
   public function getResults()
   {
     return $this->results;
+  }
+  /**
+   * @param SpeechAdaptationInfo
+   */
+  public function setSpeechAdaptationInfo(SpeechAdaptationInfo $speechAdaptationInfo)
+  {
+    $this->speechAdaptationInfo = $speechAdaptationInfo;
+  }
+  /**
+   * @return SpeechAdaptationInfo
+   */
+  public function getSpeechAdaptationInfo()
+  {
+    return $this->speechAdaptationInfo;
   }
   /**
    * @param string

@@ -19,11 +19,25 @@ namespace Google\Service\Document;
 
 class GoogleCloudDocumentaiUiv1beta3ResyncDatasetMetadata extends \Google\Collection
 {
-  protected $collection_key = 'newlyAddedDocuments';
+  protected $collection_key = 'individualDocumentResyncStatuses';
+  /**
+   * @var GoogleCloudDocumentaiUiv1beta3CommonOperationMetadata
+   */
+  public $commonMetadata;
   protected $commonMetadataType = GoogleCloudDocumentaiUiv1beta3CommonOperationMetadata::class;
   protected $commonMetadataDataType = '';
-  protected $newlyAddedDocumentsType = GoogleCloudDocumentaiUiv1beta3ResyncDatasetMetadataUpdatedDocument::class;
-  protected $newlyAddedDocumentsDataType = 'array';
+  /**
+   * @var GoogleCloudDocumentaiUiv1beta3ResyncDatasetMetadataDatasetResyncStatus[]
+   */
+  public $datasetResyncStatuses;
+  protected $datasetResyncStatusesType = GoogleCloudDocumentaiUiv1beta3ResyncDatasetMetadataDatasetResyncStatus::class;
+  protected $datasetResyncStatusesDataType = 'array';
+  /**
+   * @var GoogleCloudDocumentaiUiv1beta3ResyncDatasetMetadataIndividualDocumentResyncStatus[]
+   */
+  public $individualDocumentResyncStatuses;
+  protected $individualDocumentResyncStatusesType = GoogleCloudDocumentaiUiv1beta3ResyncDatasetMetadataIndividualDocumentResyncStatus::class;
+  protected $individualDocumentResyncStatusesDataType = 'array';
 
   /**
    * @param GoogleCloudDocumentaiUiv1beta3CommonOperationMetadata
@@ -40,18 +54,32 @@ class GoogleCloudDocumentaiUiv1beta3ResyncDatasetMetadata extends \Google\Collec
     return $this->commonMetadata;
   }
   /**
-   * @param GoogleCloudDocumentaiUiv1beta3ResyncDatasetMetadataUpdatedDocument[]
+   * @param GoogleCloudDocumentaiUiv1beta3ResyncDatasetMetadataDatasetResyncStatus[]
    */
-  public function setNewlyAddedDocuments($newlyAddedDocuments)
+  public function setDatasetResyncStatuses($datasetResyncStatuses)
   {
-    $this->newlyAddedDocuments = $newlyAddedDocuments;
+    $this->datasetResyncStatuses = $datasetResyncStatuses;
   }
   /**
-   * @return GoogleCloudDocumentaiUiv1beta3ResyncDatasetMetadataUpdatedDocument[]
+   * @return GoogleCloudDocumentaiUiv1beta3ResyncDatasetMetadataDatasetResyncStatus[]
    */
-  public function getNewlyAddedDocuments()
+  public function getDatasetResyncStatuses()
   {
-    return $this->newlyAddedDocuments;
+    return $this->datasetResyncStatuses;
+  }
+  /**
+   * @param GoogleCloudDocumentaiUiv1beta3ResyncDatasetMetadataIndividualDocumentResyncStatus[]
+   */
+  public function setIndividualDocumentResyncStatuses($individualDocumentResyncStatuses)
+  {
+    $this->individualDocumentResyncStatuses = $individualDocumentResyncStatuses;
+  }
+  /**
+   * @return GoogleCloudDocumentaiUiv1beta3ResyncDatasetMetadataIndividualDocumentResyncStatus[]
+   */
+  public function getIndividualDocumentResyncStatuses()
+  {
+    return $this->individualDocumentResyncStatuses;
   }
 }
 

@@ -19,12 +19,22 @@ namespace Google\Service\Firestore;
 
 class GoogleFirestoreAdminV1Field extends \Google\Model
 {
+  /**
+   * @var GoogleFirestoreAdminV1IndexConfig
+   */
+  public $indexConfig;
   protected $indexConfigType = GoogleFirestoreAdminV1IndexConfig::class;
   protected $indexConfigDataType = '';
   /**
    * @var string
    */
   public $name;
+  /**
+   * @var GoogleFirestoreAdminV1TtlConfig
+   */
+  public $ttlConfig;
+  protected $ttlConfigType = GoogleFirestoreAdminV1TtlConfig::class;
+  protected $ttlConfigDataType = '';
 
   /**
    * @param GoogleFirestoreAdminV1IndexConfig
@@ -53,6 +63,20 @@ class GoogleFirestoreAdminV1Field extends \Google\Model
   public function getName()
   {
     return $this->name;
+  }
+  /**
+   * @param GoogleFirestoreAdminV1TtlConfig
+   */
+  public function setTtlConfig(GoogleFirestoreAdminV1TtlConfig $ttlConfig)
+  {
+    $this->ttlConfig = $ttlConfig;
+  }
+  /**
+   * @return GoogleFirestoreAdminV1TtlConfig
+   */
+  public function getTtlConfig()
+  {
+    return $this->ttlConfig;
   }
 }
 

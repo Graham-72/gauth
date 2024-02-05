@@ -41,6 +41,19 @@ google-api-php-client library in the libraries folder. The Backdrop module does
 not need the Libraries module; the google-api-php-client library is included
 in this module.
 
+PHP Version Support
+-------------------
+
+The [Google API PHP Client library](https://github.com/googleapis/google-api-php-client/releases) has different releases for different versions of PHP, currently:
+
+* PHP 7.4
+* PHP 8.0
+* PHP 8.2
+
+The version bundled with this module is 7.4. You can download one of the other versions (or a newer/older release of the library) to replace the bundled library if needed.
+
+Note that the bundled library includes several sub-libraries in the vendor folder. If other Backdrop modules use the same library, there can be compatibility issues if the versions differ. (For example, [CiviCRM](civicrm.org) bundles its own version of the the guzzlehttp library.)
+
 Issues
 ------
 
