@@ -23,12 +23,26 @@ class Membership extends \Google\Model
    * @var string
    */
   public $createTime;
+  /**
+   * @var Group
+   */
+  public $groupMember;
+  protected $groupMemberType = Group::class;
+  protected $groupMemberDataType = '';
+  /**
+   * @var User
+   */
+  public $member;
   protected $memberType = User::class;
   protected $memberDataType = '';
   /**
    * @var string
    */
   public $name;
+  /**
+   * @var string
+   */
+  public $role;
   /**
    * @var string
    */
@@ -47,6 +61,20 @@ class Membership extends \Google\Model
   public function getCreateTime()
   {
     return $this->createTime;
+  }
+  /**
+   * @param Group
+   */
+  public function setGroupMember(Group $groupMember)
+  {
+    $this->groupMember = $groupMember;
+  }
+  /**
+   * @return Group
+   */
+  public function getGroupMember()
+  {
+    return $this->groupMember;
   }
   /**
    * @param User
@@ -75,6 +103,20 @@ class Membership extends \Google\Model
   public function getName()
   {
     return $this->name;
+  }
+  /**
+   * @param string
+   */
+  public function setRole($role)
+  {
+    $this->role = $role;
+  }
+  /**
+   * @return string
+   */
+  public function getRole()
+  {
+    return $this->role;
   }
   /**
    * @param string

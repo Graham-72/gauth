@@ -19,6 +19,10 @@ namespace Google\Service\BigQueryConnectionService;
 
 class CloudSqlProperties extends \Google\Model
 {
+  /**
+   * @var CloudSqlCredential
+   */
+  public $credential;
   protected $credentialType = CloudSqlCredential::class;
   protected $credentialDataType = '';
   /**
@@ -29,6 +33,10 @@ class CloudSqlProperties extends \Google\Model
    * @var string
    */
   public $instanceId;
+  /**
+   * @var string
+   */
+  public $serviceAccountId;
   /**
    * @var string
    */
@@ -75,6 +83,20 @@ class CloudSqlProperties extends \Google\Model
   public function getInstanceId()
   {
     return $this->instanceId;
+  }
+  /**
+   * @param string
+   */
+  public function setServiceAccountId($serviceAccountId)
+  {
+    $this->serviceAccountId = $serviceAccountId;
+  }
+  /**
+   * @return string
+   */
+  public function getServiceAccountId()
+  {
+    return $this->serviceAccountId;
   }
   /**
    * @param string

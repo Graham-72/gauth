@@ -20,12 +20,24 @@ namespace Google\Service\CloudSupport;
 class CloudsupportCase extends \Google\Collection
 {
   protected $collection_key = 'subscriberEmailAddresses';
+  /**
+   * @var CaseClassification
+   */
+  public $classification;
   protected $classificationType = CaseClassification::class;
   protected $classificationDataType = '';
   /**
    * @var string
    */
+  public $contactEmail;
+  /**
+   * @var string
+   */
   public $createTime;
+  /**
+   * @var Actor
+   */
+  public $creator;
   protected $creatorType = Actor::class;
   protected $creatorDataType = '';
   /**
@@ -43,15 +55,15 @@ class CloudsupportCase extends \Google\Collection
   /**
    * @var string
    */
+  public $languageCode;
+  /**
+   * @var string
+   */
   public $name;
   /**
    * @var string
    */
   public $priority;
-  /**
-   * @var string
-   */
-  public $severity;
   /**
    * @var string
    */
@@ -86,6 +98,20 @@ class CloudsupportCase extends \Google\Collection
   public function getClassification()
   {
     return $this->classification;
+  }
+  /**
+   * @param string
+   */
+  public function setContactEmail($contactEmail)
+  {
+    $this->contactEmail = $contactEmail;
+  }
+  /**
+   * @return string
+   */
+  public function getContactEmail()
+  {
+    return $this->contactEmail;
   }
   /**
    * @param string
@@ -160,6 +186,20 @@ class CloudsupportCase extends \Google\Collection
   /**
    * @param string
    */
+  public function setLanguageCode($languageCode)
+  {
+    $this->languageCode = $languageCode;
+  }
+  /**
+   * @return string
+   */
+  public function getLanguageCode()
+  {
+    return $this->languageCode;
+  }
+  /**
+   * @param string
+   */
   public function setName($name)
   {
     $this->name = $name;
@@ -184,20 +224,6 @@ class CloudsupportCase extends \Google\Collection
   public function getPriority()
   {
     return $this->priority;
-  }
-  /**
-   * @param string
-   */
-  public function setSeverity($severity)
-  {
-    $this->severity = $severity;
-  }
-  /**
-   * @return string
-   */
-  public function getSeverity()
-  {
-    return $this->severity;
   }
   /**
    * @param string

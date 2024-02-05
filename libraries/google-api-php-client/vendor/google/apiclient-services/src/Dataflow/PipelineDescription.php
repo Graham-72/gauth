@@ -20,12 +20,28 @@ namespace Google\Service\Dataflow;
 class PipelineDescription extends \Google\Collection
 {
   protected $collection_key = 'originalPipelineTransform';
+  /**
+   * @var DisplayData[]
+   */
+  public $displayData;
   protected $displayDataType = DisplayData::class;
   protected $displayDataDataType = 'array';
+  /**
+   * @var ExecutionStageSummary[]
+   */
+  public $executionPipelineStage;
   protected $executionPipelineStageType = ExecutionStageSummary::class;
   protected $executionPipelineStageDataType = 'array';
+  /**
+   * @var TransformSummary[]
+   */
+  public $originalPipelineTransform;
   protected $originalPipelineTransformType = TransformSummary::class;
   protected $originalPipelineTransformDataType = 'array';
+  /**
+   * @var string
+   */
+  public $stepNamesHash;
 
   /**
    * @param DisplayData[]
@@ -68,6 +84,20 @@ class PipelineDescription extends \Google\Collection
   public function getOriginalPipelineTransform()
   {
     return $this->originalPipelineTransform;
+  }
+  /**
+   * @param string
+   */
+  public function setStepNamesHash($stepNamesHash)
+  {
+    $this->stepNamesHash = $stepNamesHash;
+  }
+  /**
+   * @return string
+   */
+  public function getStepNamesHash()
+  {
+    return $this->stepNamesHash;
   }
 }
 

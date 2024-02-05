@@ -21,9 +21,17 @@ class GoogleCloudRetailV2SearchRequestFacetSpecFacetKey extends \Google\Collecti
 {
   protected $collection_key = 'restrictedValues';
   /**
+   * @var bool
+   */
+  public $caseInsensitive;
+  /**
    * @var string[]
    */
   public $contains;
+  /**
+   * @var GoogleCloudRetailV2Interval[]
+   */
+  public $intervals;
   protected $intervalsType = GoogleCloudRetailV2Interval::class;
   protected $intervalsDataType = 'array';
   /**
@@ -46,7 +54,25 @@ class GoogleCloudRetailV2SearchRequestFacetSpecFacetKey extends \Google\Collecti
    * @var string[]
    */
   public $restrictedValues;
+  /**
+   * @var bool
+   */
+  public $returnMinMax;
 
+  /**
+   * @param bool
+   */
+  public function setCaseInsensitive($caseInsensitive)
+  {
+    $this->caseInsensitive = $caseInsensitive;
+  }
+  /**
+   * @return bool
+   */
+  public function getCaseInsensitive()
+  {
+    return $this->caseInsensitive;
+  }
   /**
    * @param string[]
    */
@@ -144,6 +170,20 @@ class GoogleCloudRetailV2SearchRequestFacetSpecFacetKey extends \Google\Collecti
   public function getRestrictedValues()
   {
     return $this->restrictedValues;
+  }
+  /**
+   * @param bool
+   */
+  public function setReturnMinMax($returnMinMax)
+  {
+    $this->returnMinMax = $returnMinMax;
+  }
+  /**
+   * @return bool
+   */
+  public function getReturnMinMax()
+  {
+    return $this->returnMinMax;
   }
 }
 

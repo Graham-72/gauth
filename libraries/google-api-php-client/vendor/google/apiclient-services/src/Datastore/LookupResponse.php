@@ -20,16 +20,32 @@ namespace Google\Service\Datastore;
 class LookupResponse extends \Google\Collection
 {
   protected $collection_key = 'missing';
+  /**
+   * @var Key[]
+   */
+  public $deferred;
   protected $deferredType = Key::class;
   protected $deferredDataType = 'array';
+  /**
+   * @var EntityResult[]
+   */
+  public $found;
   protected $foundType = EntityResult::class;
   protected $foundDataType = 'array';
+  /**
+   * @var EntityResult[]
+   */
+  public $missing;
   protected $missingType = EntityResult::class;
   protected $missingDataType = 'array';
   /**
    * @var string
    */
   public $readTime;
+  /**
+   * @var string
+   */
+  public $transaction;
 
   /**
    * @param Key[]
@@ -86,6 +102,20 @@ class LookupResponse extends \Google\Collection
   public function getReadTime()
   {
     return $this->readTime;
+  }
+  /**
+   * @param string
+   */
+  public function setTransaction($transaction)
+  {
+    $this->transaction = $transaction;
+  }
+  /**
+   * @return string
+   */
+  public function getTransaction()
+  {
+    return $this->transaction;
   }
 }
 

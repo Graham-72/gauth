@@ -19,12 +19,30 @@ namespace Google\Service\Dataflow;
 
 class WorkerMessageResponse extends \Google\Model
 {
+  /**
+   * @var WorkerHealthReportResponse
+   */
+  public $workerHealthReportResponse;
   protected $workerHealthReportResponseType = WorkerHealthReportResponse::class;
   protected $workerHealthReportResponseDataType = '';
+  /**
+   * @var ResourceUtilizationReportResponse
+   */
+  public $workerMetricsResponse;
   protected $workerMetricsResponseType = ResourceUtilizationReportResponse::class;
   protected $workerMetricsResponseDataType = '';
+  /**
+   * @var WorkerShutdownNoticeResponse
+   */
+  public $workerShutdownNoticeResponse;
   protected $workerShutdownNoticeResponseType = WorkerShutdownNoticeResponse::class;
   protected $workerShutdownNoticeResponseDataType = '';
+  /**
+   * @var WorkerThreadScalingReportResponse
+   */
+  public $workerThreadScalingReportResponse;
+  protected $workerThreadScalingReportResponseType = WorkerThreadScalingReportResponse::class;
+  protected $workerThreadScalingReportResponseDataType = '';
 
   /**
    * @param WorkerHealthReportResponse
@@ -67,6 +85,20 @@ class WorkerMessageResponse extends \Google\Model
   public function getWorkerShutdownNoticeResponse()
   {
     return $this->workerShutdownNoticeResponse;
+  }
+  /**
+   * @param WorkerThreadScalingReportResponse
+   */
+  public function setWorkerThreadScalingReportResponse(WorkerThreadScalingReportResponse $workerThreadScalingReportResponse)
+  {
+    $this->workerThreadScalingReportResponse = $workerThreadScalingReportResponse;
+  }
+  /**
+   * @return WorkerThreadScalingReportResponse
+   */
+  public function getWorkerThreadScalingReportResponse()
+  {
+    return $this->workerThreadScalingReportResponse;
   }
 }
 

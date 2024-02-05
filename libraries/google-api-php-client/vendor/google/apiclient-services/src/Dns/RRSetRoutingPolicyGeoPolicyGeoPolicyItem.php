@@ -21,6 +21,12 @@ class RRSetRoutingPolicyGeoPolicyGeoPolicyItem extends \Google\Collection
 {
   protected $collection_key = 'signatureRrdatas';
   /**
+   * @var RRSetRoutingPolicyHealthCheckTargets
+   */
+  public $healthCheckedTargets;
+  protected $healthCheckedTargetsType = RRSetRoutingPolicyHealthCheckTargets::class;
+  protected $healthCheckedTargetsDataType = '';
+  /**
    * @var string
    */
   public $kind;
@@ -37,6 +43,20 @@ class RRSetRoutingPolicyGeoPolicyGeoPolicyItem extends \Google\Collection
    */
   public $signatureRrdatas;
 
+  /**
+   * @param RRSetRoutingPolicyHealthCheckTargets
+   */
+  public function setHealthCheckedTargets(RRSetRoutingPolicyHealthCheckTargets $healthCheckedTargets)
+  {
+    $this->healthCheckedTargets = $healthCheckedTargets;
+  }
+  /**
+   * @return RRSetRoutingPolicyHealthCheckTargets
+   */
+  public function getHealthCheckedTargets()
+  {
+    return $this->healthCheckedTargets;
+  }
   /**
    * @param string
    */

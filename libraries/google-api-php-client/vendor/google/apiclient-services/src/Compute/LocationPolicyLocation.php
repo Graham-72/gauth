@@ -20,10 +20,30 @@ namespace Google\Service\Compute;
 class LocationPolicyLocation extends \Google\Model
 {
   /**
+   * @var LocationPolicyLocationConstraints
+   */
+  public $constraints;
+  protected $constraintsType = LocationPolicyLocationConstraints::class;
+  protected $constraintsDataType = '';
+  /**
    * @var string
    */
   public $preference;
 
+  /**
+   * @param LocationPolicyLocationConstraints
+   */
+  public function setConstraints(LocationPolicyLocationConstraints $constraints)
+  {
+    $this->constraints = $constraints;
+  }
+  /**
+   * @return LocationPolicyLocationConstraints
+   */
+  public function getConstraints()
+  {
+    return $this->constraints;
+  }
   /**
    * @param string
    */

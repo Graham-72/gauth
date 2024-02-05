@@ -21,6 +21,10 @@ class ClusterOperationMetadata extends \Google\Collection
 {
   protected $collection_key = 'warnings';
   /**
+   * @var string[]
+   */
+  public $childOperationIds;
+  /**
    * @var string
    */
   public $clusterName;
@@ -40,8 +44,16 @@ class ClusterOperationMetadata extends \Google\Collection
    * @var string
    */
   public $operationType;
+  /**
+   * @var ClusterOperationStatus
+   */
+  public $status;
   protected $statusType = ClusterOperationStatus::class;
   protected $statusDataType = '';
+  /**
+   * @var ClusterOperationStatus[]
+   */
+  public $statusHistory;
   protected $statusHistoryType = ClusterOperationStatus::class;
   protected $statusHistoryDataType = 'array';
   /**
@@ -49,6 +61,20 @@ class ClusterOperationMetadata extends \Google\Collection
    */
   public $warnings;
 
+  /**
+   * @param string[]
+   */
+  public function setChildOperationIds($childOperationIds)
+  {
+    $this->childOperationIds = $childOperationIds;
+  }
+  /**
+   * @return string[]
+   */
+  public function getChildOperationIds()
+  {
+    return $this->childOperationIds;
+  }
   /**
    * @param string
    */

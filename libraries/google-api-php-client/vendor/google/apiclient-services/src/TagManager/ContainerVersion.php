@@ -24,10 +24,22 @@ class ContainerVersion extends \Google\Collection
    * @var string
    */
   public $accountId;
+  /**
+   * @var BuiltInVariable[]
+   */
+  public $builtInVariable;
   protected $builtInVariableType = BuiltInVariable::class;
   protected $builtInVariableDataType = 'array';
+  /**
+   * @var Client[]
+   */
+  public $client;
   protected $clientType = Client::class;
   protected $clientDataType = 'array';
+  /**
+   * @var Container
+   */
+  public $container;
   protected $containerType = Container::class;
   protected $containerDataType = '';
   /**
@@ -38,6 +50,10 @@ class ContainerVersion extends \Google\Collection
    * @var string
    */
   public $containerVersionId;
+  /**
+   * @var CustomTemplate[]
+   */
+  public $customTemplate;
   protected $customTemplateType = CustomTemplate::class;
   protected $customTemplateDataType = 'array';
   /**
@@ -52,8 +68,18 @@ class ContainerVersion extends \Google\Collection
    * @var string
    */
   public $fingerprint;
+  /**
+   * @var Folder[]
+   */
+  public $folder;
   protected $folderType = Folder::class;
   protected $folderDataType = 'array';
+  /**
+   * @var GtagConfig[]
+   */
+  public $gtagConfig;
+  protected $gtagConfigType = GtagConfig::class;
+  protected $gtagConfigDataType = 'array';
   /**
    * @var string
    */
@@ -62,16 +88,38 @@ class ContainerVersion extends \Google\Collection
    * @var string
    */
   public $path;
+  /**
+   * @var Tag[]
+   */
+  public $tag;
   protected $tagType = Tag::class;
   protected $tagDataType = 'array';
   /**
    * @var string
    */
   public $tagManagerUrl;
+  /**
+   * @var Transformation[]
+   */
+  public $transformation;
+  protected $transformationType = Transformation::class;
+  protected $transformationDataType = 'array';
+  /**
+   * @var Trigger[]
+   */
+  public $trigger;
   protected $triggerType = Trigger::class;
   protected $triggerDataType = 'array';
+  /**
+   * @var Variable[]
+   */
+  public $variable;
   protected $variableType = Variable::class;
   protected $variableDataType = 'array';
+  /**
+   * @var Zone[]
+   */
+  public $zone;
   protected $zoneType = Zone::class;
   protected $zoneDataType = 'array';
 
@@ -230,6 +278,20 @@ class ContainerVersion extends \Google\Collection
     return $this->folder;
   }
   /**
+   * @param GtagConfig[]
+   */
+  public function setGtagConfig($gtagConfig)
+  {
+    $this->gtagConfig = $gtagConfig;
+  }
+  /**
+   * @return GtagConfig[]
+   */
+  public function getGtagConfig()
+  {
+    return $this->gtagConfig;
+  }
+  /**
    * @param string
    */
   public function setName($name)
@@ -284,6 +346,20 @@ class ContainerVersion extends \Google\Collection
   public function getTagManagerUrl()
   {
     return $this->tagManagerUrl;
+  }
+  /**
+   * @param Transformation[]
+   */
+  public function setTransformation($transformation)
+  {
+    $this->transformation = $transformation;
+  }
+  /**
+   * @return Transformation[]
+   */
+  public function getTransformation()
+  {
+    return $this->transformation;
   }
   /**
    * @param Trigger[]

@@ -40,6 +40,16 @@ class GoogleCloudDatacatalogV1Taxonomy extends \Google\Collection
    * @var int
    */
   public $policyTagCount;
+  /**
+   * @var GoogleCloudDatacatalogV1TaxonomyService
+   */
+  public $service;
+  protected $serviceType = GoogleCloudDatacatalogV1TaxonomyService::class;
+  protected $serviceDataType = '';
+  /**
+   * @var GoogleCloudDatacatalogV1SystemTimestamps
+   */
+  public $taxonomyTimestamps;
   protected $taxonomyTimestampsType = GoogleCloudDatacatalogV1SystemTimestamps::class;
   protected $taxonomyTimestampsDataType = '';
 
@@ -112,6 +122,20 @@ class GoogleCloudDatacatalogV1Taxonomy extends \Google\Collection
   public function getPolicyTagCount()
   {
     return $this->policyTagCount;
+  }
+  /**
+   * @param GoogleCloudDatacatalogV1TaxonomyService
+   */
+  public function setService(GoogleCloudDatacatalogV1TaxonomyService $service)
+  {
+    $this->service = $service;
+  }
+  /**
+   * @return GoogleCloudDatacatalogV1TaxonomyService
+   */
+  public function getService()
+  {
+    return $this->service;
   }
   /**
    * @param GoogleCloudDatacatalogV1SystemTimestamps

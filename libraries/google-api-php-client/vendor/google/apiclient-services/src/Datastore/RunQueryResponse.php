@@ -19,10 +19,22 @@ namespace Google\Service\Datastore;
 
 class RunQueryResponse extends \Google\Model
 {
+  /**
+   * @var QueryResultBatch
+   */
+  public $batch;
   protected $batchType = QueryResultBatch::class;
   protected $batchDataType = '';
+  /**
+   * @var Query
+   */
+  public $query;
   protected $queryType = Query::class;
   protected $queryDataType = '';
+  /**
+   * @var string
+   */
+  public $transaction;
 
   /**
    * @param QueryResultBatch
@@ -51,6 +63,20 @@ class RunQueryResponse extends \Google\Model
   public function getQuery()
   {
     return $this->query;
+  }
+  /**
+   * @param string
+   */
+  public function setTransaction($transaction)
+  {
+    $this->transaction = $transaction;
+  }
+  /**
+   * @return string
+   */
+  public function getTransaction()
+  {
+    return $this->transaction;
   }
 }
 

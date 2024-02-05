@@ -20,12 +20,36 @@ namespace Google\Service\Datastream;
 class DestinationConfig extends \Google\Model
 {
   /**
+   * @var BigQueryDestinationConfig
+   */
+  public $bigqueryDestinationConfig;
+  protected $bigqueryDestinationConfigType = BigQueryDestinationConfig::class;
+  protected $bigqueryDestinationConfigDataType = '';
+  /**
    * @var string
    */
   public $destinationConnectionProfile;
+  /**
+   * @var GcsDestinationConfig
+   */
+  public $gcsDestinationConfig;
   protected $gcsDestinationConfigType = GcsDestinationConfig::class;
   protected $gcsDestinationConfigDataType = '';
 
+  /**
+   * @param BigQueryDestinationConfig
+   */
+  public function setBigqueryDestinationConfig(BigQueryDestinationConfig $bigqueryDestinationConfig)
+  {
+    $this->bigqueryDestinationConfig = $bigqueryDestinationConfig;
+  }
+  /**
+   * @return BigQueryDestinationConfig
+   */
+  public function getBigqueryDestinationConfig()
+  {
+    return $this->bigqueryDestinationConfig;
+  }
   /**
    * @param string
    */

@@ -19,10 +19,28 @@ namespace Google\Service\BigtableAdmin;
 
 class Table extends \Google\Model
 {
+  /**
+   * @var ChangeStreamConfig
+   */
+  public $changeStreamConfig;
+  protected $changeStreamConfigType = ChangeStreamConfig::class;
+  protected $changeStreamConfigDataType = '';
+  /**
+   * @var ClusterState[]
+   */
+  public $clusterStates;
   protected $clusterStatesType = ClusterState::class;
   protected $clusterStatesDataType = 'map';
+  /**
+   * @var ColumnFamily[]
+   */
+  public $columnFamilies;
   protected $columnFamiliesType = ColumnFamily::class;
   protected $columnFamiliesDataType = 'map';
+  /**
+   * @var bool
+   */
+  public $deletionProtection;
   /**
    * @var string
    */
@@ -31,9 +49,33 @@ class Table extends \Google\Model
    * @var string
    */
   public $name;
+  /**
+   * @var RestoreInfo
+   */
+  public $restoreInfo;
   protected $restoreInfoType = RestoreInfo::class;
   protected $restoreInfoDataType = '';
+  /**
+   * @var TableStats
+   */
+  public $stats;
+  protected $statsType = TableStats::class;
+  protected $statsDataType = '';
 
+  /**
+   * @param ChangeStreamConfig
+   */
+  public function setChangeStreamConfig(ChangeStreamConfig $changeStreamConfig)
+  {
+    $this->changeStreamConfig = $changeStreamConfig;
+  }
+  /**
+   * @return ChangeStreamConfig
+   */
+  public function getChangeStreamConfig()
+  {
+    return $this->changeStreamConfig;
+  }
   /**
    * @param ClusterState[]
    */
@@ -61,6 +103,20 @@ class Table extends \Google\Model
   public function getColumnFamilies()
   {
     return $this->columnFamilies;
+  }
+  /**
+   * @param bool
+   */
+  public function setDeletionProtection($deletionProtection)
+  {
+    $this->deletionProtection = $deletionProtection;
+  }
+  /**
+   * @return bool
+   */
+  public function getDeletionProtection()
+  {
+    return $this->deletionProtection;
   }
   /**
    * @param string
@@ -103,6 +159,20 @@ class Table extends \Google\Model
   public function getRestoreInfo()
   {
     return $this->restoreInfo;
+  }
+  /**
+   * @param TableStats
+   */
+  public function setStats(TableStats $stats)
+  {
+    $this->stats = $stats;
+  }
+  /**
+   * @return TableStats
+   */
+  public function getStats()
+  {
+    return $this->stats;
   }
 }
 

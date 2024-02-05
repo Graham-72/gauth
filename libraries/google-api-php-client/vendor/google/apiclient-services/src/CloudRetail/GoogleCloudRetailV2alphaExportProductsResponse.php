@@ -20,10 +20,24 @@ namespace Google\Service\CloudRetail;
 class GoogleCloudRetailV2alphaExportProductsResponse extends \Google\Collection
 {
   protected $collection_key = 'errorSamples';
+  /**
+   * @var GoogleRpcStatus[]
+   */
+  public $errorSamples;
   protected $errorSamplesType = GoogleRpcStatus::class;
   protected $errorSamplesDataType = 'array';
+  /**
+   * @var GoogleCloudRetailV2alphaExportErrorsConfig
+   */
+  public $errorsConfig;
   protected $errorsConfigType = GoogleCloudRetailV2alphaExportErrorsConfig::class;
   protected $errorsConfigDataType = '';
+  /**
+   * @var GoogleCloudRetailV2alphaOutputResult
+   */
+  public $outputResult;
+  protected $outputResultType = GoogleCloudRetailV2alphaOutputResult::class;
+  protected $outputResultDataType = '';
 
   /**
    * @param GoogleRpcStatus[]
@@ -52,6 +66,20 @@ class GoogleCloudRetailV2alphaExportProductsResponse extends \Google\Collection
   public function getErrorsConfig()
   {
     return $this->errorsConfig;
+  }
+  /**
+   * @param GoogleCloudRetailV2alphaOutputResult
+   */
+  public function setOutputResult(GoogleCloudRetailV2alphaOutputResult $outputResult)
+  {
+    $this->outputResult = $outputResult;
+  }
+  /**
+   * @return GoogleCloudRetailV2alphaOutputResult
+   */
+  public function getOutputResult()
+  {
+    return $this->outputResult;
   }
 }
 

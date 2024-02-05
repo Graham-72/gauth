@@ -28,6 +28,10 @@ class VolumeConfig extends \Google\Collection
    * @var string
    */
   public $id;
+  /**
+   * @var LunRange[]
+   */
+  public $lunRanges;
   protected $lunRangesType = LunRange::class;
   protected $lunRangesDataType = 'array';
   /**
@@ -38,8 +42,16 @@ class VolumeConfig extends \Google\Collection
    * @var string
    */
   public $name;
+  /**
+   * @var NfsExport[]
+   */
+  public $nfsExports;
   protected $nfsExportsType = NfsExport::class;
   protected $nfsExportsDataType = 'array';
+  /**
+   * @var string
+   */
+  public $performanceTier;
   /**
    * @var string
    */
@@ -144,6 +156,20 @@ class VolumeConfig extends \Google\Collection
   public function getNfsExports()
   {
     return $this->nfsExports;
+  }
+  /**
+   * @param string
+   */
+  public function setPerformanceTier($performanceTier)
+  {
+    $this->performanceTier = $performanceTier;
+  }
+  /**
+   * @return string
+   */
+  public function getPerformanceTier()
+  {
+    return $this->performanceTier;
   }
   /**
    * @param string

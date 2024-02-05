@@ -21,9 +21,21 @@ class ContaineranalysisGoogleDevtoolsCloudbuildV1BuildStep extends \Google\Colle
 {
   protected $collection_key = 'waitFor';
   /**
+   * @var int[]
+   */
+  public $allowExitCodes;
+  /**
+   * @var bool
+   */
+  public $allowFailure;
+  /**
    * @var string[]
    */
   public $args;
+  /**
+   * @var bool
+   */
+  public $automapSubstitutions;
   /**
    * @var string
    */
@@ -37,6 +49,10 @@ class ContaineranalysisGoogleDevtoolsCloudbuildV1BuildStep extends \Google\Colle
    */
   public $env;
   /**
+   * @var int
+   */
+  public $exitCode;
+  /**
    * @var string
    */
   public $id;
@@ -44,6 +60,10 @@ class ContaineranalysisGoogleDevtoolsCloudbuildV1BuildStep extends \Google\Colle
    * @var string
    */
   public $name;
+  /**
+   * @var ContaineranalysisGoogleDevtoolsCloudbuildV1TimeSpan
+   */
+  public $pullTiming;
   protected $pullTimingType = ContaineranalysisGoogleDevtoolsCloudbuildV1TimeSpan::class;
   protected $pullTimingDataType = '';
   /**
@@ -62,8 +82,16 @@ class ContaineranalysisGoogleDevtoolsCloudbuildV1BuildStep extends \Google\Colle
    * @var string
    */
   public $timeout;
+  /**
+   * @var ContaineranalysisGoogleDevtoolsCloudbuildV1TimeSpan
+   */
+  public $timing;
   protected $timingType = ContaineranalysisGoogleDevtoolsCloudbuildV1TimeSpan::class;
   protected $timingDataType = '';
+  /**
+   * @var ContaineranalysisGoogleDevtoolsCloudbuildV1Volume[]
+   */
+  public $volumes;
   protected $volumesType = ContaineranalysisGoogleDevtoolsCloudbuildV1Volume::class;
   protected $volumesDataType = 'array';
   /**
@@ -71,6 +99,34 @@ class ContaineranalysisGoogleDevtoolsCloudbuildV1BuildStep extends \Google\Colle
    */
   public $waitFor;
 
+  /**
+   * @param int[]
+   */
+  public function setAllowExitCodes($allowExitCodes)
+  {
+    $this->allowExitCodes = $allowExitCodes;
+  }
+  /**
+   * @return int[]
+   */
+  public function getAllowExitCodes()
+  {
+    return $this->allowExitCodes;
+  }
+  /**
+   * @param bool
+   */
+  public function setAllowFailure($allowFailure)
+  {
+    $this->allowFailure = $allowFailure;
+  }
+  /**
+   * @return bool
+   */
+  public function getAllowFailure()
+  {
+    return $this->allowFailure;
+  }
   /**
    * @param string[]
    */
@@ -84,6 +140,20 @@ class ContaineranalysisGoogleDevtoolsCloudbuildV1BuildStep extends \Google\Colle
   public function getArgs()
   {
     return $this->args;
+  }
+  /**
+   * @param bool
+   */
+  public function setAutomapSubstitutions($automapSubstitutions)
+  {
+    $this->automapSubstitutions = $automapSubstitutions;
+  }
+  /**
+   * @return bool
+   */
+  public function getAutomapSubstitutions()
+  {
+    return $this->automapSubstitutions;
   }
   /**
    * @param string
@@ -126,6 +196,20 @@ class ContaineranalysisGoogleDevtoolsCloudbuildV1BuildStep extends \Google\Colle
   public function getEnv()
   {
     return $this->env;
+  }
+  /**
+   * @param int
+   */
+  public function setExitCode($exitCode)
+  {
+    $this->exitCode = $exitCode;
+  }
+  /**
+   * @return int
+   */
+  public function getExitCode()
+  {
+    return $this->exitCode;
   }
   /**
    * @param string

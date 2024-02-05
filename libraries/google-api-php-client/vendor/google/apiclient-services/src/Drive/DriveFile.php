@@ -24,10 +24,22 @@ class DriveFile extends \Google\Collection
    * @var string[]
    */
   public $appProperties;
+  /**
+   * @var DriveFileCapabilities
+   */
+  public $capabilities;
   protected $capabilitiesType = DriveFileCapabilities::class;
   protected $capabilitiesDataType = '';
+  /**
+   * @var DriveFileContentHints
+   */
+  public $contentHints;
   protected $contentHintsType = DriveFileContentHints::class;
   protected $contentHintsDataType = '';
+  /**
+   * @var ContentRestriction[]
+   */
+  public $contentRestrictions;
   protected $contentRestrictionsType = ContentRestriction::class;
   protected $contentRestrictionsDataType = 'array';
   /**
@@ -86,6 +98,10 @@ class DriveFile extends \Google\Collection
    * @var string
    */
   public $id;
+  /**
+   * @var DriveFileImageMediaMetadata
+   */
+  public $imageMediaMetadata;
   protected $imageMediaMetadataType = DriveFileImageMediaMetadata::class;
   protected $imageMediaMetadataDataType = '';
   /**
@@ -96,8 +112,22 @@ class DriveFile extends \Google\Collection
    * @var string
    */
   public $kind;
+  /**
+   * @var DriveFileLabelInfo
+   */
+  public $labelInfo;
+  protected $labelInfoType = DriveFileLabelInfo::class;
+  protected $labelInfoDataType = '';
+  /**
+   * @var User
+   */
+  public $lastModifyingUser;
   protected $lastModifyingUserType = User::class;
   protected $lastModifyingUserDataType = '';
+  /**
+   * @var DriveFileLinkShareMetadata
+   */
+  public $linkShareMetadata;
   protected $linkShareMetadataType = DriveFileLinkShareMetadata::class;
   protected $linkShareMetadataDataType = '';
   /**
@@ -132,6 +162,10 @@ class DriveFile extends \Google\Collection
    * @var bool
    */
   public $ownedByMe;
+  /**
+   * @var User[]
+   */
+  public $owners;
   protected $ownersType = User::class;
   protected $ownersDataType = 'array';
   /**
@@ -142,6 +176,10 @@ class DriveFile extends \Google\Collection
    * @var string[]
    */
   public $permissionIds;
+  /**
+   * @var Permission[]
+   */
+  public $permissions;
   protected $permissionsType = Permission::class;
   protected $permissionsDataType = 'array';
   /**
@@ -157,6 +195,14 @@ class DriveFile extends \Google\Collection
    */
   public $resourceKey;
   /**
+   * @var string
+   */
+  public $sha1Checksum;
+  /**
+   * @var string
+   */
+  public $sha256Checksum;
+  /**
    * @var bool
    */
   public $shared;
@@ -164,8 +210,16 @@ class DriveFile extends \Google\Collection
    * @var string
    */
   public $sharedWithMeTime;
+  /**
+   * @var User
+   */
+  public $sharingUser;
   protected $sharingUserType = User::class;
   protected $sharingUserDataType = '';
+  /**
+   * @var DriveFileShortcutDetails
+   */
+  public $shortcutDetails;
   protected $shortcutDetailsType = DriveFileShortcutDetails::class;
   protected $shortcutDetailsDataType = '';
   /**
@@ -200,12 +254,20 @@ class DriveFile extends \Google\Collection
    * @var string
    */
   public $trashedTime;
+  /**
+   * @var User
+   */
+  public $trashingUser;
   protected $trashingUserType = User::class;
   protected $trashingUserDataType = '';
   /**
    * @var string
    */
   public $version;
+  /**
+   * @var DriveFileVideoMediaMetadata
+   */
+  public $videoMediaMetadata;
   protected $videoMediaMetadataType = DriveFileVideoMediaMetadata::class;
   protected $videoMediaMetadataDataType = '';
   /**
@@ -528,6 +590,20 @@ class DriveFile extends \Google\Collection
     return $this->kind;
   }
   /**
+   * @param DriveFileLabelInfo
+   */
+  public function setLabelInfo(DriveFileLabelInfo $labelInfo)
+  {
+    $this->labelInfo = $labelInfo;
+  }
+  /**
+   * @return DriveFileLabelInfo
+   */
+  public function getLabelInfo()
+  {
+    return $this->labelInfo;
+  }
+  /**
    * @param User
    */
   public function setLastModifyingUser(User $lastModifyingUser)
@@ -764,6 +840,34 @@ class DriveFile extends \Google\Collection
   public function getResourceKey()
   {
     return $this->resourceKey;
+  }
+  /**
+   * @param string
+   */
+  public function setSha1Checksum($sha1Checksum)
+  {
+    $this->sha1Checksum = $sha1Checksum;
+  }
+  /**
+   * @return string
+   */
+  public function getSha1Checksum()
+  {
+    return $this->sha1Checksum;
+  }
+  /**
+   * @param string
+   */
+  public function setSha256Checksum($sha256Checksum)
+  {
+    $this->sha256Checksum = $sha256Checksum;
+  }
+  /**
+   * @return string
+   */
+  public function getSha256Checksum()
+  {
+    return $this->sha256Checksum;
   }
   /**
    * @param bool

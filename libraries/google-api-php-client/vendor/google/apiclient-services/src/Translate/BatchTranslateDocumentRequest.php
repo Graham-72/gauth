@@ -21,17 +21,41 @@ class BatchTranslateDocumentRequest extends \Google\Collection
 {
   protected $collection_key = 'targetLanguageCodes';
   /**
+   * @var string
+   */
+  public $customizedAttribution;
+  /**
+   * @var bool
+   */
+  public $enableRotationCorrection;
+  /**
+   * @var bool
+   */
+  public $enableShadowRemovalNativePdf;
+  /**
    * @var string[]
    */
   public $formatConversions;
+  /**
+   * @var TranslateTextGlossaryConfig[]
+   */
+  public $glossaries;
   protected $glossariesType = TranslateTextGlossaryConfig::class;
   protected $glossariesDataType = 'map';
+  /**
+   * @var BatchDocumentInputConfig[]
+   */
+  public $inputConfigs;
   protected $inputConfigsType = BatchDocumentInputConfig::class;
   protected $inputConfigsDataType = 'array';
   /**
    * @var string[]
    */
   public $models;
+  /**
+   * @var BatchDocumentOutputConfig
+   */
+  public $outputConfig;
   protected $outputConfigType = BatchDocumentOutputConfig::class;
   protected $outputConfigDataType = '';
   /**
@@ -43,6 +67,48 @@ class BatchTranslateDocumentRequest extends \Google\Collection
    */
   public $targetLanguageCodes;
 
+  /**
+   * @param string
+   */
+  public function setCustomizedAttribution($customizedAttribution)
+  {
+    $this->customizedAttribution = $customizedAttribution;
+  }
+  /**
+   * @return string
+   */
+  public function getCustomizedAttribution()
+  {
+    return $this->customizedAttribution;
+  }
+  /**
+   * @param bool
+   */
+  public function setEnableRotationCorrection($enableRotationCorrection)
+  {
+    $this->enableRotationCorrection = $enableRotationCorrection;
+  }
+  /**
+   * @return bool
+   */
+  public function getEnableRotationCorrection()
+  {
+    return $this->enableRotationCorrection;
+  }
+  /**
+   * @param bool
+   */
+  public function setEnableShadowRemovalNativePdf($enableShadowRemovalNativePdf)
+  {
+    $this->enableShadowRemovalNativePdf = $enableShadowRemovalNativePdf;
+  }
+  /**
+   * @return bool
+   */
+  public function getEnableShadowRemovalNativePdf()
+  {
+    return $this->enableShadowRemovalNativePdf;
+  }
   /**
    * @param string[]
    */

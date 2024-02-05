@@ -27,8 +27,24 @@ class GoogleCloudContactcenterinsightsV1alpha1IssueModel extends \Google\Model
    * @var string
    */
   public $displayName;
+  /**
+   * @var GoogleCloudContactcenterinsightsV1alpha1IssueModelInputDataConfig
+   */
+  public $inputDataConfig;
   protected $inputDataConfigType = GoogleCloudContactcenterinsightsV1alpha1IssueModelInputDataConfig::class;
   protected $inputDataConfigDataType = '';
+  /**
+   * @var string
+   */
+  public $issueCount;
+  /**
+   * @var string
+   */
+  public $languageCode;
+  /**
+   * @var string
+   */
+  public $modelType;
   /**
    * @var string
    */
@@ -37,6 +53,10 @@ class GoogleCloudContactcenterinsightsV1alpha1IssueModel extends \Google\Model
    * @var string
    */
   public $state;
+  /**
+   * @var GoogleCloudContactcenterinsightsV1alpha1IssueModelLabelStats
+   */
+  public $trainingStats;
   protected $trainingStatsType = GoogleCloudContactcenterinsightsV1alpha1IssueModelLabelStats::class;
   protected $trainingStatsDataType = '';
   /**
@@ -85,6 +105,48 @@ class GoogleCloudContactcenterinsightsV1alpha1IssueModel extends \Google\Model
   public function getInputDataConfig()
   {
     return $this->inputDataConfig;
+  }
+  /**
+   * @param string
+   */
+  public function setIssueCount($issueCount)
+  {
+    $this->issueCount = $issueCount;
+  }
+  /**
+   * @return string
+   */
+  public function getIssueCount()
+  {
+    return $this->issueCount;
+  }
+  /**
+   * @param string
+   */
+  public function setLanguageCode($languageCode)
+  {
+    $this->languageCode = $languageCode;
+  }
+  /**
+   * @return string
+   */
+  public function getLanguageCode()
+  {
+    return $this->languageCode;
+  }
+  /**
+   * @param string
+   */
+  public function setModelType($modelType)
+  {
+    $this->modelType = $modelType;
+  }
+  /**
+   * @return string
+   */
+  public function getModelType()
+  {
+    return $this->modelType;
   }
   /**
    * @param string

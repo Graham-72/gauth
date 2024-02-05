@@ -20,6 +20,10 @@ namespace Google\Service\DoubleClickBidManager;
 class Parameters extends \Google\Collection
 {
   protected $collection_key = 'metrics';
+  /**
+   * @var FilterPair[]
+   */
+  public $filters;
   protected $filtersType = FilterPair::class;
   protected $filtersDataType = 'array';
   /**
@@ -27,13 +31,13 @@ class Parameters extends \Google\Collection
    */
   public $groupBys;
   /**
-   * @var bool
-   */
-  public $includeInviteData;
-  /**
    * @var string[]
    */
   public $metrics;
+  /**
+   * @var Options
+   */
+  public $options;
   protected $optionsType = Options::class;
   protected $optionsDataType = '';
   /**
@@ -68,20 +72,6 @@ class Parameters extends \Google\Collection
   public function getGroupBys()
   {
     return $this->groupBys;
-  }
-  /**
-   * @param bool
-   */
-  public function setIncludeInviteData($includeInviteData)
-  {
-    $this->includeInviteData = $includeInviteData;
-  }
-  /**
-   * @return bool
-   */
-  public function getIncludeInviteData()
-  {
-    return $this->includeInviteData;
   }
   /**
    * @param string[]

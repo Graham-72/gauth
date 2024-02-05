@@ -19,10 +19,24 @@ namespace Google\Service\Spanner;
 
 class ResultSetMetadata extends \Google\Model
 {
+  /**
+   * @var StructType
+   */
+  public $rowType;
   protected $rowTypeType = StructType::class;
   protected $rowTypeDataType = '';
+  /**
+   * @var Transaction
+   */
+  public $transaction;
   protected $transactionType = Transaction::class;
   protected $transactionDataType = '';
+  /**
+   * @var StructType
+   */
+  public $undeclaredParameters;
+  protected $undeclaredParametersType = StructType::class;
+  protected $undeclaredParametersDataType = '';
 
   /**
    * @param StructType
@@ -51,6 +65,20 @@ class ResultSetMetadata extends \Google\Model
   public function getTransaction()
   {
     return $this->transaction;
+  }
+  /**
+   * @param StructType
+   */
+  public function setUndeclaredParameters(StructType $undeclaredParameters)
+  {
+    $this->undeclaredParameters = $undeclaredParameters;
+  }
+  /**
+   * @return StructType
+   */
+  public function getUndeclaredParameters()
+  {
+    return $this->undeclaredParameters;
   }
 }
 

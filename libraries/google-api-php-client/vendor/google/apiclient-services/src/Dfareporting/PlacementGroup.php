@@ -27,17 +27,25 @@ class PlacementGroup extends \Google\Collection
   /**
    * @var string
    */
+  public $activeStatus;
+  /**
+   * @var string
+   */
   public $advertiserId;
+  /**
+   * @var DimensionValue
+   */
+  public $advertiserIdDimensionValue;
   protected $advertiserIdDimensionValueType = DimensionValue::class;
   protected $advertiserIdDimensionValueDataType = '';
-  /**
-   * @var bool
-   */
-  public $archived;
   /**
    * @var string
    */
   public $campaignId;
+  /**
+   * @var DimensionValue
+   */
+  public $campaignIdDimensionValue;
   protected $campaignIdDimensionValueType = DimensionValue::class;
   protected $campaignIdDimensionValueDataType = '';
   /**
@@ -52,12 +60,20 @@ class PlacementGroup extends \Google\Collection
    * @var string
    */
   public $contentCategoryId;
+  /**
+   * @var LastModifiedInfo
+   */
+  public $createInfo;
   protected $createInfoType = LastModifiedInfo::class;
   protected $createInfoDataType = '';
   /**
    * @var string
    */
   public $directorySiteId;
+  /**
+   * @var DimensionValue
+   */
+  public $directorySiteIdDimensionValue;
   protected $directorySiteIdDimensionValueType = DimensionValue::class;
   protected $directorySiteIdDimensionValueDataType = '';
   /**
@@ -68,12 +84,20 @@ class PlacementGroup extends \Google\Collection
    * @var string
    */
   public $id;
+  /**
+   * @var DimensionValue
+   */
+  public $idDimensionValue;
   protected $idDimensionValueType = DimensionValue::class;
   protected $idDimensionValueDataType = '';
   /**
    * @var string
    */
   public $kind;
+  /**
+   * @var LastModifiedInfo
+   */
+  public $lastModifiedInfo;
   protected $lastModifiedInfoType = LastModifiedInfo::class;
   protected $lastModifiedInfoDataType = '';
   /**
@@ -88,18 +112,30 @@ class PlacementGroup extends \Google\Collection
    * @var string
    */
   public $placementStrategyId;
+  /**
+   * @var PricingSchedule
+   */
+  public $pricingSchedule;
   protected $pricingScheduleType = PricingSchedule::class;
   protected $pricingScheduleDataType = '';
   /**
    * @var string
    */
   public $primaryPlacementId;
+  /**
+   * @var DimensionValue
+   */
+  public $primaryPlacementIdDimensionValue;
   protected $primaryPlacementIdDimensionValueType = DimensionValue::class;
   protected $primaryPlacementIdDimensionValueDataType = '';
   /**
    * @var string
    */
   public $siteId;
+  /**
+   * @var DimensionValue
+   */
+  public $siteIdDimensionValue;
   protected $siteIdDimensionValueType = DimensionValue::class;
   protected $siteIdDimensionValueDataType = '';
   /**
@@ -120,6 +156,20 @@ class PlacementGroup extends \Google\Collection
   public function getAccountId()
   {
     return $this->accountId;
+  }
+  /**
+   * @param string
+   */
+  public function setActiveStatus($activeStatus)
+  {
+    $this->activeStatus = $activeStatus;
+  }
+  /**
+   * @return string
+   */
+  public function getActiveStatus()
+  {
+    return $this->activeStatus;
   }
   /**
    * @param string
@@ -148,20 +198,6 @@ class PlacementGroup extends \Google\Collection
   public function getAdvertiserIdDimensionValue()
   {
     return $this->advertiserIdDimensionValue;
-  }
-  /**
-   * @param bool
-   */
-  public function setArchived($archived)
-  {
-    $this->archived = $archived;
-  }
-  /**
-   * @return bool
-   */
-  public function getArchived()
-  {
-    return $this->archived;
   }
   /**
    * @param string

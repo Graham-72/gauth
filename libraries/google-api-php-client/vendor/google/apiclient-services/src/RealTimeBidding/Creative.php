@@ -48,6 +48,10 @@ class Creative extends \Google\Collection
    * @var string
    */
   public $creativeId;
+  /**
+   * @var CreativeServingDecision
+   */
+  public $creativeServingDecision;
   protected $creativeServingDecisionType = CreativeServingDecision::class;
   protected $creativeServingDecisionDataType = '';
   /**
@@ -70,6 +74,10 @@ class Creative extends \Google\Collection
    * @var int[]
    */
   public $declaredVendorIds;
+  /**
+   * @var HtmlContent
+   */
+  public $html;
   protected $htmlType = HtmlContent::class;
   protected $htmlDataType = '';
   /**
@@ -80,8 +88,16 @@ class Creative extends \Google\Collection
    * @var string
    */
   public $name;
+  /**
+   * @var NativeContent
+   */
+  public $native;
   protected $nativeType = NativeContent::class;
   protected $nativeDataType = '';
+  /**
+   * @var string
+   */
+  public $renderUrl;
   /**
    * @var string[]
    */
@@ -90,6 +106,10 @@ class Creative extends \Google\Collection
    * @var int
    */
   public $version;
+  /**
+   * @var VideoContent
+   */
+  public $video;
   protected $videoType = VideoContent::class;
   protected $videoDataType = '';
 
@@ -330,6 +350,20 @@ class Creative extends \Google\Collection
   public function getNative()
   {
     return $this->native;
+  }
+  /**
+   * @param string
+   */
+  public function setRenderUrl($renderUrl)
+  {
+    $this->renderUrl = $renderUrl;
+  }
+  /**
+   * @return string
+   */
+  public function getRenderUrl()
+  {
+    return $this->renderUrl;
   }
   /**
    * @param string[]

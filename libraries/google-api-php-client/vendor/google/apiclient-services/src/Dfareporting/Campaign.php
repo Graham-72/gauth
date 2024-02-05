@@ -19,13 +19,21 @@ namespace Google\Service\Dfareporting;
 
 class Campaign extends \Google\Collection
 {
-  protected $collection_key = 'traffickerEmails';
+  protected $collection_key = 'eventTagOverrides';
   /**
    * @var string
    */
   public $accountId;
+  /**
+   * @var AdBlockingConfiguration
+   */
+  public $adBlockingConfiguration;
   protected $adBlockingConfigurationType = AdBlockingConfiguration::class;
   protected $adBlockingConfigurationDataType = '';
+  /**
+   * @var CreativeOptimizationConfiguration[]
+   */
+  public $additionalCreativeOptimizationConfigurations;
   protected $additionalCreativeOptimizationConfigurationsType = CreativeOptimizationConfiguration::class;
   protected $additionalCreativeOptimizationConfigurationsDataType = 'array';
   /**
@@ -36,32 +44,56 @@ class Campaign extends \Google\Collection
    * @var string
    */
   public $advertiserId;
+  /**
+   * @var DimensionValue
+   */
+  public $advertiserIdDimensionValue;
   protected $advertiserIdDimensionValueType = DimensionValue::class;
   protected $advertiserIdDimensionValueDataType = '';
   /**
    * @var bool
    */
   public $archived;
+  /**
+   * @var AudienceSegmentGroup[]
+   */
+  public $audienceSegmentGroups;
   protected $audienceSegmentGroupsType = AudienceSegmentGroup::class;
   protected $audienceSegmentGroupsDataType = 'array';
   /**
    * @var string
    */
   public $billingInvoiceCode;
+  /**
+   * @var ClickThroughUrlSuffixProperties
+   */
+  public $clickThroughUrlSuffixProperties;
   protected $clickThroughUrlSuffixPropertiesType = ClickThroughUrlSuffixProperties::class;
   protected $clickThroughUrlSuffixPropertiesDataType = '';
   /**
    * @var string
    */
   public $comment;
+  /**
+   * @var LastModifiedInfo
+   */
+  public $createInfo;
   protected $createInfoType = LastModifiedInfo::class;
   protected $createInfoDataType = '';
   /**
    * @var string[]
    */
   public $creativeGroupIds;
+  /**
+   * @var CreativeOptimizationConfiguration
+   */
+  public $creativeOptimizationConfiguration;
   protected $creativeOptimizationConfigurationType = CreativeOptimizationConfiguration::class;
   protected $creativeOptimizationConfigurationDataType = '';
+  /**
+   * @var DefaultClickThroughEventTagProperties
+   */
+  public $defaultClickThroughEventTagProperties;
   protected $defaultClickThroughEventTagPropertiesType = DefaultClickThroughEventTagProperties::class;
   protected $defaultClickThroughEventTagPropertiesDataType = '';
   /**
@@ -72,6 +104,10 @@ class Campaign extends \Google\Collection
    * @var string
    */
   public $endDate;
+  /**
+   * @var EventTagOverride[]
+   */
+  public $eventTagOverrides;
   protected $eventTagOverridesType = EventTagOverride::class;
   protected $eventTagOverridesDataType = 'array';
   /**
@@ -82,24 +118,32 @@ class Campaign extends \Google\Collection
    * @var string
    */
   public $id;
+  /**
+   * @var DimensionValue
+   */
+  public $idDimensionValue;
   protected $idDimensionValueType = DimensionValue::class;
   protected $idDimensionValueDataType = '';
   /**
    * @var string
    */
   public $kind;
+  /**
+   * @var LastModifiedInfo
+   */
+  public $lastModifiedInfo;
   protected $lastModifiedInfoType = LastModifiedInfo::class;
   protected $lastModifiedInfoDataType = '';
+  /**
+   * @var MeasurementPartnerCampaignLink
+   */
+  public $measurementPartnerLink;
   protected $measurementPartnerLinkType = MeasurementPartnerCampaignLink::class;
   protected $measurementPartnerLinkDataType = '';
   /**
    * @var string
    */
   public $name;
-  /**
-   * @var bool
-   */
-  public $nielsenOcrEnabled;
   /**
    * @var string
    */
@@ -108,10 +152,6 @@ class Campaign extends \Google\Collection
    * @var string
    */
   public $subaccountId;
-  /**
-   * @var string[]
-   */
-  public $traffickerEmails;
 
   /**
    * @param string
@@ -464,20 +504,6 @@ class Campaign extends \Google\Collection
     return $this->name;
   }
   /**
-   * @param bool
-   */
-  public function setNielsenOcrEnabled($nielsenOcrEnabled)
-  {
-    $this->nielsenOcrEnabled = $nielsenOcrEnabled;
-  }
-  /**
-   * @return bool
-   */
-  public function getNielsenOcrEnabled()
-  {
-    return $this->nielsenOcrEnabled;
-  }
-  /**
    * @param string
    */
   public function setStartDate($startDate)
@@ -504,20 +530,6 @@ class Campaign extends \Google\Collection
   public function getSubaccountId()
   {
     return $this->subaccountId;
-  }
-  /**
-   * @param string[]
-   */
-  public function setTraffickerEmails($traffickerEmails)
-  {
-    $this->traffickerEmails = $traffickerEmails;
-  }
-  /**
-   * @return string[]
-   */
-  public function getTraffickerEmails()
-  {
-    return $this->traffickerEmails;
   }
 }
 

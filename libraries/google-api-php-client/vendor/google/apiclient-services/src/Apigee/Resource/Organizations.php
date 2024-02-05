@@ -23,6 +23,7 @@ use Google\Service\Apigee\GoogleCloudApigeeV1ListOrganizationsResponse;
 use Google\Service\Apigee\GoogleCloudApigeeV1Organization;
 use Google\Service\Apigee\GoogleCloudApigeeV1OrganizationProjectMapping;
 use Google\Service\Apigee\GoogleCloudApigeeV1RuntimeConfig;
+use Google\Service\Apigee\GoogleCloudApigeeV1SecuritySettings;
 use Google\Service\Apigee\GoogleCloudApigeeV1SetAddonsRequest;
 use Google\Service\Apigee\GoogleCloudApigeeV1SyncAuthorization;
 use Google\Service\Apigee\GoogleLongrunningOperation;
@@ -39,15 +40,15 @@ class Organizations extends \Google\Service\Resource
 {
   /**
    * Creates an Apigee organization. See [Create an Apigee
-   * organization](https://cloud.google.com/apigee/docs/api-platform/get-started
-   * /create-org). (organizations.create)
+   * organization](https://cloud.google.com/apigee/docs/api-platform/get-
+   * started/create-org). (organizations.create)
    *
    * @param GoogleCloudApigeeV1Organization $postBody
    * @param array $optParams Optional parameters.
    *
-   * @opt_param string parent Required. Name of the GCP project in which to
-   * associate the Apigee organization. Pass the information as a query parameter
-   * using the following structure in your request: `projects/`
+   * @opt_param string parent Required. Name of the Google Cloud project in which
+   * to associate the Apigee organization. Pass the information as a query
+   * parameter using the following structure in your request: `projects/`
    * @return GoogleLongrunningOperation
    */
   public function create(GoogleCloudApigeeV1Organization $postBody, $optParams = [])
@@ -60,15 +61,15 @@ class Organizations extends \Google\Service\Resource
    * Delete an Apigee organization. For organizations with BillingType EVALUATION,
    * an immediate deletion is performed. For paid organizations, a soft-deletion
    * is performed. The organization can be restored within the soft-deletion
-   * period - which can be controlled using the retention field in the request.
+   * period which can be controlled using the retention field in the request.
    * (organizations.delete)
    *
    * @param string $name Required. Name of the organization. Use the following
    * structure in your request: `organizations/{org}`
    * @param array $optParams Optional parameters.
    *
-   * @opt_param string retention Optional. This setting is only applicable for
-   * organizations that are soft-deleted (i.e. BillingType is not EVALUATION). It
+   * @opt_param string retention Optional. This setting is applicable only for
+   * organizations that are soft-deleted (i.e., BillingType is not EVALUATION). It
    * controls how long Organization data will be retained after the initial delete
    * operation completes. During this period, the Organization may be restored to
    * its last known state. After this period, the Organization will no longer be
@@ -83,8 +84,8 @@ class Organizations extends \Google\Service\Resource
   }
   /**
    * Gets the profile for an Apigee organization. See [Understanding
-   * organizations](https://cloud.google.com/apigee/docs/api-platform/fundamentals
-   * /organization-structure). (organizations.get)
+   * organizations](https://cloud.google.com/apigee/docs/api-
+   * platform/fundamentals/organization-structure). (organizations.get)
    *
    * @param string $name Required. Apigee organization name in the following
    * format: `organizations/{org}`
@@ -147,15 +148,30 @@ class Organizations extends \Google\Service\Resource
     return $this->call('getRuntimeConfig', [$params], GoogleCloudApigeeV1RuntimeConfig::class);
   }
   /**
+   * GetSecuritySettings gets the security settings for API Security.
+   * (organizations.getSecuritySettings)
+   *
+   * @param string $name Required. The name of the SecuritySettings to retrieve.
+   * This will always be: 'organizations/{org}/securitySettings'.
+   * @param array $optParams Optional parameters.
+   * @return GoogleCloudApigeeV1SecuritySettings
+   */
+  public function getSecuritySettings($name, $optParams = [])
+  {
+    $params = ['name' => $name];
+    $params = array_merge($params, $optParams);
+    return $this->call('getSecuritySettings', [$params], GoogleCloudApigeeV1SecuritySettings::class);
+  }
+  /**
    * Lists the service accounts with the permissions required to allow the
    * Synchronizer to download environment data from the control plane. An ETag is
    * returned in the response to `getSyncAuthorization`. Pass that ETag when
    * calling [setSyncAuthorization](setSyncAuthorization) to ensure that you are
    * updating the correct version. If you don't pass the ETag in the call to
    * `setSyncAuthorization`, then the existing authorization is overwritten
-   * indiscriminately. For more information, see [Configure the
-   * Synchronizer](https://cloud.google.com/apigee/docs/hybrid/latest
-   * /synchronizer-access). **Note**: Available to Apigee hybrid only.
+   * indiscriminately. For more information, see [Configure the Synchronizer](http
+   * s://cloud.google.com/apigee/docs/hybrid/latest/synchronizer-access).
+   * **Note**: Available to Apigee hybrid only.
    * (organizations.getSyncAuthorization)
    *
    * @param string $name Required. Name of the Apigee organization. Use the
@@ -171,10 +187,11 @@ class Organizations extends \Google\Service\Resource
     return $this->call('getSyncAuthorization', [$params], GoogleCloudApigeeV1SyncAuthorization::class);
   }
   /**
-   * Lists the Apigee organizations and associated GCP projects that you have
-   * permission to access. See [Understanding
-   * organizations](https://cloud.google.com/apigee/docs/api-platform/fundamentals
-   * /organization-structure). (organizations.listOrganizations)
+   * Lists the Apigee organizations and associated Google Cloud projects that you
+   * have permission to access. See [Understanding
+   * organizations](https://cloud.google.com/apigee/docs/api-
+   * platform/fundamentals/organization-structure).
+   * (organizations.listOrganizations)
    *
    * @param string $parent Required. Use the following structure in your request:
    * `organizations`
@@ -211,9 +228,8 @@ class Organizations extends \Google\Service\Resource
    * To get an ETag, call [getSyncAuthorization](getSyncAuthorization). If you
    * don't pass the ETag in the call to `setSyncAuthorization`, then the existing
    * authorization is overwritten indiscriminately. For more information, see
-   * [Configure the
-   * Synchronizer](https://cloud.google.com/apigee/docs/hybrid/latest
-   * /synchronizer-access). **Note**: Available to Apigee hybrid only.
+   * [Configure the Synchronizer](https://cloud.google.com/apigee/docs/hybrid/late
+   * st/synchronizer-access). **Note**: Available to Apigee hybrid only.
    * (organizations.setSyncAuthorization)
    *
    * @param string $name Required. Name of the Apigee organization. Use the
@@ -243,6 +259,25 @@ class Organizations extends \Google\Service\Resource
     $params = ['name' => $name, 'postBody' => $postBody];
     $params = array_merge($params, $optParams);
     return $this->call('update', [$params], GoogleCloudApigeeV1Organization::class);
+  }
+  /**
+   * UpdateSecuritySettings updates the current security settings for API
+   * Security. (organizations.updateSecuritySettings)
+   *
+   * @param string $name Identifier. Full resource name is always
+   * `organizations/{org}/securitySettings`.
+   * @param GoogleCloudApigeeV1SecuritySettings $postBody
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string updateMask Optional. The list of fields to update. Allowed
+   * fields are: - ml_retraining_feedback_enabled
+   * @return GoogleCloudApigeeV1SecuritySettings
+   */
+  public function updateSecuritySettings($name, GoogleCloudApigeeV1SecuritySettings $postBody, $optParams = [])
+  {
+    $params = ['name' => $name, 'postBody' => $postBody];
+    $params = array_merge($params, $optParams);
+    return $this->call('updateSecuritySettings', [$params], GoogleCloudApigeeV1SecuritySettings::class);
   }
 }
 

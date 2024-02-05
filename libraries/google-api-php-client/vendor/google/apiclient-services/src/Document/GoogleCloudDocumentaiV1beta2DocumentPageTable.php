@@ -20,14 +20,36 @@ namespace Google\Service\Document;
 class GoogleCloudDocumentaiV1beta2DocumentPageTable extends \Google\Collection
 {
   protected $collection_key = 'headerRows';
+  /**
+   * @var GoogleCloudDocumentaiV1beta2DocumentPageTableTableRow[]
+   */
+  public $bodyRows;
   protected $bodyRowsType = GoogleCloudDocumentaiV1beta2DocumentPageTableTableRow::class;
   protected $bodyRowsDataType = 'array';
+  /**
+   * @var GoogleCloudDocumentaiV1beta2DocumentPageDetectedLanguage[]
+   */
+  public $detectedLanguages;
   protected $detectedLanguagesType = GoogleCloudDocumentaiV1beta2DocumentPageDetectedLanguage::class;
   protected $detectedLanguagesDataType = 'array';
+  /**
+   * @var GoogleCloudDocumentaiV1beta2DocumentPageTableTableRow[]
+   */
+  public $headerRows;
   protected $headerRowsType = GoogleCloudDocumentaiV1beta2DocumentPageTableTableRow::class;
   protected $headerRowsDataType = 'array';
+  /**
+   * @var GoogleCloudDocumentaiV1beta2DocumentPageLayout
+   */
+  public $layout;
   protected $layoutType = GoogleCloudDocumentaiV1beta2DocumentPageLayout::class;
   protected $layoutDataType = '';
+  /**
+   * @var GoogleCloudDocumentaiV1beta2DocumentProvenance
+   */
+  public $provenance;
+  protected $provenanceType = GoogleCloudDocumentaiV1beta2DocumentProvenance::class;
+  protected $provenanceDataType = '';
 
   /**
    * @param GoogleCloudDocumentaiV1beta2DocumentPageTableTableRow[]
@@ -84,6 +106,20 @@ class GoogleCloudDocumentaiV1beta2DocumentPageTable extends \Google\Collection
   public function getLayout()
   {
     return $this->layout;
+  }
+  /**
+   * @param GoogleCloudDocumentaiV1beta2DocumentProvenance
+   */
+  public function setProvenance(GoogleCloudDocumentaiV1beta2DocumentProvenance $provenance)
+  {
+    $this->provenance = $provenance;
+  }
+  /**
+   * @return GoogleCloudDocumentaiV1beta2DocumentProvenance
+   */
+  public function getProvenance()
+  {
+    return $this->provenance;
   }
 }
 

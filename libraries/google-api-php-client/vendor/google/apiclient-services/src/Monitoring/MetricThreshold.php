@@ -20,12 +20,20 @@ namespace Google\Service\Monitoring;
 class MetricThreshold extends \Google\Collection
 {
   protected $collection_key = 'denominatorAggregations';
+  /**
+   * @var Aggregation[]
+   */
+  public $aggregations;
   protected $aggregationsType = Aggregation::class;
   protected $aggregationsDataType = 'array';
   /**
    * @var string
    */
   public $comparison;
+  /**
+   * @var Aggregation[]
+   */
+  public $denominatorAggregations;
   protected $denominatorAggregationsType = Aggregation::class;
   protected $denominatorAggregationsDataType = 'array';
   /**
@@ -44,7 +52,17 @@ class MetricThreshold extends \Google\Collection
    * @var string
    */
   public $filter;
+  /**
+   * @var ForecastOptions
+   */
+  public $forecastOptions;
+  protected $forecastOptionsType = ForecastOptions::class;
+  protected $forecastOptionsDataType = '';
   public $thresholdValue;
+  /**
+   * @var Trigger
+   */
+  public $trigger;
   protected $triggerType = Trigger::class;
   protected $triggerDataType = '';
 
@@ -145,6 +163,20 @@ class MetricThreshold extends \Google\Collection
   public function getFilter()
   {
     return $this->filter;
+  }
+  /**
+   * @param ForecastOptions
+   */
+  public function setForecastOptions(ForecastOptions $forecastOptions)
+  {
+    $this->forecastOptions = $forecastOptions;
+  }
+  /**
+   * @return ForecastOptions
+   */
+  public function getForecastOptions()
+  {
+    return $this->forecastOptions;
   }
   public function setThresholdValue($thresholdValue)
   {

@@ -27,8 +27,20 @@ class CapacityCommitment extends \Google\Model
    * @var string
    */
   public $commitmentStartTime;
+  /**
+   * @var string
+   */
+  public $edition;
+  /**
+   * @var Status
+   */
+  public $failureStatus;
   protected $failureStatusType = Status::class;
   protected $failureStatusDataType = '';
+  /**
+   * @var bool
+   */
+  public $isFlatRate;
   /**
    * @var bool
    */
@@ -83,6 +95,20 @@ class CapacityCommitment extends \Google\Model
     return $this->commitmentStartTime;
   }
   /**
+   * @param string
+   */
+  public function setEdition($edition)
+  {
+    $this->edition = $edition;
+  }
+  /**
+   * @return string
+   */
+  public function getEdition()
+  {
+    return $this->edition;
+  }
+  /**
    * @param Status
    */
   public function setFailureStatus(Status $failureStatus)
@@ -95,6 +121,20 @@ class CapacityCommitment extends \Google\Model
   public function getFailureStatus()
   {
     return $this->failureStatus;
+  }
+  /**
+   * @param bool
+   */
+  public function setIsFlatRate($isFlatRate)
+  {
+    $this->isFlatRate = $isFlatRate;
+  }
+  /**
+   * @return bool
+   */
+  public function getIsFlatRate()
+  {
+    return $this->isFlatRate;
   }
   /**
    * @param bool

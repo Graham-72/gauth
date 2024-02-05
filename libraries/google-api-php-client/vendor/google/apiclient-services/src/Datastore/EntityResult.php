@@ -22,7 +22,15 @@ class EntityResult extends \Google\Model
   /**
    * @var string
    */
+  public $createTime;
+  /**
+   * @var string
+   */
   public $cursor;
+  /**
+   * @var Entity
+   */
+  public $entity;
   protected $entityType = Entity::class;
   protected $entityDataType = '';
   /**
@@ -34,6 +42,20 @@ class EntityResult extends \Google\Model
    */
   public $version;
 
+  /**
+   * @param string
+   */
+  public function setCreateTime($createTime)
+  {
+    $this->createTime = $createTime;
+  }
+  /**
+   * @return string
+   */
+  public function getCreateTime()
+  {
+    return $this->createTime;
+  }
   /**
    * @param string
    */

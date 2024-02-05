@@ -19,6 +19,10 @@ namespace Google\Service\BigtableAdmin;
 
 class Backup extends \Google\Model
 {
+  /**
+   * @var EncryptionInfo
+   */
+  public $encryptionInfo;
   protected $encryptionInfoType = EncryptionInfo::class;
   protected $encryptionInfoDataType = '';
   /**
@@ -37,6 +41,10 @@ class Backup extends \Google\Model
    * @var string
    */
   public $sizeBytes;
+  /**
+   * @var string
+   */
+  public $sourceBackup;
   /**
    * @var string
    */
@@ -119,6 +127,20 @@ class Backup extends \Google\Model
   public function getSizeBytes()
   {
     return $this->sizeBytes;
+  }
+  /**
+   * @param string
+   */
+  public function setSourceBackup($sourceBackup)
+  {
+    $this->sourceBackup = $sourceBackup;
+  }
+  /**
+   * @return string
+   */
+  public function getSourceBackup()
+  {
+    return $this->sourceBackup;
   }
   /**
    * @param string

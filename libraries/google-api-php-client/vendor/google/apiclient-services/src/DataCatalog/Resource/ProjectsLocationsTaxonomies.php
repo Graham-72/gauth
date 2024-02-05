@@ -35,7 +35,7 @@ use Google\Service\DataCatalog\TestIamPermissionsResponse;
  * Typical usage is:
  *  <code>
  *   $datacatalogService = new Google\Service\DataCatalog(...);
- *   $taxonomies = $datacatalogService->taxonomies;
+ *   $taxonomies = $datacatalogService->projects_locations_taxonomies;
  *  </code>
  */
 class ProjectsLocationsTaxonomies extends \Google\Service\Resource
@@ -152,6 +152,8 @@ class ProjectsLocationsTaxonomies extends \Google\Service\Resource
    * taxonomies of.
    * @param array $optParams Optional parameters.
    *
+   * @opt_param string filter Supported field for filter is 'service' and value is
+   * 'dataplex'. Eg: service=dataplex.
    * @opt_param int pageSize The maximum number of items to return. Must be a
    * value between 1 and 1000 inclusively. If not set, defaults to 50.
    * @opt_param string pageToken The pagination token of the next results page. If
@@ -169,8 +171,8 @@ class ProjectsLocationsTaxonomies extends \Google\Service\Resource
    * Updates a taxonomy, including its display name, description, and activated
    * policy types. (taxonomies.patch)
    *
-   * @param string $name Output only. Resource name of this taxonomy in URL
-   * format. Note: Policy tag manager generates unique taxonomy IDs.
+   * @param string $name Identifier. Resource name of this taxonomy in URL format.
+   * Note: Policy tag manager generates unique taxonomy IDs.
    * @param GoogleCloudDatacatalogV1Taxonomy $postBody
    * @param array $optParams Optional parameters.
    *

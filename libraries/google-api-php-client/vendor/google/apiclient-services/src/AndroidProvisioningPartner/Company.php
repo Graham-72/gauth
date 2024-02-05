@@ -33,6 +33,12 @@ class Company extends \Google\Collection
    */
   public $companyName;
   /**
+   * @var GoogleWorkspaceAccount
+   */
+  public $googleWorkspaceAccount;
+  protected $googleWorkspaceAccountType = GoogleWorkspaceAccount::class;
+  protected $googleWorkspaceAccountDataType = '';
+  /**
    * @var string
    */
   public $languageCode;
@@ -94,6 +100,20 @@ class Company extends \Google\Collection
   public function getCompanyName()
   {
     return $this->companyName;
+  }
+  /**
+   * @param GoogleWorkspaceAccount
+   */
+  public function setGoogleWorkspaceAccount(GoogleWorkspaceAccount $googleWorkspaceAccount)
+  {
+    $this->googleWorkspaceAccount = $googleWorkspaceAccount;
+  }
+  /**
+   * @return GoogleWorkspaceAccount
+   */
+  public function getGoogleWorkspaceAccount()
+  {
+    return $this->googleWorkspaceAccount;
   }
   /**
    * @param string

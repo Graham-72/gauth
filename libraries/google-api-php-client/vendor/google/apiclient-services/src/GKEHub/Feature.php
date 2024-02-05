@@ -28,21 +28,59 @@ class Feature extends \Google\Model
    */
   public $deleteTime;
   /**
+   * @var CommonFleetDefaultMemberConfigSpec
+   */
+  public $fleetDefaultMemberConfig;
+  protected $fleetDefaultMemberConfigType = CommonFleetDefaultMemberConfigSpec::class;
+  protected $fleetDefaultMemberConfigDataType = '';
+  /**
    * @var string[]
    */
   public $labels;
+  /**
+   * @var MembershipFeatureSpec[]
+   */
+  public $membershipSpecs;
   protected $membershipSpecsType = MembershipFeatureSpec::class;
   protected $membershipSpecsDataType = 'map';
+  /**
+   * @var MembershipFeatureState[]
+   */
+  public $membershipStates;
   protected $membershipStatesType = MembershipFeatureState::class;
   protected $membershipStatesDataType = 'map';
   /**
    * @var string
    */
   public $name;
+  /**
+   * @var FeatureResourceState
+   */
+  public $resourceState;
   protected $resourceStateType = FeatureResourceState::class;
   protected $resourceStateDataType = '';
+  /**
+   * @var ScopeFeatureSpec[]
+   */
+  public $scopeSpecs;
+  protected $scopeSpecsType = ScopeFeatureSpec::class;
+  protected $scopeSpecsDataType = 'map';
+  /**
+   * @var ScopeFeatureState[]
+   */
+  public $scopeStates;
+  protected $scopeStatesType = ScopeFeatureState::class;
+  protected $scopeStatesDataType = 'map';
+  /**
+   * @var CommonFeatureSpec
+   */
+  public $spec;
   protected $specType = CommonFeatureSpec::class;
   protected $specDataType = '';
+  /**
+   * @var CommonFeatureState
+   */
+  public $state;
   protected $stateType = CommonFeatureState::class;
   protected $stateDataType = '';
   /**
@@ -77,6 +115,20 @@ class Feature extends \Google\Model
   public function getDeleteTime()
   {
     return $this->deleteTime;
+  }
+  /**
+   * @param CommonFleetDefaultMemberConfigSpec
+   */
+  public function setFleetDefaultMemberConfig(CommonFleetDefaultMemberConfigSpec $fleetDefaultMemberConfig)
+  {
+    $this->fleetDefaultMemberConfig = $fleetDefaultMemberConfig;
+  }
+  /**
+   * @return CommonFleetDefaultMemberConfigSpec
+   */
+  public function getFleetDefaultMemberConfig()
+  {
+    return $this->fleetDefaultMemberConfig;
   }
   /**
    * @param string[]
@@ -147,6 +199,34 @@ class Feature extends \Google\Model
   public function getResourceState()
   {
     return $this->resourceState;
+  }
+  /**
+   * @param ScopeFeatureSpec[]
+   */
+  public function setScopeSpecs($scopeSpecs)
+  {
+    $this->scopeSpecs = $scopeSpecs;
+  }
+  /**
+   * @return ScopeFeatureSpec[]
+   */
+  public function getScopeSpecs()
+  {
+    return $this->scopeSpecs;
+  }
+  /**
+   * @param ScopeFeatureState[]
+   */
+  public function setScopeStates($scopeStates)
+  {
+    $this->scopeStates = $scopeStates;
+  }
+  /**
+   * @return ScopeFeatureState[]
+   */
+  public function getScopeStates()
+  {
+    return $this->scopeStates;
   }
   /**
    * @param CommonFeatureSpec

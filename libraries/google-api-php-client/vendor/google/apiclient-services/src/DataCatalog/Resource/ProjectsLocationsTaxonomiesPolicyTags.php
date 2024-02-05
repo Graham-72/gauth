@@ -31,7 +31,7 @@ use Google\Service\DataCatalog\TestIamPermissionsResponse;
  * Typical usage is:
  *  <code>
  *   $datacatalogService = new Google\Service\DataCatalog(...);
- *   $policyTags = $datacatalogService->policyTags;
+ *   $policyTags = $datacatalogService->projects_locations_taxonomies_policyTags;
  *  </code>
  */
 class ProjectsLocationsTaxonomiesPolicyTags extends \Google\Service\Resource
@@ -123,7 +123,7 @@ class ProjectsLocationsTaxonomiesPolicyTags extends \Google\Service\Resource
    * Updates a policy tag, including its display name, description, and parent
    * policy tag. (policyTags.patch)
    *
-   * @param string $name Output only. Resource name of this policy tag in the URL
+   * @param string $name Identifier. Resource name of this policy tag in the URL
    * format. The policy tag manager generates unique taxonomy IDs and policy tag
    * IDs.
    * @param GoogleCloudDatacatalogV1PolicyTag $postBody

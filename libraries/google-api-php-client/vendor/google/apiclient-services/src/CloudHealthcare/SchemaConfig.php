@@ -20,6 +20,12 @@ namespace Google\Service\CloudHealthcare;
 class SchemaConfig extends \Google\Model
 {
   /**
+   * @var TimePartitioning
+   */
+  public $lastUpdatedPartitionConfig;
+  protected $lastUpdatedPartitionConfigType = TimePartitioning::class;
+  protected $lastUpdatedPartitionConfigDataType = '';
+  /**
    * @var string
    */
   public $recursiveStructureDepth;
@@ -28,6 +34,20 @@ class SchemaConfig extends \Google\Model
    */
   public $schemaType;
 
+  /**
+   * @param TimePartitioning
+   */
+  public function setLastUpdatedPartitionConfig(TimePartitioning $lastUpdatedPartitionConfig)
+  {
+    $this->lastUpdatedPartitionConfig = $lastUpdatedPartitionConfig;
+  }
+  /**
+   * @return TimePartitioning
+   */
+  public function getLastUpdatedPartitionConfig()
+  {
+    return $this->lastUpdatedPartitionConfig;
+  }
   /**
    * @param string
    */

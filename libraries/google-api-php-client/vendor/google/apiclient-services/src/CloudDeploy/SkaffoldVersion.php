@@ -19,13 +19,39 @@ namespace Google\Service\CloudDeploy;
 
 class SkaffoldVersion extends \Google\Model
 {
+  /**
+   * @var string
+   */
+  public $maintenanceModeTime;
+  /**
+   * @var Date
+   */
+  public $supportEndDate;
   protected $supportEndDateType = Date::class;
   protected $supportEndDateDataType = '';
   /**
    * @var string
    */
+  public $supportExpirationTime;
+  /**
+   * @var string
+   */
   public $version;
 
+  /**
+   * @param string
+   */
+  public function setMaintenanceModeTime($maintenanceModeTime)
+  {
+    $this->maintenanceModeTime = $maintenanceModeTime;
+  }
+  /**
+   * @return string
+   */
+  public function getMaintenanceModeTime()
+  {
+    return $this->maintenanceModeTime;
+  }
   /**
    * @param Date
    */
@@ -39,6 +65,20 @@ class SkaffoldVersion extends \Google\Model
   public function getSupportEndDate()
   {
     return $this->supportEndDate;
+  }
+  /**
+   * @param string
+   */
+  public function setSupportExpirationTime($supportExpirationTime)
+  {
+    $this->supportExpirationTime = $supportExpirationTime;
+  }
+  /**
+   * @return string
+   */
+  public function getSupportExpirationTime()
+  {
+    return $this->supportExpirationTime;
   }
   /**
    * @param string

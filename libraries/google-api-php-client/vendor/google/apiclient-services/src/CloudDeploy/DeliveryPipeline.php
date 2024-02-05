@@ -23,6 +23,10 @@ class DeliveryPipeline extends \Google\Model
    * @var string[]
    */
   public $annotations;
+  /**
+   * @var PipelineCondition
+   */
+  public $condition;
   protected $conditionType = PipelineCondition::class;
   protected $conditionDataType = '';
   /**
@@ -45,8 +49,16 @@ class DeliveryPipeline extends \Google\Model
    * @var string
    */
   public $name;
+  /**
+   * @var SerialPipeline
+   */
+  public $serialPipeline;
   protected $serialPipelineType = SerialPipeline::class;
   protected $serialPipelineDataType = '';
+  /**
+   * @var bool
+   */
+  public $suspended;
   /**
    * @var string
    */
@@ -167,6 +179,20 @@ class DeliveryPipeline extends \Google\Model
   public function getSerialPipeline()
   {
     return $this->serialPipeline;
+  }
+  /**
+   * @param bool
+   */
+  public function setSuspended($suspended)
+  {
+    $this->suspended = $suspended;
+  }
+  /**
+   * @return bool
+   */
+  public function getSuspended()
+  {
+    return $this->suspended;
   }
   /**
    * @param string

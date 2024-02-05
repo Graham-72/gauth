@@ -43,6 +43,16 @@ class PrivateEnvironmentConfig extends \Google\Model
    * @var bool
    */
   public $enablePrivatelyUsedPublicIps;
+  /**
+   * @var NetworkingConfig
+   */
+  public $networkingConfig;
+  protected $networkingConfigType = NetworkingConfig::class;
+  protected $networkingConfigDataType = '';
+  /**
+   * @var PrivateClusterConfig
+   */
+  public $privateClusterConfig;
   protected $privateClusterConfigType = PrivateClusterConfig::class;
   protected $privateClusterConfigDataType = '';
   /**
@@ -137,6 +147,20 @@ class PrivateEnvironmentConfig extends \Google\Model
   public function getEnablePrivatelyUsedPublicIps()
   {
     return $this->enablePrivatelyUsedPublicIps;
+  }
+  /**
+   * @param NetworkingConfig
+   */
+  public function setNetworkingConfig(NetworkingConfig $networkingConfig)
+  {
+    $this->networkingConfig = $networkingConfig;
+  }
+  /**
+   * @return NetworkingConfig
+   */
+  public function getNetworkingConfig()
+  {
+    return $this->networkingConfig;
   }
   /**
    * @param PrivateClusterConfig

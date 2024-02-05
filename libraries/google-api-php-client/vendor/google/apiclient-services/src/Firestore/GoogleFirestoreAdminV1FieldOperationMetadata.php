@@ -28,10 +28,22 @@ class GoogleFirestoreAdminV1FieldOperationMetadata extends \Google\Collection
    * @var string
    */
   public $field;
+  /**
+   * @var GoogleFirestoreAdminV1IndexConfigDelta[]
+   */
+  public $indexConfigDeltas;
   protected $indexConfigDeltasType = GoogleFirestoreAdminV1IndexConfigDelta::class;
   protected $indexConfigDeltasDataType = 'array';
+  /**
+   * @var GoogleFirestoreAdminV1Progress
+   */
+  public $progressBytes;
   protected $progressBytesType = GoogleFirestoreAdminV1Progress::class;
   protected $progressBytesDataType = '';
+  /**
+   * @var GoogleFirestoreAdminV1Progress
+   */
+  public $progressDocuments;
   protected $progressDocumentsType = GoogleFirestoreAdminV1Progress::class;
   protected $progressDocumentsDataType = '';
   /**
@@ -42,6 +54,12 @@ class GoogleFirestoreAdminV1FieldOperationMetadata extends \Google\Collection
    * @var string
    */
   public $state;
+  /**
+   * @var GoogleFirestoreAdminV1TtlConfigDelta
+   */
+  public $ttlConfigDelta;
+  protected $ttlConfigDeltaType = GoogleFirestoreAdminV1TtlConfigDelta::class;
+  protected $ttlConfigDeltaDataType = '';
 
   /**
    * @param string
@@ -140,6 +158,20 @@ class GoogleFirestoreAdminV1FieldOperationMetadata extends \Google\Collection
   public function getState()
   {
     return $this->state;
+  }
+  /**
+   * @param GoogleFirestoreAdminV1TtlConfigDelta
+   */
+  public function setTtlConfigDelta(GoogleFirestoreAdminV1TtlConfigDelta $ttlConfigDelta)
+  {
+    $this->ttlConfigDelta = $ttlConfigDelta;
+  }
+  /**
+   * @return GoogleFirestoreAdminV1TtlConfigDelta
+   */
+  public function getTtlConfigDelta()
+  {
+    return $this->ttlConfigDelta;
   }
 }
 

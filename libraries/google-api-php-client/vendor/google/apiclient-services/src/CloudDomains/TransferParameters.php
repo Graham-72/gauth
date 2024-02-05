@@ -27,6 +27,10 @@ class TransferParameters extends \Google\Collection
   /**
    * @var string
    */
+  public $currentRegistrarUri;
+  /**
+   * @var string
+   */
   public $domainName;
   /**
    * @var string[]
@@ -40,6 +44,10 @@ class TransferParameters extends \Google\Collection
    * @var string
    */
   public $transferLockState;
+  /**
+   * @var Money
+   */
+  public $yearlyPrice;
   protected $yearlyPriceType = Money::class;
   protected $yearlyPriceDataType = '';
 
@@ -56,6 +64,20 @@ class TransferParameters extends \Google\Collection
   public function getCurrentRegistrar()
   {
     return $this->currentRegistrar;
+  }
+  /**
+   * @param string
+   */
+  public function setCurrentRegistrarUri($currentRegistrarUri)
+  {
+    $this->currentRegistrarUri = $currentRegistrarUri;
+  }
+  /**
+   * @return string
+   */
+  public function getCurrentRegistrarUri()
+  {
+    return $this->currentRegistrarUri;
   }
   /**
    * @param string

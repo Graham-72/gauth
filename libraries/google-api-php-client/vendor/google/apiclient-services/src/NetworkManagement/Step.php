@@ -19,50 +19,158 @@ namespace Google\Service\NetworkManagement;
 
 class Step extends \Google\Model
 {
+  /**
+   * @var AbortInfo
+   */
+  public $abort;
   protected $abortType = AbortInfo::class;
   protected $abortDataType = '';
+  /**
+   * @var AppEngineVersionInfo
+   */
+  public $appEngineVersion;
+  protected $appEngineVersionType = AppEngineVersionInfo::class;
+  protected $appEngineVersionDataType = '';
   /**
    * @var bool
    */
   public $causesDrop;
+  /**
+   * @var CloudFunctionInfo
+   */
+  public $cloudFunction;
+  protected $cloudFunctionType = CloudFunctionInfo::class;
+  protected $cloudFunctionDataType = '';
+  /**
+   * @var CloudRunRevisionInfo
+   */
+  public $cloudRunRevision;
+  protected $cloudRunRevisionType = CloudRunRevisionInfo::class;
+  protected $cloudRunRevisionDataType = '';
+  /**
+   * @var CloudSQLInstanceInfo
+   */
+  public $cloudSqlInstance;
   protected $cloudSqlInstanceType = CloudSQLInstanceInfo::class;
   protected $cloudSqlInstanceDataType = '';
+  /**
+   * @var DeliverInfo
+   */
+  public $deliver;
   protected $deliverType = DeliverInfo::class;
   protected $deliverDataType = '';
   /**
    * @var string
    */
   public $description;
+  /**
+   * @var DropInfo
+   */
+  public $drop;
   protected $dropType = DropInfo::class;
   protected $dropDataType = '';
+  /**
+   * @var EndpointInfo
+   */
+  public $endpoint;
   protected $endpointType = EndpointInfo::class;
   protected $endpointDataType = '';
+  /**
+   * @var FirewallInfo
+   */
+  public $firewall;
   protected $firewallType = FirewallInfo::class;
   protected $firewallDataType = '';
+  /**
+   * @var ForwardInfo
+   */
+  public $forward;
   protected $forwardType = ForwardInfo::class;
   protected $forwardDataType = '';
+  /**
+   * @var ForwardingRuleInfo
+   */
+  public $forwardingRule;
   protected $forwardingRuleType = ForwardingRuleInfo::class;
   protected $forwardingRuleDataType = '';
+  /**
+   * @var GKEMasterInfo
+   */
+  public $gkeMaster;
   protected $gkeMasterType = GKEMasterInfo::class;
   protected $gkeMasterDataType = '';
+  /**
+   * @var GoogleServiceInfo
+   */
+  public $googleService;
+  protected $googleServiceType = GoogleServiceInfo::class;
+  protected $googleServiceDataType = '';
+  /**
+   * @var InstanceInfo
+   */
+  public $instance;
   protected $instanceType = InstanceInfo::class;
   protected $instanceDataType = '';
+  /**
+   * @var LoadBalancerInfo
+   */
+  public $loadBalancer;
   protected $loadBalancerType = LoadBalancerInfo::class;
   protected $loadBalancerDataType = '';
+  /**
+   * @var LoadBalancerBackendInfo
+   */
+  public $loadBalancerBackendInfo;
+  protected $loadBalancerBackendInfoType = LoadBalancerBackendInfo::class;
+  protected $loadBalancerBackendInfoDataType = '';
+  /**
+   * @var NatInfo
+   */
+  public $nat;
+  protected $natType = NatInfo::class;
+  protected $natDataType = '';
+  /**
+   * @var NetworkInfo
+   */
+  public $network;
   protected $networkType = NetworkInfo::class;
   protected $networkDataType = '';
   /**
    * @var string
    */
   public $projectId;
+  /**
+   * @var ProxyConnectionInfo
+   */
+  public $proxyConnection;
+  protected $proxyConnectionType = ProxyConnectionInfo::class;
+  protected $proxyConnectionDataType = '';
+  /**
+   * @var RouteInfo
+   */
+  public $route;
   protected $routeType = RouteInfo::class;
   protected $routeDataType = '';
   /**
    * @var string
    */
   public $state;
+  /**
+   * @var VpcConnectorInfo
+   */
+  public $vpcConnector;
+  protected $vpcConnectorType = VpcConnectorInfo::class;
+  protected $vpcConnectorDataType = '';
+  /**
+   * @var VpnGatewayInfo
+   */
+  public $vpnGateway;
   protected $vpnGatewayType = VpnGatewayInfo::class;
   protected $vpnGatewayDataType = '';
+  /**
+   * @var VpnTunnelInfo
+   */
+  public $vpnTunnel;
   protected $vpnTunnelType = VpnTunnelInfo::class;
   protected $vpnTunnelDataType = '';
 
@@ -81,6 +189,20 @@ class Step extends \Google\Model
     return $this->abort;
   }
   /**
+   * @param AppEngineVersionInfo
+   */
+  public function setAppEngineVersion(AppEngineVersionInfo $appEngineVersion)
+  {
+    $this->appEngineVersion = $appEngineVersion;
+  }
+  /**
+   * @return AppEngineVersionInfo
+   */
+  public function getAppEngineVersion()
+  {
+    return $this->appEngineVersion;
+  }
+  /**
    * @param bool
    */
   public function setCausesDrop($causesDrop)
@@ -93,6 +215,34 @@ class Step extends \Google\Model
   public function getCausesDrop()
   {
     return $this->causesDrop;
+  }
+  /**
+   * @param CloudFunctionInfo
+   */
+  public function setCloudFunction(CloudFunctionInfo $cloudFunction)
+  {
+    $this->cloudFunction = $cloudFunction;
+  }
+  /**
+   * @return CloudFunctionInfo
+   */
+  public function getCloudFunction()
+  {
+    return $this->cloudFunction;
+  }
+  /**
+   * @param CloudRunRevisionInfo
+   */
+  public function setCloudRunRevision(CloudRunRevisionInfo $cloudRunRevision)
+  {
+    $this->cloudRunRevision = $cloudRunRevision;
+  }
+  /**
+   * @return CloudRunRevisionInfo
+   */
+  public function getCloudRunRevision()
+  {
+    return $this->cloudRunRevision;
   }
   /**
    * @param CloudSQLInstanceInfo
@@ -221,6 +371,20 @@ class Step extends \Google\Model
     return $this->gkeMaster;
   }
   /**
+   * @param GoogleServiceInfo
+   */
+  public function setGoogleService(GoogleServiceInfo $googleService)
+  {
+    $this->googleService = $googleService;
+  }
+  /**
+   * @return GoogleServiceInfo
+   */
+  public function getGoogleService()
+  {
+    return $this->googleService;
+  }
+  /**
    * @param InstanceInfo
    */
   public function setInstance(InstanceInfo $instance)
@@ -247,6 +411,34 @@ class Step extends \Google\Model
   public function getLoadBalancer()
   {
     return $this->loadBalancer;
+  }
+  /**
+   * @param LoadBalancerBackendInfo
+   */
+  public function setLoadBalancerBackendInfo(LoadBalancerBackendInfo $loadBalancerBackendInfo)
+  {
+    $this->loadBalancerBackendInfo = $loadBalancerBackendInfo;
+  }
+  /**
+   * @return LoadBalancerBackendInfo
+   */
+  public function getLoadBalancerBackendInfo()
+  {
+    return $this->loadBalancerBackendInfo;
+  }
+  /**
+   * @param NatInfo
+   */
+  public function setNat(NatInfo $nat)
+  {
+    $this->nat = $nat;
+  }
+  /**
+   * @return NatInfo
+   */
+  public function getNat()
+  {
+    return $this->nat;
   }
   /**
    * @param NetworkInfo
@@ -277,6 +469,20 @@ class Step extends \Google\Model
     return $this->projectId;
   }
   /**
+   * @param ProxyConnectionInfo
+   */
+  public function setProxyConnection(ProxyConnectionInfo $proxyConnection)
+  {
+    $this->proxyConnection = $proxyConnection;
+  }
+  /**
+   * @return ProxyConnectionInfo
+   */
+  public function getProxyConnection()
+  {
+    return $this->proxyConnection;
+  }
+  /**
    * @param RouteInfo
    */
   public function setRoute(RouteInfo $route)
@@ -303,6 +509,20 @@ class Step extends \Google\Model
   public function getState()
   {
     return $this->state;
+  }
+  /**
+   * @param VpcConnectorInfo
+   */
+  public function setVpcConnector(VpcConnectorInfo $vpcConnector)
+  {
+    $this->vpcConnector = $vpcConnector;
+  }
+  /**
+   * @return VpcConnectorInfo
+   */
+  public function getVpcConnector()
+  {
+    return $this->vpcConnector;
   }
   /**
    * @param VpnGatewayInfo

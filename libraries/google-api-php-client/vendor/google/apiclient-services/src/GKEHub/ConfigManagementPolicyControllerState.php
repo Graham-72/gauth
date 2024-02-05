@@ -19,8 +19,22 @@ namespace Google\Service\GKEHub;
 
 class ConfigManagementPolicyControllerState extends \Google\Model
 {
+  /**
+   * @var ConfigManagementGatekeeperDeploymentState
+   */
+  public $deploymentState;
   protected $deploymentStateType = ConfigManagementGatekeeperDeploymentState::class;
   protected $deploymentStateDataType = '';
+  /**
+   * @var ConfigManagementPolicyControllerMigration
+   */
+  public $migration;
+  protected $migrationType = ConfigManagementPolicyControllerMigration::class;
+  protected $migrationDataType = '';
+  /**
+   * @var ConfigManagementPolicyControllerVersion
+   */
+  public $version;
   protected $versionType = ConfigManagementPolicyControllerVersion::class;
   protected $versionDataType = '';
 
@@ -37,6 +51,20 @@ class ConfigManagementPolicyControllerState extends \Google\Model
   public function getDeploymentState()
   {
     return $this->deploymentState;
+  }
+  /**
+   * @param ConfigManagementPolicyControllerMigration
+   */
+  public function setMigration(ConfigManagementPolicyControllerMigration $migration)
+  {
+    $this->migration = $migration;
+  }
+  /**
+   * @return ConfigManagementPolicyControllerMigration
+   */
+  public function getMigration()
+  {
+    return $this->migration;
   }
   /**
    * @param ConfigManagementPolicyControllerVersion

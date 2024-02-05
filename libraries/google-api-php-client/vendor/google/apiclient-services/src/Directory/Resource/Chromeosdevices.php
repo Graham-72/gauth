@@ -33,16 +33,16 @@ use Google\Service\Directory\ChromeOsMoveDevicesToOu;
 class Chromeosdevices extends \Google\Service\Resource
 {
   /**
-   * Takes an action that affects a Chrome OS Device. This includes
-   * deprovisioning, disabling, and re-enabling devices. *Warning:* *
-   * Deprovisioning a device will stop device policy syncing and remove device-
-   * level printers. After a device is deprovisioned, it must be wiped before it
-   * can be re-enrolled. * Lost or stolen devices should use the disable action. *
-   * Re-enabling a disabled device will consume a device license. If you do not
-   * have sufficient licenses available when completing the re-enable action, you
-   * will receive an error. For more information about deprovisioning and
-   * disabling devices, visit the [help
-   * center](https://support.google.com/chrome/a/answer/3523633).
+   * DEPRECATED: Use BatchChangeChromeOsDeviceStatus instead. Takes an action that
+   * affects a Chrome OS Device. This includes deprovisioning, disabling, and re-
+   * enabling devices. *Warning:* * Deprovisioning a device will stop device
+   * policy syncing and remove device-level printers. After a device is
+   * deprovisioned, it must be wiped before it can be re-enrolled. * Lost or
+   * stolen devices should use the disable action. * Re-enabling a disabled device
+   * will consume a device license. If you do not have sufficient licenses
+   * available when completing the re-enable action, you will receive an error.
+   * For more information about deprovisioning and disabling devices, visit the
+   * [help center](https://support.google.com/chrome/a/answer/3523633).
    * (chromeosdevices.action)
    *
    * @param string $customerId The unique ID for the customer's Google Workspace
@@ -97,7 +97,7 @@ class Chromeosdevices extends \Google\Service\Resource
    * @param array $optParams Optional parameters.
    *
    * @opt_param bool includeChildOrgunits Return devices from all child orgunits,
-   * as well as the specified org unit. If this is set to true 'orgUnitPath' must
+   * as well as the specified org unit. If this is set to true, 'orgUnitPath' must
    * be provided.
    * @opt_param int maxResults Maximum number of results to return.
    * @opt_param string orderBy Device property to use for sorting results.
@@ -124,7 +124,7 @@ class Chromeosdevices extends \Google\Service\Resource
    * Moves or inserts multiple Chrome OS devices to an organizational unit. You
    * can move up to 50 devices at once. (chromeosdevices.moveDevicesToOu)
    *
-   * @param string $customerId Immutable ID of the Google Workspace account
+   * @param string $customerId Immutable. ID of the Google Workspace account
    * @param string $orgUnitPath Full path of the target organizational unit or its
    * ID
    * @param ChromeOsMoveDevicesToOu $postBody

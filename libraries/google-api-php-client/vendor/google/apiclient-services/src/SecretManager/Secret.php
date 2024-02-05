@@ -21,6 +21,10 @@ class Secret extends \Google\Collection
 {
   protected $collection_key = 'topics';
   /**
+   * @var string[]
+   */
+  public $annotations;
+  /**
    * @var string
    */
   public $createTime;
@@ -40,17 +44,47 @@ class Secret extends \Google\Collection
    * @var string
    */
   public $name;
+  /**
+   * @var Replication
+   */
+  public $replication;
   protected $replicationType = Replication::class;
   protected $replicationDataType = '';
+  /**
+   * @var Rotation
+   */
+  public $rotation;
   protected $rotationType = Rotation::class;
   protected $rotationDataType = '';
+  /**
+   * @var Topic[]
+   */
+  public $topics;
   protected $topicsType = Topic::class;
   protected $topicsDataType = 'array';
   /**
    * @var string
    */
   public $ttl;
+  /**
+   * @var string[]
+   */
+  public $versionAliases;
 
+  /**
+   * @param string[]
+   */
+  public function setAnnotations($annotations)
+  {
+    $this->annotations = $annotations;
+  }
+  /**
+   * @return string[]
+   */
+  public function getAnnotations()
+  {
+    return $this->annotations;
+  }
   /**
    * @param string
    */
@@ -176,6 +210,20 @@ class Secret extends \Google\Collection
   public function getTtl()
   {
     return $this->ttl;
+  }
+  /**
+   * @param string[]
+   */
+  public function setVersionAliases($versionAliases)
+  {
+    $this->versionAliases = $versionAliases;
+  }
+  /**
+   * @return string[]
+   */
+  public function getVersionAliases()
+  {
+    return $this->versionAliases;
   }
 }
 

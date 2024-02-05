@@ -19,19 +19,67 @@ namespace Google\Service\GKEHub;
 
 class MembershipEndpoint extends \Google\Model
 {
+  /**
+   * @var ApplianceCluster
+   */
+  public $applianceCluster;
+  protected $applianceClusterType = ApplianceCluster::class;
+  protected $applianceClusterDataType = '';
+  /**
+   * @var EdgeCluster
+   */
+  public $edgeCluster;
   protected $edgeClusterType = EdgeCluster::class;
   protected $edgeClusterDataType = '';
+  /**
+   * @var GkeCluster
+   */
+  public $gkeCluster;
   protected $gkeClusterType = GkeCluster::class;
   protected $gkeClusterDataType = '';
+  /**
+   * @var bool
+   */
+  public $googleManaged;
+  /**
+   * @var KubernetesMetadata
+   */
+  public $kubernetesMetadata;
   protected $kubernetesMetadataType = KubernetesMetadata::class;
   protected $kubernetesMetadataDataType = '';
+  /**
+   * @var KubernetesResource
+   */
+  public $kubernetesResource;
   protected $kubernetesResourceType = KubernetesResource::class;
   protected $kubernetesResourceDataType = '';
+  /**
+   * @var MultiCloudCluster
+   */
+  public $multiCloudCluster;
   protected $multiCloudClusterType = MultiCloudCluster::class;
   protected $multiCloudClusterDataType = '';
+  /**
+   * @var OnPremCluster
+   */
+  public $onPremCluster;
   protected $onPremClusterType = OnPremCluster::class;
   protected $onPremClusterDataType = '';
 
+  /**
+   * @param ApplianceCluster
+   */
+  public function setApplianceCluster(ApplianceCluster $applianceCluster)
+  {
+    $this->applianceCluster = $applianceCluster;
+  }
+  /**
+   * @return ApplianceCluster
+   */
+  public function getApplianceCluster()
+  {
+    return $this->applianceCluster;
+  }
   /**
    * @param EdgeCluster
    */
@@ -59,6 +107,20 @@ class MembershipEndpoint extends \Google\Model
   public function getGkeCluster()
   {
     return $this->gkeCluster;
+  }
+  /**
+   * @param bool
+   */
+  public function setGoogleManaged($googleManaged)
+  {
+    $this->googleManaged = $googleManaged;
+  }
+  /**
+   * @return bool
+   */
+  public function getGoogleManaged()
+  {
+    return $this->googleManaged;
   }
   /**
    * @param KubernetesMetadata

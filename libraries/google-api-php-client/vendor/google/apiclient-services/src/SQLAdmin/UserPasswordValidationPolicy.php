@@ -28,9 +28,17 @@ class UserPasswordValidationPolicy extends \Google\Model
    */
   public $enableFailedAttemptsCheck;
   /**
+   * @var bool
+   */
+  public $enablePasswordVerification;
+  /**
    * @var string
    */
   public $passwordExpirationDuration;
+  /**
+   * @var PasswordStatus
+   */
+  public $status;
   protected $statusType = PasswordStatus::class;
   protected $statusDataType = '';
 
@@ -61,6 +69,20 @@ class UserPasswordValidationPolicy extends \Google\Model
   public function getEnableFailedAttemptsCheck()
   {
     return $this->enableFailedAttemptsCheck;
+  }
+  /**
+   * @param bool
+   */
+  public function setEnablePasswordVerification($enablePasswordVerification)
+  {
+    $this->enablePasswordVerification = $enablePasswordVerification;
+  }
+  /**
+   * @return bool
+   */
+  public function getEnablePasswordVerification()
+  {
+    return $this->enablePasswordVerification;
   }
   /**
    * @param string

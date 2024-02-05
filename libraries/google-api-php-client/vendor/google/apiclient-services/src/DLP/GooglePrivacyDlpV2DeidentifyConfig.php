@@ -19,13 +19,45 @@ namespace Google\Service\DLP;
 
 class GooglePrivacyDlpV2DeidentifyConfig extends \Google\Model
 {
+  /**
+   * @var GooglePrivacyDlpV2ImageTransformations
+   */
+  public $imageTransformations;
+  protected $imageTransformationsType = GooglePrivacyDlpV2ImageTransformations::class;
+  protected $imageTransformationsDataType = '';
+  /**
+   * @var GooglePrivacyDlpV2InfoTypeTransformations
+   */
+  public $infoTypeTransformations;
   protected $infoTypeTransformationsType = GooglePrivacyDlpV2InfoTypeTransformations::class;
   protected $infoTypeTransformationsDataType = '';
+  /**
+   * @var GooglePrivacyDlpV2RecordTransformations
+   */
+  public $recordTransformations;
   protected $recordTransformationsType = GooglePrivacyDlpV2RecordTransformations::class;
   protected $recordTransformationsDataType = '';
+  /**
+   * @var GooglePrivacyDlpV2TransformationErrorHandling
+   */
+  public $transformationErrorHandling;
   protected $transformationErrorHandlingType = GooglePrivacyDlpV2TransformationErrorHandling::class;
   protected $transformationErrorHandlingDataType = '';
 
+  /**
+   * @param GooglePrivacyDlpV2ImageTransformations
+   */
+  public function setImageTransformations(GooglePrivacyDlpV2ImageTransformations $imageTransformations)
+  {
+    $this->imageTransformations = $imageTransformations;
+  }
+  /**
+   * @return GooglePrivacyDlpV2ImageTransformations
+   */
+  public function getImageTransformations()
+  {
+    return $this->imageTransformations;
+  }
   /**
    * @param GooglePrivacyDlpV2InfoTypeTransformations
    */

@@ -24,8 +24,18 @@ class Settings extends \Google\Collection
    * @var string
    */
   public $activationPolicy;
+  /**
+   * @var SqlActiveDirectoryConfig
+   */
+  public $activeDirectoryConfig;
   protected $activeDirectoryConfigType = SqlActiveDirectoryConfig::class;
   protected $activeDirectoryConfigDataType = '';
+  /**
+   * @var AdvancedMachineFeatures
+   */
+  public $advancedMachineFeatures;
+  protected $advancedMachineFeaturesType = AdvancedMachineFeatures::class;
+  protected $advancedMachineFeaturesDataType = '';
   /**
    * @var string[]
    */
@@ -34,6 +44,10 @@ class Settings extends \Google\Collection
    * @var string
    */
   public $availabilityType;
+  /**
+   * @var BackupConfiguration
+   */
+  public $backupConfiguration;
   protected $backupConfigurationType = BackupConfiguration::class;
   protected $backupConfigurationDataType = '';
   /**
@@ -41,9 +55,19 @@ class Settings extends \Google\Collection
    */
   public $collation;
   /**
+   * @var string
+   */
+  public $connectorEnforcement;
+  /**
    * @var bool
    */
   public $crashSafeReplicationEnabled;
+  /**
+   * @var DataCacheConfig
+   */
+  public $dataCacheConfig;
+  protected $dataCacheConfigType = DataCacheConfig::class;
+  protected $dataCacheConfigDataType = '';
   /**
    * @var string
    */
@@ -52,26 +76,62 @@ class Settings extends \Google\Collection
    * @var string
    */
   public $dataDiskType;
+  /**
+   * @var DatabaseFlags[]
+   */
+  public $databaseFlags;
   protected $databaseFlagsType = DatabaseFlags::class;
   protected $databaseFlagsDataType = 'array';
   /**
    * @var bool
    */
   public $databaseReplicationEnabled;
+  /**
+   * @var bool
+   */
+  public $deletionProtectionEnabled;
+  /**
+   * @var DenyMaintenancePeriod[]
+   */
+  public $denyMaintenancePeriods;
   protected $denyMaintenancePeriodsType = DenyMaintenancePeriod::class;
   protected $denyMaintenancePeriodsDataType = 'array';
+  /**
+   * @var string
+   */
+  public $edition;
+  /**
+   * @var InsightsConfig
+   */
+  public $insightsConfig;
   protected $insightsConfigType = InsightsConfig::class;
   protected $insightsConfigDataType = '';
+  /**
+   * @var IpConfiguration
+   */
+  public $ipConfiguration;
   protected $ipConfigurationType = IpConfiguration::class;
   protected $ipConfigurationDataType = '';
   /**
    * @var string
    */
   public $kind;
+  /**
+   * @var LocationPreference
+   */
+  public $locationPreference;
   protected $locationPreferenceType = LocationPreference::class;
   protected $locationPreferenceDataType = '';
+  /**
+   * @var MaintenanceWindow
+   */
+  public $maintenanceWindow;
   protected $maintenanceWindowType = MaintenanceWindow::class;
   protected $maintenanceWindowDataType = '';
+  /**
+   * @var PasswordValidationPolicy
+   */
+  public $passwordValidationPolicy;
   protected $passwordValidationPolicyType = PasswordValidationPolicy::class;
   protected $passwordValidationPolicyDataType = '';
   /**
@@ -86,6 +146,10 @@ class Settings extends \Google\Collection
    * @var string
    */
   public $settingsVersion;
+  /**
+   * @var SqlServerAuditConfig
+   */
+  public $sqlServerAuditConfig;
   protected $sqlServerAuditConfigType = SqlServerAuditConfig::class;
   protected $sqlServerAuditConfigDataType = '';
   /**
@@ -100,6 +164,10 @@ class Settings extends \Google\Collection
    * @var string
    */
   public $tier;
+  /**
+   * @var string
+   */
+  public $timeZone;
   /**
    * @var string[]
    */
@@ -132,6 +200,20 @@ class Settings extends \Google\Collection
   public function getActiveDirectoryConfig()
   {
     return $this->activeDirectoryConfig;
+  }
+  /**
+   * @param AdvancedMachineFeatures
+   */
+  public function setAdvancedMachineFeatures(AdvancedMachineFeatures $advancedMachineFeatures)
+  {
+    $this->advancedMachineFeatures = $advancedMachineFeatures;
+  }
+  /**
+   * @return AdvancedMachineFeatures
+   */
+  public function getAdvancedMachineFeatures()
+  {
+    return $this->advancedMachineFeatures;
   }
   /**
    * @param string[]
@@ -190,6 +272,20 @@ class Settings extends \Google\Collection
     return $this->collation;
   }
   /**
+   * @param string
+   */
+  public function setConnectorEnforcement($connectorEnforcement)
+  {
+    $this->connectorEnforcement = $connectorEnforcement;
+  }
+  /**
+   * @return string
+   */
+  public function getConnectorEnforcement()
+  {
+    return $this->connectorEnforcement;
+  }
+  /**
    * @param bool
    */
   public function setCrashSafeReplicationEnabled($crashSafeReplicationEnabled)
@@ -202,6 +298,20 @@ class Settings extends \Google\Collection
   public function getCrashSafeReplicationEnabled()
   {
     return $this->crashSafeReplicationEnabled;
+  }
+  /**
+   * @param DataCacheConfig
+   */
+  public function setDataCacheConfig(DataCacheConfig $dataCacheConfig)
+  {
+    $this->dataCacheConfig = $dataCacheConfig;
+  }
+  /**
+   * @return DataCacheConfig
+   */
+  public function getDataCacheConfig()
+  {
+    return $this->dataCacheConfig;
   }
   /**
    * @param string
@@ -260,6 +370,20 @@ class Settings extends \Google\Collection
     return $this->databaseReplicationEnabled;
   }
   /**
+   * @param bool
+   */
+  public function setDeletionProtectionEnabled($deletionProtectionEnabled)
+  {
+    $this->deletionProtectionEnabled = $deletionProtectionEnabled;
+  }
+  /**
+   * @return bool
+   */
+  public function getDeletionProtectionEnabled()
+  {
+    return $this->deletionProtectionEnabled;
+  }
+  /**
    * @param DenyMaintenancePeriod[]
    */
   public function setDenyMaintenancePeriods($denyMaintenancePeriods)
@@ -272,6 +396,20 @@ class Settings extends \Google\Collection
   public function getDenyMaintenancePeriods()
   {
     return $this->denyMaintenancePeriods;
+  }
+  /**
+   * @param string
+   */
+  public function setEdition($edition)
+  {
+    $this->edition = $edition;
+  }
+  /**
+   * @return string
+   */
+  public function getEdition()
+  {
+    return $this->edition;
   }
   /**
    * @param InsightsConfig
@@ -454,6 +592,20 @@ class Settings extends \Google\Collection
   public function getTier()
   {
     return $this->tier;
+  }
+  /**
+   * @param string
+   */
+  public function setTimeZone($timeZone)
+  {
+    $this->timeZone = $timeZone;
+  }
+  /**
+   * @return string
+   */
+  public function getTimeZone()
+  {
+    return $this->timeZone;
   }
   /**
    * @param string[]

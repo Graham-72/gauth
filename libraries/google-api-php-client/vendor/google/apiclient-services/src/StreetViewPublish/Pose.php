@@ -24,9 +24,21 @@ class Pose extends \Google\Model
    */
   public $accuracyMeters;
   public $altitude;
+  /**
+   * @var string
+   */
+  public $gpsRecordTimestampUnixEpoch;
   public $heading;
+  /**
+   * @var LatLng
+   */
+  public $latLngPair;
   protected $latLngPairType = LatLng::class;
   protected $latLngPairDataType = '';
+  /**
+   * @var Level
+   */
+  public $level;
   protected $levelType = Level::class;
   protected $levelDataType = '';
   public $pitch;
@@ -53,6 +65,20 @@ class Pose extends \Google\Model
   public function getAltitude()
   {
     return $this->altitude;
+  }
+  /**
+   * @param string
+   */
+  public function setGpsRecordTimestampUnixEpoch($gpsRecordTimestampUnixEpoch)
+  {
+    $this->gpsRecordTimestampUnixEpoch = $gpsRecordTimestampUnixEpoch;
+  }
+  /**
+   * @return string
+   */
+  public function getGpsRecordTimestampUnixEpoch()
+  {
+    return $this->gpsRecordTimestampUnixEpoch;
   }
   public function setHeading($heading)
   {

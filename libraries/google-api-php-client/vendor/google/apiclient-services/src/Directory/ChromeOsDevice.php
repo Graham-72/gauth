@@ -20,6 +20,10 @@ namespace Google\Service\Directory;
 class ChromeOsDevice extends \Google\Collection
 {
   protected $collection_key = 'systemRamFreeReports';
+  /**
+   * @var ChromeOsDeviceActiveTimeRanges[]
+   */
+  public $activeTimeRanges;
   protected $activeTimeRangesType = ChromeOsDeviceActiveTimeRanges::class;
   protected $activeTimeRangesDataType = 'array';
   /**
@@ -42,16 +46,40 @@ class ChromeOsDevice extends \Google\Collection
    * @var string
    */
   public $bootMode;
+  /**
+   * @var ChromeOsDeviceCpuInfo[]
+   */
+  public $cpuInfo;
   protected $cpuInfoType = ChromeOsDeviceCpuInfo::class;
   protected $cpuInfoDataType = 'array';
+  /**
+   * @var ChromeOsDeviceCpuStatusReports[]
+   */
+  public $cpuStatusReports;
   protected $cpuStatusReportsType = ChromeOsDeviceCpuStatusReports::class;
   protected $cpuStatusReportsDataType = 'array';
+  /**
+   * @var string
+   */
+  public $deprovisionReason;
+  /**
+   * @var ChromeOsDeviceDeviceFiles[]
+   */
+  public $deviceFiles;
   protected $deviceFilesType = ChromeOsDeviceDeviceFiles::class;
   protected $deviceFilesDataType = 'array';
   /**
    * @var string
    */
   public $deviceId;
+  /**
+   * @var string
+   */
+  public $deviceLicenseType;
+  /**
+   * @var ChromeOsDeviceDiskVolumeReports[]
+   */
+  public $diskVolumeReports;
   protected $diskVolumeReportsType = ChromeOsDeviceDiskVolumeReports::class;
   protected $diskVolumeReportsDataType = 'array';
   /**
@@ -77,11 +105,23 @@ class ChromeOsDevice extends \Google\Collection
   /**
    * @var string
    */
+  public $firstEnrollmentTime;
+  /**
+   * @var string
+   */
   public $kind;
   /**
    * @var string
    */
+  public $lastDeprovisionTimestamp;
+  /**
+   * @var string
+   */
   public $lastEnrollmentTime;
+  /**
+   * @var ChromeOsDeviceLastKnownNetwork[]
+   */
+  public $lastKnownNetwork;
   protected $lastKnownNetworkType = ChromeOsDeviceLastKnownNetwork::class;
   protected $lastKnownNetworkDataType = 'array';
   /**
@@ -121,6 +161,12 @@ class ChromeOsDevice extends \Google\Collection
    */
   public $orgUnitPath;
   /**
+   * @var OsUpdateStatus
+   */
+  public $osUpdateStatus;
+  protected $osUpdateStatusType = OsUpdateStatus::class;
+  protected $osUpdateStatusDataType = '';
+  /**
    * @var string
    */
   public $osVersion;
@@ -128,8 +174,16 @@ class ChromeOsDevice extends \Google\Collection
    * @var string
    */
   public $platformVersion;
+  /**
+   * @var ChromeOsDeviceRecentUsers[]
+   */
+  public $recentUsers;
   protected $recentUsersType = ChromeOsDeviceRecentUsers::class;
   protected $recentUsersDataType = 'array';
+  /**
+   * @var ChromeOsDeviceScreenshotFiles[]
+   */
+  public $screenshotFiles;
   protected $screenshotFilesType = ChromeOsDeviceScreenshotFiles::class;
   protected $screenshotFilesDataType = 'array';
   /**
@@ -144,12 +198,20 @@ class ChromeOsDevice extends \Google\Collection
    * @var string
    */
   public $supportEndDate;
+  /**
+   * @var ChromeOsDeviceSystemRamFreeReports[]
+   */
+  public $systemRamFreeReports;
   protected $systemRamFreeReportsType = ChromeOsDeviceSystemRamFreeReports::class;
   protected $systemRamFreeReportsDataType = 'array';
   /**
    * @var string
    */
   public $systemRamTotal;
+  /**
+   * @var ChromeOsDeviceTpmVersionInfo
+   */
+  public $tpmVersionInfo;
   protected $tpmVersionInfoType = ChromeOsDeviceTpmVersionInfo::class;
   protected $tpmVersionInfoDataType = '';
   /**
@@ -270,6 +332,20 @@ class ChromeOsDevice extends \Google\Collection
     return $this->cpuStatusReports;
   }
   /**
+   * @param string
+   */
+  public function setDeprovisionReason($deprovisionReason)
+  {
+    $this->deprovisionReason = $deprovisionReason;
+  }
+  /**
+   * @return string
+   */
+  public function getDeprovisionReason()
+  {
+    return $this->deprovisionReason;
+  }
+  /**
    * @param ChromeOsDeviceDeviceFiles[]
    */
   public function setDeviceFiles($deviceFiles)
@@ -296,6 +372,20 @@ class ChromeOsDevice extends \Google\Collection
   public function getDeviceId()
   {
     return $this->deviceId;
+  }
+  /**
+   * @param string
+   */
+  public function setDeviceLicenseType($deviceLicenseType)
+  {
+    $this->deviceLicenseType = $deviceLicenseType;
+  }
+  /**
+   * @return string
+   */
+  public function getDeviceLicenseType()
+  {
+    return $this->deviceLicenseType;
   }
   /**
    * @param ChromeOsDeviceDiskVolumeReports[]
@@ -384,6 +474,20 @@ class ChromeOsDevice extends \Google\Collection
   /**
    * @param string
    */
+  public function setFirstEnrollmentTime($firstEnrollmentTime)
+  {
+    $this->firstEnrollmentTime = $firstEnrollmentTime;
+  }
+  /**
+   * @return string
+   */
+  public function getFirstEnrollmentTime()
+  {
+    return $this->firstEnrollmentTime;
+  }
+  /**
+   * @param string
+   */
   public function setKind($kind)
   {
     $this->kind = $kind;
@@ -394,6 +498,20 @@ class ChromeOsDevice extends \Google\Collection
   public function getKind()
   {
     return $this->kind;
+  }
+  /**
+   * @param string
+   */
+  public function setLastDeprovisionTimestamp($lastDeprovisionTimestamp)
+  {
+    $this->lastDeprovisionTimestamp = $lastDeprovisionTimestamp;
+  }
+  /**
+   * @return string
+   */
+  public function getLastDeprovisionTimestamp()
+  {
+    return $this->lastDeprovisionTimestamp;
   }
   /**
    * @param string
@@ -548,6 +666,20 @@ class ChromeOsDevice extends \Google\Collection
   public function getOrgUnitPath()
   {
     return $this->orgUnitPath;
+  }
+  /**
+   * @param OsUpdateStatus
+   */
+  public function setOsUpdateStatus(OsUpdateStatus $osUpdateStatus)
+  {
+    $this->osUpdateStatus = $osUpdateStatus;
+  }
+  /**
+   * @return OsUpdateStatus
+   */
+  public function getOsUpdateStatus()
+  {
+    return $this->osUpdateStatus;
   }
   /**
    * @param string

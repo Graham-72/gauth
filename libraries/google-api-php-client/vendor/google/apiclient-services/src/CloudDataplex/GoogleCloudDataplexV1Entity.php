@@ -20,6 +20,12 @@ namespace Google\Service\CloudDataplex;
 class GoogleCloudDataplexV1Entity extends \Google\Model
 {
   /**
+   * @var GoogleCloudDataplexV1StorageAccess
+   */
+  public $access;
+  protected $accessType = GoogleCloudDataplexV1StorageAccess::class;
+  protected $accessDataType = '';
+  /**
    * @var string
    */
   public $asset;
@@ -27,6 +33,10 @@ class GoogleCloudDataplexV1Entity extends \Google\Model
    * @var string
    */
   public $catalogEntry;
+  /**
+   * @var GoogleCloudDataplexV1EntityCompatibilityStatus
+   */
+  public $compatibility;
   protected $compatibilityType = GoogleCloudDataplexV1EntityCompatibilityStatus::class;
   protected $compatibilityDataType = '';
   /**
@@ -53,6 +63,10 @@ class GoogleCloudDataplexV1Entity extends \Google\Model
    * @var string
    */
   public $etag;
+  /**
+   * @var GoogleCloudDataplexV1StorageFormat
+   */
+  public $format;
   protected $formatType = GoogleCloudDataplexV1StorageFormat::class;
   protected $formatDataType = '';
   /**
@@ -63,6 +77,10 @@ class GoogleCloudDataplexV1Entity extends \Google\Model
    * @var string
    */
   public $name;
+  /**
+   * @var GoogleCloudDataplexV1Schema
+   */
+  public $schema;
   protected $schemaType = GoogleCloudDataplexV1Schema::class;
   protected $schemaDataType = '';
   /**
@@ -76,8 +94,26 @@ class GoogleCloudDataplexV1Entity extends \Google\Model
   /**
    * @var string
    */
+  public $uid;
+  /**
+   * @var string
+   */
   public $updateTime;
 
+  /**
+   * @param GoogleCloudDataplexV1StorageAccess
+   */
+  public function setAccess(GoogleCloudDataplexV1StorageAccess $access)
+  {
+    $this->access = $access;
+  }
+  /**
+   * @return GoogleCloudDataplexV1StorageAccess
+   */
+  public function getAccess()
+  {
+    return $this->access;
+  }
   /**
    * @param string
    */
@@ -287,6 +323,20 @@ class GoogleCloudDataplexV1Entity extends \Google\Model
   public function getType()
   {
     return $this->type;
+  }
+  /**
+   * @param string
+   */
+  public function setUid($uid)
+  {
+    $this->uid = $uid;
+  }
+  /**
+   * @return string
+   */
+  public function getUid()
+  {
+    return $this->uid;
   }
   /**
    * @param string
